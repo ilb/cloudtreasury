@@ -1,0 +1,272 @@
+#__next {
+  height: 100%;
+
+  .ant-layout.ant-layout-has-sider {
+    height: 100%;
+  }
+}
+
+.anticon.trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.anticon.trigger:hover {
+  color: #1890ff;
+}
+
+.sidebar-logout {
+  height: 100%;
+  min-width: 200px;
+  float: right;
+  padding: 0 60px;
+}
+
+.anticon.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
+div.logo {
+  height: 60px;
+}
+
+.auth-btn {
+  float: right;
+  height: 65px;
+  width: 200px;
+}
+
+.defaultCheckbox {
+  .ant-row {
+    flex-direction: row-reverse;
+    justify-content: left;
+    margin-bottom: 0 !important;
+  }
+  .ant-form-item-control {
+    max-width: 35px;
+    height: 15px;
+  }
+  label::after {
+    content: ''
+  }
+}
+
+
+.btnRight {
+  float: right;
+}
+
+.wrapperTop {
+  margin-top: 10px;
+}
+
+.wrapperBottom {
+  margin-bottom: 10px;
+}
+
+.wrapperY {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.wrapperX {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: rgb(240, 242, 245) !important;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+.ant-row, .ant-row.ant-form-item {
+  margin: 0 -10px;
+}
+
+.ant-row>.ant-col {
+  padding: 0 10px;
+}
+
+.right {
+  float: right;
+}
+
+.ant-card {
+  box-shadow: rgba(0, 0, 0, 0.16) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
+  border-radius: 15px !important;
+}
+
+.ant-card-actions {
+  border-radius: 15px;
+}
+
+.m0 {
+  margin: 0 !important;
+}
+
+.m8 {
+  margin: 8px !important;
+}
+
+.my8 {
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
+}
+
+.mx8 {
+  margin-left: 8px !important;
+  margin-right: 8px !important;
+}
+
+.mt8 {
+  margin-top: 8px !important;
+}
+
+.mb8 {
+  margin-bottom: 8px !important;
+}
+
+.ml8 {
+  margin-left: 8px !important;
+}
+
+.mr8 {
+  margin-right: 8px !important;
+}
+
+.m16 {
+  margin: 16px !important;
+}
+
+.my16 {
+  margin-top: 16px !important;
+  margin-bottom: 16px !important;
+}
+
+.mx16 {
+  margin-left: 16px !important;
+  margin-right: 16px !important;
+}
+
+.mt16 {
+  margin-top: 16px !important;
+}
+
+.mb16 {
+  margin-bottom: 16px !important;
+}
+
+.ml16 {
+  margin-left: 16px !important;
+}
+
+.mr16 {
+  margin-right: 16px !important;
+}
+
+.p0 {
+  padding: 0 !important;
+}
+
+.py0 {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.px0 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.pt0 {
+  padding-top: 0 !important;
+}
+
+.pb0 {
+  padding-bottom: 0 !important;
+}
+
+.pl0 {
+  padding-left: 0 !important;
+}
+
+.pr0 {
+  padding-right: 0 !important;
+}
+
+.p8 {
+  padding: 8px !important;
+}
+
+.py8 {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.px8 {
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+.pt8 {
+  padding-top: 8px !important;
+}
+
+.pb8 {
+  padding-bottom: 8px !important;
+}
+
+.pl8 {
+  padding-left: 8px !important;
+}
+
+.pr8 {
+  padding-right: 8px !important;
+}
+
+.p16 {
+  padding: 16px !important;
+}
+
+.py16 {
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+}
+
+.px16 {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+
+.pb16 {
+  padding-bottom: 16px !important;
+}
+
+.pl16 {
+  padding-left: 16px !important;
+}
+
+.pr16 {
+  padding-right: 16px !important;
+}

@@ -1,0 +1,76 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
+}
+
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model BusinessEntity {
+  id        Int        @id @default(autoincrement())
+  uid          String?            @unique @db.Uuid
+  name      String
+  relations Relation[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Relation {
+  id               Int              @id @default(autoincrement())
+  type             RelationType     @default(ORG)
+  businessEntityId Int?             @unique
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  businessEntity   BusinessEntity?  @relation(fields: [businessEntityId], references: [id])
+  relationMember   RelationMember[]
+}
+
+model RelationMember {
+  id         Int      @id @default(autoincrement())
+  relationId Int
+  userId     Int
+  roleId     Int
+  role       Role     @relation(fields: [roleId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+  relation   Relation @relation(fields: [relationId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Role {
+  id             Int              @id @default(autoincrement())
+  code           String           @unique
+  title          String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  permissions    Permission[]
+  relationMember RelationMember[]
+}
+
+model Permission {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  roles     Role[]
+}
+
+model User {
+  id             Int              @id @default(autoincrement())
+  login          String           @unique
+  name           String
+  password       String?
+  data           Json?
+  isBlocked      Boolean          @default(false)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  relationMembers RelationMember[]
+}
+
+enum RelationType {
+  ORG
+}

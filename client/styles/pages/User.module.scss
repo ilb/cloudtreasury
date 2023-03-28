@@ -1,0 +1,11 @@
+.userProfile {
+  :global {
+    .ant-card-meta-detail {
+      width: 100%;
+
+      .user-status {
+        float: right;
+      }
+    }
+  }
+}
