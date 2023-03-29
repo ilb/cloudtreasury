@@ -5,7 +5,8 @@ import {
 	UsergroupAddOutlined,
 	NodeIndexOutlined,
 	ContainerOutlined,
-  SettingOutlined
+  SettingOutlined,
+  PaperClipOutlined
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd'
 import React, { useContext, useEffect, useState } from 'react';
@@ -21,7 +22,7 @@ const AppLayout = ({ children, ...qwe }) => {
 	const [collapsed, setCollapsed] = useState(true);
 	const [tabs, setTabs] = useState([]);
   const session = useContext(UserContext);
-  
+
   useEffect(() => {
     async function setSidebar() {
       const userPermissions = await getUserPermissions(session.user);
@@ -33,6 +34,12 @@ const AppLayout = ({ children, ...qwe }) => {
             icon: <UserOutlined />,
             label: 'Домашняя',
             href: '/',
+          },
+          {
+            key: 'Stocks',
+            icon: <PaperClipOutlined />,
+            label: 'Корректировка ценных бумаг',
+            href: '/stocks',
           },
           {
             key: 'offers',

@@ -1,4 +1,4 @@
-import { Select } from 'antd';
+import {Select} from "antd";
 
 function filterOption(input, option) {
   return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0;

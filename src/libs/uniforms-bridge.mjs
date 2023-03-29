@@ -15,9 +15,9 @@ const createValidator = (schema, additionalValidator) => {
       errors = validator.errors;
     }
 
-    if (additionalValidator) {
-      errors = errors.concat(additionalValidator(model));
-    }
+    // if (additionalValidator) {
+    //   errors = errors.concat(additionalValidator(model));
+    // }
     console.log(errors);
     if (errors.length) {
       localize.ru(errors);

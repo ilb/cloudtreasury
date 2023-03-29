@@ -52,11 +52,12 @@ export async function handle(usecases, method, middlewares, responseHandler, con
 
     await startMiddlewares(scope.cradle, context, middlewares);
     const instance = new usecases(scope.cradle);
+    console.log('схенд', instance[method], method)
     const result = await instance[method](scope.cradle);
 
     return responseHandler.build(result, context.res);
   } catch (exception) {
-    console.log(exception);
+    console.log('exception', exception);
     return responseHandler.exception(exception, context.res);
   }
 }

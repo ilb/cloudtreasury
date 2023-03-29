@@ -3,7 +3,6 @@ generator client {
   previewFeatures = ["interactiveTransactions"]
 }
 
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -11,7 +10,7 @@ datasource db {
 
 model BusinessEntity {
   id        Int        @id @default(autoincrement())
-  uid          String?            @unique @db.Uuid
+  uid       String?    @unique @db.Uuid
   name      String
   relations Relation[]
   createdAt DateTime   @default(now())
@@ -60,17 +59,24 @@ model Permission {
 }
 
 model User {
-  id             Int              @id @default(autoincrement())
-  login          String           @unique
-  name           String
-  password       String?
-  data           Json?
-  isBlocked      Boolean          @default(false)
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  id              Int              @id @default(autoincrement())
+  login           String           @unique
+  name            String
+  password        String?
+  data            Json?
+  isBlocked       Boolean          @default(false)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
   relationMembers RelationMember[]
 }
 
 enum RelationType {
   ORG
+}
+
+model Stocks {
+  stock_id Int     @id @default(autoincrement())
+  ticker   String
+  value    Int
+  isin     String?
 }

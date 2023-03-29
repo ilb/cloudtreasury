@@ -1,11 +1,6 @@
-import {Button, Col, Layout, Modal, Row, Space, Table, Typography} from 'antd';
+import {Button, Col, Layout, Modal, Row, Space} from 'antd';
 import { Card } from 'antd';
 import {useContext, useMemo, useState} from 'react';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import btnStyles from '../../client/styles/components/buttons.module.scss'
-import RoleUsecases from '../../src/usecases/RoleUsecases.mjs';
-import Access from '../../client/components/core/Access';
-import RoleModal from '../../client/components/modals/RoleModal';
 import Notification from '../../client/helpers/Notification';
 import { handlePage } from '../../src/core/index.mjs';
 import { AwilixContext } from '../_app';
@@ -14,11 +9,10 @@ import {useRouter} from "next/router";
 import createSchemaBridge from "../../src/libs/uniforms-bridge.mjs";
 import Search from "../../client/components/core/Search";
 import StockUsecases from "../../src/usecases/StockUsecases";
-const { Title } = Typography;
 
-export default function stock(props) {
+export default function Stocks(props) {
 
-  const { /** @type {stockSchema} */ stockSchema } = useContext(AwilixContext);
+  const { /** @type {stockSchema, stockResource} */ stockSchema, stockResource } = useContext(AwilixContext);
 
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -42,18 +36,16 @@ export default function stock(props) {
     if (currentStock.value) {
       setIsModalOpen(true);
     } else {
-      message.error('Вы не выбрали запись');
+      Notification.error('Вы не выбрали запись');
     }
   };
   const handleOkModal = async () => {
     try {
-      const result = await fetchUrl(
-        `/cloudtreasury/api/admin/deleteStock/${currentStock.stock_id}`
-      );
-      message.info(result.message);
+      await stockResource.delete(currentStock.stock_id)
+      Notification.info('Запись удалена');
       router.replace(router.asPath);
     } catch (e) {
-      message.error(e.message);
+      Notification.error('Упс... Что-то пошло не так.', e.message)
     }
     setValue('');
     setCurrentStock(initialCurrentStock);
@@ -65,33 +57,27 @@ export default function stock(props) {
   };
 
   const sendForm = async (formData) => {
-    console.log(currentStock);
+    // Maybe вынести в StockResources
     if (currentStock.stock_id) {
       try {
-        const result = await fetchUrl(
-          `/cloudtreasury/api/admin/updateStock/${currentStock.stock_id}`,
-          'POST',
-          formData
-        );
-        message.info(result.message);
+        await stockResource.update(currentStock.stock_id, currentStock);
         router.replace(router.asPath);
+        Notification.info('Запись обновлена');
       } catch (e) {
-        message.error(e.message);
+        Notification.error('Что-то пошло не так', e.message);
       }
     } else {
       try {
-
-        const result = await fetchUrl('/cloudtreasury/api/admin/createStock', 'POST', formData);
-        message.info(result.message);
+        await stockResource.create(currentStock);
         router.replace(router.asPath);
+        Notification.info('Запись создана');
       } catch (e) {
-        message.error(e.message);
+        Notification.error('Упс... Что-то пошло не так.', e.message)
       }
     }
     setValue('');
     setCurrentStock(initialCurrentStock);
   };
-
 
   const options = useMemo(() => {
     if (props.stockList.length) {
