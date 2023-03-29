@@ -7,9 +7,10 @@ export default class StockUsecases extends Usecases {
    * @param {Request} request
    * @returns {Promise<{stockList: (*)}>}
    */
-  async index({ stockRepository , request }) {
-    const stockList = await stockRepository.getAll(request);
-    return { stockList }
+  async index({ stockRepository, request }) {
+    const stocks = await stockRepository.getAll(request);
+
+    return { stocks };
   }
 
   /**
@@ -17,18 +18,17 @@ export default class StockUsecases extends Usecases {
    * @param {Request} request
    * @returns {Promise<{stock: (*)}>}
    */
-  async create({ stockRepository , request }) {
-    const stock = await stockRepository.create(request);
-    return { stock}
+  async create({ stockRepository, request }) {
+    return stockRepository.create(request);
   }
+
   /**
    * @param {StockRepository} stockRepository
    * @param {Request} request
    * @returns {Promise<{stock: (*)}>}
    */
-  async delete({ stockRepository , request }) {
-    const stock = await stockRepository.delete(request.id);
-    return { stock }
+  async delete({ stockRepository, request }) {
+    return stockRepository.delete(request.id);
   }
 
   /**
@@ -37,7 +37,6 @@ export default class StockUsecases extends Usecases {
    * @returns {Promise<{stock: (*)}>}
    */
   async update({ stockRepository, request }) {
-    const stock = await stockRepository.update(request);
-    return { stock }
+    return stockRepository.update(request);
   }
 }

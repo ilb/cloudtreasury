@@ -108,6 +108,26 @@ export default class PermissionSeeder extends Seeder {
         code: 'menu_read',
         title: 'Просмотр бокового и верхнего меню',
       },
+      {
+        id: 23,
+        code: 'stocks_create',
+        title: 'Добавление ценных бумаг',
+      },
+      {
+        id: 24,
+        code: 'stocks_read',
+        title: 'Просмотр ценных бумаг',
+      },
+      {
+        id: 25,
+        code: 'stocks_update',
+        title: 'Редактирование ценных бумаг',
+      },
+      {
+        id: 26,
+        code: 'stocks_delete',
+        title: 'Удаление ценных бумаг',
+      },
     ];
     await this.createMany(permissions);
   }

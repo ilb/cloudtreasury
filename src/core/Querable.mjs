@@ -65,7 +65,7 @@ export default class Querable {
       if (method === 'GET') {
         url = `${url}?${new URLSearchParams(data).toString()}`;
       }
-      console.log(this.config.baseUrl, url);
+
       return this.config.baseUrl + url;
     },
 

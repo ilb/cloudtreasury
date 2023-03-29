@@ -1,16 +1,17 @@
-import {Button, Col, Layout, Modal, Row, Space} from 'antd';
-import { Card } from 'antd';
-import {useContext, useMemo, useState} from 'react';
+import { Button, Card, Col, Layout, Modal, Row, Space } from 'antd';
+import { useContext, useMemo, useState } from 'react';
 import Notification from '../../client/helpers/Notification';
 import { handlePage } from '../../src/core/index.mjs';
 import { AwilixContext } from '../_app';
-import {AutoField, AutoForm, SubmitField} from "uniforms-antd";
-import {useRouter} from "next/router";
-import createSchemaBridge from "../../src/libs/uniforms-bridge.mjs";
-import Search from "../../client/components/core/Search";
-import StockUsecases from "../../src/usecases/StockUsecases";
+import { AutoField, AutoForm, SubmitField } from 'uniforms-antd';
+import { useRouter } from 'next/router';
+import createSchemaBridge from '../../src/libs/uniforms-bridge.mjs';
+import Search from '../../client/components/core/Search';
+import StockUsecases from '../../src/usecases/StockUsecases';
 
-export default function Stocks(props) {
+let formRef;
+
+export default function Stocks({ stocks }) {
 
   const {
     /** @type {StockSchema} */ stockSchema,
@@ -22,19 +23,21 @@ export default function Stocks(props) {
   const [showTicker, setShowTicker] = useState(false);
   const [value, setValue] = useState('');
   const initialCurrentStock = {
-    data: {
-      id: null,
-      ticker: null,
-      isin: null,
-      value: null
-    }
+    id: null,
+    ticker: null,
+    isin: null,
+    value: null
   };
   const [currentStock, setCurrentStock] = useState(initialCurrentStock);
-
-  const addButtonHandler = () => {
-    setCurrentStock(initialCurrentStock);
+  const onClickCreateBtn = () => {
+    resetForm();
     setValue('');
     setShowTicker(true);
+  };
+
+  const resetForm = () => {
+    setCurrentStock(initialCurrentStock);
+    formRef.reset();
   };
 
   const showModal = () => {
@@ -44,16 +47,16 @@ export default function Stocks(props) {
       Notification.error('Вы не выбрали запись');
     }
   };
-  const handleOkModal = async () => {
+  const onClickDeleteBtn = async () => {
     try {
-      await stockResource.delete(currentStock.id)
-      Notification.info('Запись удалена');
-      // setValue('');
-      await router.replace(router.asPath);
-      // setCurrentStock(initialCurrentStock);
       setIsModalOpen(false);
+      await stockResource.delete(currentStock.id);
+      Notification.info('Запись удалена');
+      await router.replace(router.asPath);
+      resetForm();
+      setValue('');
     } catch (e) {
-      Notification.error('Упс... Что-то пошло не так.', e.message)
+      Notification.error('Упс... Что-то пошло не так.', e.message);
     }
   };
 
@@ -64,79 +67,82 @@ export default function Stocks(props) {
   const sendForm = async (formData) => {
     try {
       await stockResource.store(formData);
-      Notification.info('Запись изменена / добавлена');
-      // setValue('');
-      // setCurrentStock(initialCurrentStock); // There is no cleaning of the form
+      Notification.info(`Запись ${formData.id ? 'изменена' : 'добавлена'}`);
       await router.replace(router.asPath);
+      !formData.id && resetForm();
     } catch (e) {
-      Notification.error('Что-то пошло не так'); // В e.message всегда ReadableStream
+      Notification.error('Что-то пошло не так');
     }
   };
 
   const options = useMemo(() => {
-    if (props.stockList.length) {
-      return props.stockList.map((stock) => {
-        return {
-          data: stock,
-          label: stock.ticker,
-          value: stock.id
-        };
-      });
+    if (stocks.length) {
+      return stocks.map((stock) => ({
+        stock,
+        label: stock.ticker,
+        value: stock.id
+      }));
     }
-  }, [props.stockList]);
+  }, [stocks]);
 
-  const InputHandler = (value, data) => {
+  const onSelectStock = (value, item) => {
     setShowTicker(false);
     setValue(value);
-    setCurrentStock(data.data);
+    setCurrentStock(item.stock);
   };
 
   return (
     <div>
       <Layout>
-          <Modal
-            title="Подтверждение удаления"
-            open={isModalOpen}
-            onOk={handleOkModal}
-            onCancel={handleCancelModal}>
-            <p>Вы уверены, что хотите удалит запись: {currentStock.ticker}?</p>
-          </Modal>
-          <Row
-            gutter={16}
-            type="flex"
-            justify="center"
-            style={{ minHeight: '100vh', padding: '15px 0px 0px 0px' }}>
-            <Col span={8}>
-              <Card title="Выбор ценной бумаги">
-                <Search
-                  placeholder="Выберите stock"
-                  value={value}
-                  options={options}
-                  onChange={InputHandler}
-                />
-                <Button type="primary" onClick={showModal}>Удалить</Button>
-              </Card>
-            </Col>
+        <Modal
+          title="Подтверждение удаления"
+          open={isModalOpen}
+          okText="Удалить"
+          cancelText="Отмена"
+          onOk={onClickDeleteBtn}
+          onCancel={handleCancelModal}>
+          <p>Вы уверены, что хотите удалить запись: {currentStock.ticker}?</p>
+        </Modal>
+        <Row justify="center">
+          <Col xs={24} sm={24} md={12} xxl={8} className="mb16">
+            <Card title={
+              <>
+                <span>Выбор ценной бумаги</span>
+                <Button className="right" type="primary" size="small" onClick={onClickCreateBtn}>Создать</Button>
+              </>
+            }>
+              <Search
+                placeholder="Выберите ценную бумагу"
+                value={value}
+                options={options}
+                onChange={onSelectStock}
+              />
+            </Card>
+          </Col>
 
-            <Col span={8}>
-              <Card title="Данные ценной бумаги">
-                <AutoForm schema={createSchemaBridge(stockSchema.get())} onSubmit={sendForm} model={currentStock}>
-                  {showTicker && <AutoField name="ticker" />}
-                  <AutoField name="value" />
-                  <AutoField name="isin" />
+          <Col xs={24} sm={24} md={12} xxl={8}>
+            <Card title="Данные ценной бумаги">
+              <AutoForm
+                schema={createSchemaBridge(stockSchema.get())}
+                onSubmit={sendForm}
+                model={currentStock}
+                ref={(ref) => (formRef = ref)}
+              >
+                {showTicker && <AutoField name="ticker"/>}
+                <AutoField name="value"/>
+                <AutoField name="isin"/>
 
-                  <Space size={8}>
-                    <SubmitField value="Сохранить" />
-                    <Button type="primary" onClick={addButtonHandler}> Создать </Button>  {/* Можно сделать переключение формы по табсам */}
-                  </Space>
-
-                </AutoForm>
-              </Card>
-            </Col>
-          </Row>
+                <Space size={8}>
+                  <Button type="danger" onClick={showModal}>Удалить</Button>
+                  <SubmitField value="Сохранить"/>
+                </Space>
+              </AutoForm>
+            </Card>
+          </Col>
+        </Row>
       </Layout>
     </div>
-  )
+  );
 }
 
-export const getServerSideProps = handlePage(StockUsecases, 'index', 'access:roles_read');
+export const getServerSideProps = handlePage(StockUsecases, 'index', 'access:stocks_read');
