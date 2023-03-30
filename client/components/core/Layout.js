@@ -21,7 +21,7 @@ const AppLayout = ({ children, ...qwe }) => {
 	const [collapsed, setCollapsed] = useState(true);
 	const [tabs, setTabs] = useState([]);
   const session = useContext(UserContext);
-
+  
   useEffect(() => {
     async function setSidebar() {
       const userPermissions = await getUserPermissions(session.user);
