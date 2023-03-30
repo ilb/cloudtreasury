@@ -14,12 +14,12 @@ export const AwilixContext = createContext({});
 function MyApp({ Component, pageProps, session }) {
   const kernel = new Kernel();
   const scope = kernel.createApplication();
-  console.log(scope)
+  console.log(scope);
 
   return (
     <AwilixContext.Provider value={scope.cradle}>
       <UserContext.Provider value={session}>
-        <SessionProvider session={session} basePath="/projecLtemplate/api/auth">
+        <SessionProvider session={session} basePath='/cloudtreasury/api/auth'>
           <title>Оформление сделки</title>
           {session && (
             <>
@@ -36,7 +36,6 @@ function MyApp({ Component, pageProps, session }) {
         </SessionProvider>
       </UserContext.Provider>
     </AwilixContext.Provider>
-
   );
 }
 
