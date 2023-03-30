@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps, session }) {
   return (
     <AwilixContext.Provider value={scope.cradle}>
       <UserContext.Provider value={session}>
-        <SessionProvider session={session} basePath="/projecttemplate/api/auth">
+        <SessionProvider session={session} basePath='/cloudtreasury/api/auth'>
           <title>Оформление сделки</title>
           {session && (
             <>
@@ -35,7 +35,6 @@ function MyApp({ Component, pageProps, session }) {
         </SessionProvider>
       </UserContext.Provider>
     </AwilixContext.Provider>
-
   );
 }
 
