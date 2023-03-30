@@ -14,7 +14,6 @@ export const AwilixContext = createContext({});
 function MyApp({ Component, pageProps, session }) {
   const kernel = new Kernel();
   const scope = kernel.createApplication();
-  console.log(scope);
 
   return (
     <AwilixContext.Provider value={scope.cradle}>
