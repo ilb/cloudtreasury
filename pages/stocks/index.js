@@ -12,17 +12,22 @@ import StockUsecases from "../../src/usecases/StockUsecases";
 
 export default function Stocks(props) {
 
-  const { /** @type {stockSchema, stockResource} */ stockSchema, stockResource } = useContext(AwilixContext);
+  const {
+    /** @type {StockSchema} */ stockSchema,
+    /** @type {StockResource} */ stockResource
+  } = useContext(AwilixContext);
 
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showTicker, setShowTicker] = useState(false);
   const [value, setValue] = useState('');
   const initialCurrentStock = {
-    stock_id: null,
-    ticker: null,
-    value: null,
-    isin: null
+    data: {
+      id: null,
+      ticker: null,
+      isin: null,
+      value: null
+    }
   };
   const [currentStock, setCurrentStock] = useState(initialCurrentStock);
 
@@ -41,15 +46,15 @@ export default function Stocks(props) {
   };
   const handleOkModal = async () => {
     try {
-      await stockResource.delete(currentStock.stock_id)
+      await stockResource.delete(currentStock.id)
       Notification.info('Запись удалена');
-      router.replace(router.asPath);
+      // setValue('');
+      await router.replace(router.asPath);
+      // setCurrentStock(initialCurrentStock);
+      setIsModalOpen(false);
     } catch (e) {
       Notification.error('Упс... Что-то пошло не так.', e.message)
     }
-    setValue('');
-    setCurrentStock(initialCurrentStock);
-    setIsModalOpen(false);
   };
 
   const handleCancelModal = () => {
@@ -57,43 +62,33 @@ export default function Stocks(props) {
   };
 
   const sendForm = async (formData) => {
-    // Maybe вынести в StockResources
-    if (currentStock.stock_id) {
-      try {
-        await stockResource.update(currentStock.stock_id, currentStock);
-        router.replace(router.asPath);
-        Notification.info('Запись обновлена');
-      } catch (e) {
-        Notification.error('Что-то пошло не так', e.message);
-      }
-    } else {
-      try {
-        await stockResource.create(currentStock);
-        router.replace(router.asPath);
-        Notification.info('Запись создана');
-      } catch (e) {
-        Notification.error('Упс... Что-то пошло не так.', e.message)
-      }
+    try {
+      await stockResource.store(formData);
+      Notification.info('Запись изменена / добавлена');
+      // setValue('');
+      // setCurrentStock(initialCurrentStock); // There is no cleaning of the form
+      await router.replace(router.asPath);
+    } catch (e) {
+      Notification.error('Что-то пошло не так'); // В e.message всегда ReadableStream
     }
-    setValue('');
-    setCurrentStock(initialCurrentStock);
   };
 
   const options = useMemo(() => {
     if (props.stockList.length) {
       return props.stockList.map((stock) => {
         return {
+          data: stock,
           label: stock.ticker,
-          value: stock.stock_id
+          value: stock.id
         };
       });
     }
   }, [props.stockList]);
 
-  const InputHandler = (value) => {
+  const InputHandler = (value, data) => {
     setShowTicker(false);
     setValue(value);
-    setCurrentStock(props.stockList.find((el) => el.stock_id == value));
+    setCurrentStock(data.data);
   };
 
   return (
@@ -117,40 +112,24 @@ export default function Stocks(props) {
                   placeholder="Выберите stock"
                   value={value}
                   options={options}
-                  handler={InputHandler}
+                  onChange={InputHandler}
                 />
-                <Space size={8} style={{ marginTop: '15px' }}>
-                  <Button type="primary" onClick={addButtonHandler}>
-                    Добавить
-                  </Button>
-                  <Button type="primary" onClick={showModal}>
-                    Удалить
-                  </Button>
-                </Space>
+                <Button type="primary" onClick={showModal}>Удалить</Button>
               </Card>
             </Col>
 
             <Col span={8}>
               <Card title="Данные ценной бумаги">
-                <AutoForm schema={createSchemaBridge(stockSchema.get(), {})} onSubmit={sendForm}>
-                  {showTicker && (
-                    <AutoField
-                      name="ticker"
-                      value={currentStock.ticker}
-                      onInput={(e) => setCurrentStock({ ...currentStock, ticker: e.target.value })}
-                    />
-                  )}
-                  <AutoField
-                    value={currentStock.value}
-                    onInput={(value) => setCurrentStock({ ...currentStock, value: value })} // Здесь возразщает сразу e.target.value, вместо event`a
-                    name="value"
-                  />
-                  <AutoField
-                    value={currentStock.isin}
-                    onInput={(e) => setCurrentStock({ ...currentStock, isin: e.target.value })}
-                    name="isin"
-                  />
-                  <SubmitField value="Сохранить" />
+                <AutoForm schema={createSchemaBridge(stockSchema.get())} onSubmit={sendForm} model={currentStock}>
+                  {showTicker && <AutoField name="ticker" />}
+                  <AutoField name="value" />
+                  <AutoField name="isin" />
+
+                  <Space size={8}>
+                    <SubmitField value="Сохранить" />
+                    <Button type="primary" onClick={addButtonHandler}> Создать </Button>  {/* Можно сделать переключение формы по табсам */}
+                  </Space>
+
                 </AutoForm>
               </Card>
             </Col>

@@ -4,7 +4,7 @@ function filterOption(input, option) {
   return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0;
 }
 
-const Search = ({ placeholder, value, options, handler }) => {
+const Search = ({ placeholder, value, options, onChange }) => {
   return (
     <Select
       showSearch
@@ -13,8 +13,8 @@ const Search = ({ placeholder, value, options, handler }) => {
       value={value}
       placeholder={placeholder}
       options={options}
-      onChange={handler}
-      style={{ width: '100%' }}
+      onChange={onChange}
+      style={{ width: '100%', marginBottom: '15px' }}
     />
   );
 }

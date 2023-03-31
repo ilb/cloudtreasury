@@ -74,9 +74,9 @@ enum RelationType {
   ORG
 }
 
-model Stocks {
-  stock_id Int     @id @default(autoincrement())
-  ticker   String
-  value    Int
-  isin     String?
+model Stock {
+  id     Int     @id @default(autoincrement())
+  ticker String
+  value  Int
+  isin   String?
 }

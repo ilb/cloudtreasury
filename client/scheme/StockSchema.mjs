@@ -15,7 +15,8 @@ export default class StockSchema extends Schema {
         },
         isin: {
           title: 'ISIN',
-          type: 'string'
+          type: 'string',
+          nullable: true
         }
       }
     }
