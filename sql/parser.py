@@ -62,7 +62,7 @@ class tableToQuerry:
                     
 
                 if (index % 3 == 0):
-                    string += str(column) + ')'
+                    string += str(column) + ')\n'
                 else:
                     string += str(column) + ', '
 
@@ -82,7 +82,7 @@ class tableToQuerry:
 
             string += i + ', '
             index += 1
-        mysql = f'INSERT INTO "Stocks" (ticker, value, isin) VALUES ${string}'
+        mysql = f'INSERT INTO "Stock" (ticker, value, isin) VALUES ${string}'
         return mysql
 
 tb = tableToQuerry()
