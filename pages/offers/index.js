@@ -40,7 +40,7 @@ export default function stockValuation({ calculations }) {
     {
       title: 'Дата оценки',
       dataIndex: 'AssessmentDate',
-      sorter: true,
+      sorter: (a, b) => new Date(b.AssessmentDate) - new Date(a.AssessmentDate)
     },
     {
       title: 'Активный рынок',
