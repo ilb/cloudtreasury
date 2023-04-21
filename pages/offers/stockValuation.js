@@ -48,11 +48,11 @@ export default function stockValuation({ stocks }) {
                 <Card title="Тикер">
                   <AutoForm schema={createSchemaBridge(tickerRatingSchema.get())} onSubmit={console.log} class="ant-form-vertical">
                     {/* <AutoField name='ticker' component={SearchStock} /> */}
-                      <SearchStock
-                      stocks={stocks}
-                      value={value}
-                      onChange={onSelectStock}
-                      ></SearchStock> 
+                    <SearchStock
+                    stocks={stocks}
+                    value={value}
+                    onChange={onSelectStock}
+                    ></SearchStock> 
                     <DateField format="YYYY-MM-DD" showTime={false} name='date' /> 
                     <SubmitField value="Отправить" />
                     <ErrorsField />

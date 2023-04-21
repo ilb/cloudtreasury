@@ -1,11 +1,30 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import NavMenu from '../../client/components/stock/StockNavMenu'
 import { Table } from 'antd'
 import { handlePage } from '../../src/core/index.mjs';
-import StockUsecases from '../../src/usecases/StockUsecases';
+import CalculationUsecases from '../../src/usecases/CalculationUsecases';
 
 
-export default function stockValuation({ stocks }) {
+export default function stockValuation({ calculations }) {
+
+  function generateTableData () {
+    return calculations.map(item => ({
+      id: item.id,
+      ticker: item.stock.ticker,
+      AssessmentDate: item.AssessmentDate,
+      ActiveMarket: item.ActiveMarket,
+      FairValue: item.FairValue,
+      DaysNumbers: item.DaysNumbers,
+      TransactionsNumbers: item.TransactionsNumbers,
+      OutputVolume: item.OutputVolume,
+      TotalVolume: item.TotalVolume
+    }))
+  }
+
+  const [tableData, setTableDate] = useState()
+  useMemo(() => {
+    setTableDate(generateTableData())
+  }, [calculations])
 
   const columns = [
     {
@@ -15,7 +34,7 @@ export default function stockValuation({ stocks }) {
     },
     {
       title: 'Наименовние',
-      dataIndex: 'StockId',
+      dataIndex: 'ticker',
       sorter: true,
     },
     {
@@ -45,7 +64,7 @@ export default function stockValuation({ stocks }) {
     },
     {
       title: 'Объём выпуска',
-      dataIndex: 'Volume',
+      dataIndex: 'OutputVolume',
       sorter: true,
     },
     {
@@ -66,7 +85,7 @@ export default function stockValuation({ stocks }) {
           //   onClick: async () => await router.push(`users/${record.id}`)
           // })}
           columns={columns}
-          // dataSource={tableData}
+          dataSource={tableData}
           // pagination={params.pagination}
           // onChange={handleTableChange}
         />
@@ -76,4 +95,4 @@ export default function stockValuation({ stocks }) {
   )
 }
 
-export const getServerSideProps = handlePage(StockUsecases, 'index', 'access:stocks_read');
+export const getServerSideProps = handlePage(CalculationUsecases, 'index', 'access:stocks_read'); // to do создать роль

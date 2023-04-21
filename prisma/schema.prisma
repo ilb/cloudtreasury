@@ -86,7 +86,7 @@ model Calculation {
   id                  Int     @id @default(autoincrement())
   stockId             Int
   stock               Stock    @relation(fields: [stockId], references: [id])
-  AssessmentDate      DateTime @default(now()) @db.Date
+  AssessmentDate      String   //DateTime @default(now()) @db.Date
   ActiveMarket        String
   FairValue           Int
   DaysNumbers         Int
