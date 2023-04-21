@@ -8,7 +8,7 @@ import { AwilixContext } from '../_app';
 import { AutoForm } from 'uniforms';
 import createSchemaBridge from '../../src/libs/uniforms-bridge.mjs';
 import { AutoField, DateField, ErrorsField, SubmitField } from 'uniforms-antd';
-import NavMenu from '../../client/components/stock/NavMenu.js';
+import NavMenu from '../../client/components/stock/StockNavMenu.js';
 
 export default function stockValuation({ stocks }) {
   const {

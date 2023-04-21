@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import NavMenu from '../../client/components/stock/NavMenu'
+import StockNavMenu from '../../client/components/stock/StockNavMenu'
 import { AwilixContext } from '../_app';
 import { AutoForm } from 'uniforms'
 import createSchemaBridge from '../../src/libs/uniforms-bridge.mjs';
@@ -16,7 +16,7 @@ export default function report() {
   return (
     <Layout>
         <Layout>
-          <NavMenu selectedMenuItem={'report'} />
+          <StockNavMenu selectedMenuItem={'report'} />
             <Layout.Content>
 
 

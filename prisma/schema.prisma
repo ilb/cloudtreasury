@@ -75,8 +75,22 @@ enum RelationType {
 }
 
 model Stock {
-  id     Int     @id @default(autoincrement())
-  ticker String
-  value  Int
-  isin   String?
+  id           Int     @id @default(autoincrement())
+  ticker       String
+  value        Int
+  isin         String?
+  calculations Calculation[]
+}
+
+model Calculation {
+  id                  Int     @id @default(autoincrement())
+  stockId             Int
+  stock               Stock    @relation(fields: [stockId], references: [id])
+  AssessmentDate      DateTime @default(now()) @db.Date
+  ActiveMarket        String
+  FairValue           Int
+  DaysNumbers         Int
+  TransactionsNumbers Int
+  OutputVolume        Int
+  TotalVolume         Int
 }

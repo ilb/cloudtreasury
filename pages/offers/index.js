@@ -1,5 +1,5 @@
 import React from 'react'
-import NavMenu from '../../client/components/stock/NavMenu'
+import NavMenu from '../../client/components/stock/StockNavMenu'
 import { Table } from 'antd'
 import { handlePage } from '../../src/core/index.mjs';
 import StockUsecases from '../../src/usecases/StockUsecases';
