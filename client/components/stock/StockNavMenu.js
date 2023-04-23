@@ -7,11 +7,11 @@ export default function NavMenu({ selectedMenuItem }) {
 
     return (
           
-        <Menu theme="light" mode="horizontal" defaultSelectedKeys={[menuItem]}> 
+        <Menu theme="light" mode="horizontal" defaultSelectedKeys={[menuItem]} > 
 
             <Menu.Item key="offers">
                 <Link href={'/offers'} onClick={() => {setMenuItem('offers')}} legacyBehavior={false}>
-                    Заявки
+                    Расчёты
                 </Link>
             </Menu.Item>  
 

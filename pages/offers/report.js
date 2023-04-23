@@ -25,7 +25,7 @@ export default function report() {
                 type="flex"
                 justify="center"
                 style={{ minHeight: '100vh', padding: '15px 0px 0px 0px' }}>
-                <Col span={10}>
+                <Col xs={24} sm={24} md={12} xxl={8}>
                   <Card title='Генерация отчёта'>
                     <AutoForm schema={createSchemaBridge(generatingReportSchema.get())} onSubmit={console.log} class="ant-form-vertical">
                       <DateField format="YYYY-MM-DD" showTime={false} name='date' /> 

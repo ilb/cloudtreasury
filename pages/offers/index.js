@@ -35,7 +35,7 @@ export default function stockValuation({ calculations }) {
     {
       title: 'Наименовние',
       dataIndex: 'ticker',
-      sorter: true,
+      sorter: (a, b) => a.ticker.localeCompare(b.ticker)
     },
     {
       title: 'Дата оценки',
@@ -95,4 +95,4 @@ export default function stockValuation({ calculations }) {
   )
 }
 
-export const getServerSideProps = handlePage(CalculationUsecases, 'index', 'access:stocks_read'); // to do создать роль
+export const getServerSideProps = handlePage(CalculationUsecases, 'index', 'access:offers_read');

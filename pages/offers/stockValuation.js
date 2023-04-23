@@ -43,12 +43,14 @@ export default function stockValuation({ stocks }) {
               gutter={16}
               type="flex"
               justify="center"
-              style={{ minHeight: '100vh', padding: '15px 0px 0px 0px' }}>
-              <Col span={8}>
+              style={{padding: '15px 0px 0px 0px' }}
+              >
+              <Col xs={24} sm={24} md={12} xxl={8}>
                 <Card title="Тикер">
                   <AutoForm schema={createSchemaBridge(tickerRatingSchema.get())} onSubmit={console.log} class="ant-form-vertical">
                     {/* <AutoField name='ticker' component={SearchStock} /> */}
                     <SearchStock
+                    name='ticker'
                     stocks={stocks}
                     value={value}
                     onChange={onSelectStock}
@@ -59,7 +61,7 @@ export default function stockValuation({ stocks }) {
                   </AutoForm>
                 </Card>
               </Col>
-              <Col span={8}>
+              <Col xs={24} sm={24} md={12} xxl={8}>
                 <Card title="Результаты расчёта" >
                   <AutoForm schema={createSchemaBridge(stockCalculationResults.get())} readOnly class="ant-form-vertical">
                     <Spin spinning={loading}>

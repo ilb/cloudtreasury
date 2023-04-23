@@ -44,7 +44,7 @@ const AppLayout = ({ children, ...qwe }) => {
           {
             key: 'offers',
             icon: <ContainerOutlined />,
-            label: 'Заявки',
+            label: 'Расчёты',
             href: '/offers',
             permission: 'offers_read',
           },
