@@ -11,6 +11,9 @@ import UserSchema from './scheme/UserSchema.mjs';
 import SigninSchema from './scheme/SigninSchema.mjs';
 import SignupSchema from './scheme/SignupSchema.mjs';
 import StockSchema from './scheme/StockSchema.mjs';
+import TickerRatingSchema from './scheme/tickerRatingSchema.mjs';
+import StockCalculationResults from './scheme/StockCalculationResultsSchema.mjs';
+import GeneratingReportSchema from './scheme/GeneratingReportSchema.mjs'
 
 export default class Kernel {
   constructor() {
@@ -36,6 +39,9 @@ export default class Kernel {
       signinSchema: asClass(SigninSchema),
       signupSchema: asClass(SignupSchema),
       stockSchema: asClass(StockSchema),
+      tickerRatingSchema: asClass(TickerRatingSchema),
+      stockCalculationResults: asClass(StockCalculationResults),
+      generatingReportSchema: asClass(GeneratingReportSchema)
     });
   }
 }

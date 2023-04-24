@@ -6,7 +6,7 @@ import { AwilixContext } from '../_app';
 import { AutoField, AutoForm, SubmitField } from 'uniforms-antd';
 import { useRouter } from 'next/router';
 import createSchemaBridge from '../../src/libs/uniforms-bridge.mjs';
-import Search from '../../client/components/core/Search';
+import SearchStock from '../../client/components/stock/SearchStock';
 import StockUsecases from '../../src/usecases/StockUsecases';
 
 let formRef;
@@ -75,17 +75,8 @@ export default function Stocks({ stocks }) {
     }
   };
 
-  const options = useMemo(() => {
-    if (stocks.length) {
-      return stocks.map((stock) => ({
-        stock,
-        label: stock.ticker,
-        value: stock.id
-      }));
-    }
-  }, [stocks]);
-
   const onSelectStock = (value, item) => {
+    console.log('slelect')
     setShowTicker(false);
     setValue(value);
     setCurrentStock(item.stock);
@@ -111,12 +102,11 @@ export default function Stocks({ stocks }) {
                 <Button className="right" type="primary" size="small" onClick={onClickCreateBtn}>Создать</Button>
               </>
             }>
-              <Search
-                placeholder="Выберите ценную бумагу"
+              <SearchStock
+                stocks={stocks}
                 value={value}
-                options={options}
                 onChange={onSelectStock}
-              />
+                ></SearchStock>
             </Card>
           </Col>
 
