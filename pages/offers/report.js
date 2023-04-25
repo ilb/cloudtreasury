@@ -7,7 +7,7 @@ import { DateField, ErrorsField, SubmitField } from 'uniforms-antd';
 import { Card, Col, Layout, Row } from 'antd';
 
 
-export default function report() {
+export default function Report() {
 
   const {
     /** @type {GeneratingReportSchema} */ generatingReportSchema,

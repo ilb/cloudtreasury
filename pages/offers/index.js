@@ -5,7 +5,7 @@ import { handlePage } from '../../src/core/index.mjs';
 import CalculationUsecases from '../../src/usecases/CalculationUsecases';
 
 
-export default function stockValuation({ calculations }) {
+export default function Offer({ calculations }) {
 
   function generateTableData () {
     return calculations.map(item => ({

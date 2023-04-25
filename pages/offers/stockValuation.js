@@ -10,7 +10,7 @@ import createSchemaBridge from '../../src/libs/uniforms-bridge.mjs';
 import { AutoField, DateField, ErrorsField, SubmitField } from 'uniforms-antd';
 import NavMenu from '../../client/components/stock/StockNavMenu.js';
 
-export default function stockValuation({ stocks }) {
+export default function StockValuation({ stocks }) {
   const {
     /** @type {TickerRatingSchema} */ tickerRatingSchema,
     /** @type {StockCalculationResults} */ stockCalculationResults
