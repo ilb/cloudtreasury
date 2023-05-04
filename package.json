@@ -27,7 +27,7 @@
     "antd": "^4.23.5",
     "awilix": "^7.0.3",
     "bcrypt": "^5.0.1",
-    "glob": "^8.0.3",
+    "glob": "^10.2.2",
     "next": "12.3.0",
     "next-auth": "4.9.0",
     "next-compose-plugins": "^2.2.1",
