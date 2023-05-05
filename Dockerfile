@@ -52,6 +52,11 @@ COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
 COPY prisma prisma
 COPY src src
 
+RUN apk add py3-setuptools py3-pandas py3-lxml py3-dicttoxml
+RUN mkdir /home/stockvaluation
+RUN wget -qO - https://github.com/ilb/stockvaluation/archive/refs/tags/1.0.1.tar.gz |tar xz -C /home/stockvaluation --strip-components=1
+RUN cd /home/stockvaluation/fairpricecalc && python setup.py install
+
 USER nextjs
 
 EXPOSE 3000
@@ -61,4 +66,4 @@ EXPOSE 3000
 # Uncomment the following line in case you want to disable telemetry.
 ENV NEXT_TELEMETRY_DISABLED 1
 
-CMD set -e && npm run ilb-deploy && npm start
+CMD set -e &&  npm run ilb-deploy && npm start
