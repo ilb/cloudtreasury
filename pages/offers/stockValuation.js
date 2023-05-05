@@ -27,27 +27,20 @@ export default function StockValuation({ stocks }) {
     value: null
   };
   const [currentStock, setCurrentStock] = useState(initialCurrentStock);
+  const [calculationData, setCalculationData] = useState({date: null, active: null, fairPrice: null, countDays: null, countDeals: null, initialVolume: null, tradingVolume: null});
 
   async function onSubmit({ date }) {
-    console.log()
     setLoading(true);
-    await stockValutionsResource.create({ticker: currentStock.ticker, date: new Date(date).toISOString().slice(0, 10)});
-    // const response = await fetch('/cloudtreasury/api/fairprice/calculations', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ ticker: currentStock, date: new Date(date).toISOString().slice(0, 10) }),
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // });
+    const calculationData = await stockValutionsResource.create({ticker: currentStock.ticker, date: new Date(date).toISOString().slice(0, 10)});
 
+    console.log(calculationData)
+    // if (!response.ok) {
+    //   Notification.error('Что-то пошло не так. Проверьте введенный тикер, возможно по нему отсутствуют данные');
+    //   return;
+    // }
+
+    setCalculationData({ ...calculationData.calculations.data, date: calculationData.calculations.date, active: calculationData.calculations.active === 'ACTIVE' ? 'Да' : 'Нет' });
     setLoading(false);
-
-    if (!response.ok) {
-      await Notification.error('Что-то пошло не так. Проверьте введенный тикер, возможно по нему отсутствуют данные');
-      return;
-    }
-
-    // setCalculateResult({ ...json, active: json.active === 'ACTIVE' ? 'Да' : 'Нет' });
   }
 
 
@@ -90,13 +83,13 @@ export default function StockValuation({ stocks }) {
                 <Card title="Результаты расчёта" >
                   <AutoForm schema={createSchemaBridge(stockCalculationResults.get())} readOnly class="ant-form-vertical">
                     <Spin spinning={loading}>
-                      <AutoField name="receivedDate" readOnly />
-                      <AutoField name="active" readOnly />
-                      <AutoField name="fairPrice" readOnly />
-                      <AutoField name="countDays" readOnly />
-                      <AutoField name="countDeals" readOnly />
-                      <AutoField name="initialVolume" readOnly />
-                      <AutoField name="tradingVolume"readOnly />
+                      <AutoField name="receivedDate" readOnly value={calculationData.date} />
+                      <AutoField name="active" readOnly value={calculationData.active} />
+                      <AutoField name="fairPrice" readOnly value={calculationData.fairPrice} />
+                      <AutoField name="countDays" readOnly value={calculationData.countDays} />
+                      <AutoField name="countDeals" readOnly value={calculationData.countDeals} />
+                      <AutoField name="initialVolume" readOnly value={calculationData.initialVolume} />
+                      <AutoField name="tradingVolume"readOnly value={calculationData.tradingVolume} />
                     </Spin>
                   </AutoForm>
                 </Card>

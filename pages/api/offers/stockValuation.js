@@ -1,7 +1,7 @@
 import { createRouter } from 'next-connect';
 import { handleRequest } from '../../../src/core/index.mjs';
-import StockValuationUsescases from "../../../src/usecases/StockValuationUsescases.js";
+import CalculateFairPriceUsecases from '../../../src/usecases/CalculateFairPriceUsecases.mjs';
 
 export default createRouter()
-  .post(handleRequest(StockValuationUsescases, 'index', 'access:offers_create'))
+  .post(handleRequest(CalculateFairPriceUsecases, 'process', 'access:offers_create'))
   .handler();

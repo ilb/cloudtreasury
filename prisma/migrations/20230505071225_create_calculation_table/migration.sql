@@ -1,14 +1,11 @@
 -- CreateTable
 CREATE TABLE "Calculation" (
     "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
+    "date" TEXT NOT NULL,
     "stockId" INTEGER NOT NULL,
-    "AssessmentDate" DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "ActiveMarket" TEXT NOT NULL,
-    "FairValue" INTEGER NOT NULL,
-    "DaysNumbers" INTEGER NOT NULL,
-    "TransactionsNumbers" INTEGER NOT NULL,
-    "OutputVolume" INTEGER NOT NULL,
-    "TotalVolume" INTEGER NOT NULL,
+    "data" JSONB NOT NULL,
 
     CONSTRAINT "Calculation_pkey" PRIMARY KEY ("id")
 );
