@@ -13,7 +13,7 @@ export default class TickerRatingSchema extends Schema {
           title: 'Дата оценки',
           type: 'object',
           // format: 'date',
-          // default: new Date()
+          default: new Date()
         }
       },
   

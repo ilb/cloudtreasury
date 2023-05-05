@@ -27,6 +27,7 @@
     "antd": "^4.23.5",
     "awilix": "^7.0.3",
     "bcrypt": "^5.0.1",
+    "carbone": "^3.5.5",
     "glob": "^8.0.3",
     "next": "12.3.0",
     "next-auth": "4.9.0",
@@ -60,7 +61,7 @@
     "prisma": "^3.15.2",
     "rimraf": "^4.1.2"
   },
-  "browser":{
+  "browser": {
     "child_process": false
-    }  
+  }
 }

@@ -5,6 +5,7 @@ import RoleResource from './resources/RoleResource.mjs';
 import UserResource from './resources/UserResource.mjs';
 import StockResource from './resources/StockResource.mjs';
 import StockValutionsResource from './resources/StockValutionsResource.mjs';
+import ReportCalculationResource from './resources/ReportCalculationResource.mjs';
 
 import PermissionSchema from './scheme/PermissionSchema.mjs';
 import RoleSchema from './scheme/RoleSchema.mjs';
@@ -17,7 +18,7 @@ import StockCalculationResults from './scheme/StockCalculationResultsSchema.mjs'
 import GeneratingReportSchema from './scheme/GeneratingReportSchema.mjs'
 
 
-import DocumentRenderer from '../src/services/DocumentRenderer.mjs';
+import DocumentRendererService from '../src/services/DocumentRendererService.mjs';
 import StockValuationService from '../src/services/StockValuationService.mjs';
 
 
@@ -39,6 +40,7 @@ export default class Kernel {
       userResource: asClass(UserResource),
       stockResource: asClass(StockResource),
       stockValutionsResource: asClass(StockValutionsResource),
+      reportCalculationResource: asClass(ReportCalculationResource),
 
       permissionSchema: asClass(PermissionSchema),
       roleSchema: asClass(RoleSchema),
@@ -50,7 +52,7 @@ export default class Kernel {
       stockCalculationResults: asClass(StockCalculationResults),
       generatingReportSchema: asClass(GeneratingReportSchema),
 
-      documentRenderer: asClass(DocumentRenderer),
+      documentRendererService: asClass(DocumentRendererService),
       stockValuationService: asClass(StockValuationService),
     });
   }

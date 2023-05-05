@@ -5,7 +5,6 @@ const SearchStock = ({ value, stocks, onChange }) => {
 
     const options = useMemo(() => {
         if (stocks && stocks.length) {
-            console.log('stock')
           return stocks.map((stock) => ({
             stock,
             label: stock.ticker,

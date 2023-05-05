@@ -5,14 +5,14 @@ export default class GeneratingReportSchema extends Schema {
     return {
       type: 'object',
       properties: {
-        date: {
-            title: 'Дата генерации',
-            type: 'object',
-            // format: 'date',
-            // default: new Date()
-          }
+        currentDate: {
+          title: 'Дата генерации',
+          type: 'object',
+          // format: 'date',
+          default: new Date()
+        }
       },
-      required: ['date'],
+      required: ['currentDate'],
     }
   }
 }

@@ -1,9 +1,10 @@
-// import { render } from '../../../libs/utils/carbone.mjs';
+// import { render } from '../libs/carbone';
+
 import Service from '../core/Service.mjs';
 import path from 'path';
 import os from 'os';
 
-export default class DocumentRenderer extends Service {
+export default class DocumentRendererService extends Service {
   constructor() {
     super();
     const mimeTypes = new Map();

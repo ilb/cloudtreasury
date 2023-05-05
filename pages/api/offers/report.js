@@ -1,7 +1,7 @@
 import { createRouter } from 'next-connect';
 import { handleRequest } from '../../../src/core/index.mjs';
-import StockValuationsReportUsescases from "../../../src/usecases/StockValuationsReportUsescases.mjs";
+import CalculationUsecases from "../../../src/usecases/CalculationUsecases";
 
 export default createRouter()
-  .get(handleRequest(StockValuationsReportUsescases, 'index', 'access:offers_read'))
+  .get(handleRequest(CalculationUsecases, 'getFile', 'access:offers_read'))
   .handler();

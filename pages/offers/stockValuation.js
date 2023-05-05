@@ -31,15 +31,12 @@ export default function StockValuation({ stocks }) {
 
   async function onSubmit({ date }) {
     setLoading(true);
-    const calculationData = await stockValutionsResource.create({ticker: currentStock.ticker, date: new Date(date).toISOString().slice(0, 10)});
-
-    console.log(calculationData)
-    // if (!response.ok) {
-    //   Notification.error('Что-то пошло не так. Проверьте введенный тикер, возможно по нему отсутствуют данные');
-    //   return;
-    // }
-
-    setCalculationData({ ...calculationData.calculations.data, date: calculationData.calculations.date, active: calculationData.calculations.active === 'ACTIVE' ? 'Да' : 'Нет' });
+    try {
+      const calculationData = await stockValutionsResource.create({ticker: currentStock.ticker, date: new Date(date).toISOString().slice(0, 10)});
+      setCalculationData({ ...calculationData.calculations.data, date: calculationData.calculations.date, active: calculationData.calculations.active === 'ACTIVE' ? 'Да' : 'Нет' });
+    } catch (e) {
+      Notification.error('Что-то пошло не так. Проверьте введенный тикер, возможно по нему отсутствуют данные');
+    }
     setLoading(false);
   }
 

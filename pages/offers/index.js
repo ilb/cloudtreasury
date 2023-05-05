@@ -7,19 +7,19 @@ import CalculationUsecases from '../../src/usecases/CalculationUsecases';
 
 export default function Offer({ calculations }) {
 
-  console.log('calc', calculations)
 
   function generateTableData () {
     return calculations.map(item => ({
       id: item.id,
-      ticker: item.stock.ticker,
-      AssessmentDate: item.AssessmentDate,
-      ActiveMarket: item.ActiveMarket,
-      FairValue: item.FairValue,
-      DaysNumbers: item.DaysNumbers,
-      TransactionsNumbers: item.TransactionsNumbers,
-      OutputVolume: item.OutputVolume,
-      TotalVolume: item.TotalVolume
+      ticker: item.ticker,
+      date: item.date,
+
+      active: item.data.active === 'ACTIVE' ? 'Да' : 'Нет',
+      fairPrice: item.data.fairPrice,
+      countDays: item.data.countDays,
+      countDeals: item.data.countDeals,
+      initialVolume: item.data.initialVolume,
+      tradingVolume: item.data.tradingVolume, 
     }))
   }
 
@@ -32,47 +32,46 @@ export default function Offer({ calculations }) {
     {
       title: '#',
       dataIndex: 'id',
-      sorter: true,
+      sorter: (a, b) => a.id - b.id,
     },
     {
       title: 'Наименовние',
       dataIndex: 'ticker',
-      sorter: (a, b) => a.ticker.localeCompare(b.ticker)
+      sorter: (a, b) => a.ticker.localeCompare(b.ticker),
     },
     {
-      title: 'Дата оценки',
-      dataIndex: 'AssessmentDate',
-      sorter: (a, b) => new Date(b.AssessmentDate) - new Date(a.AssessmentDate)
+      title: 'Дата',
+      dataIndex: 'date',
+      sorter: (a, b) => a.date.localeCompare(b.date),
     },
     {
       title: 'Активный рынок',
-      dataIndex: 'ActiveMarket',
-      sorter: true,
+      dataIndex: 'active',
     },
     {
       title: 'Справедливая стоимость',
-      dataIndex: 'FairValue',
-      sorter: true,
+      dataIndex: 'fairPrice',
+      sorter: (a, b) => a.fairPrice - b.fairPrice,
     },
     {
       title: 'Кол-во дней',
-      dataIndex: 'DaysNumbers',
-      sorter: true,
+      dataIndex: 'countDays',
+      sorter: (a, b) => a.countDays - b.countDays,
     },
     {
       title: 'Кол-во сделок',
-      dataIndex: 'TransactionsNumbers',
-      sorter: true,
+      dataIndex: 'countDeals',
+      sorter: (a, b) => a.id - b.id,
     },
     {
       title: 'Объём выпуска',
-      dataIndex: 'OutputVolume',
-      sorter: true,
+      dataIndex: 'initialVolume',
+      sorter: (a, b) => a.initialVolume - b.initialVolume,
     },
     {
       title: 'Сумарный объём',
-      dataIndex: 'TotalVolume',
-      sorter: true,
+      dataIndex: 'tradingVolume',
+      sorter: (a, b) => a.tradingVolume - b.tradingVolume,
     },
 
   ];
