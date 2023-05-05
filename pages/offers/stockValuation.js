@@ -9,11 +9,13 @@ import { AutoForm } from 'uniforms';
 import createSchemaBridge from '../../src/libs/uniforms-bridge.mjs';
 import { AutoField, DateField, ErrorsField, SubmitField } from 'uniforms-antd';
 import NavMenu from '../../client/components/stock/StockNavMenu.js';
+import Notification from '../../client/helpers/Notification';
 
 export default function StockValuation({ stocks }) {
   const {
     /** @type {TickerRatingSchema} */ tickerRatingSchema,
-    /** @type {StockCalculationResults} */ stockCalculationResults
+    /** @type {StockCalculationResults} */ stockCalculationResults,
+    /** @type {StockValutionsResource} */ stockValutionsResource
   } = useContext(AwilixContext);
 
   const [loading, setLoading] = useState(false);
@@ -25,6 +27,29 @@ export default function StockValuation({ stocks }) {
     value: null
   };
   const [currentStock, setCurrentStock] = useState(initialCurrentStock);
+
+  async function onSubmit({ date }) {
+    console.log()
+    setLoading(true);
+    await stockValutionsResource.create({ticker: currentStock.ticker, date: new Date(date).toISOString().slice(0, 10)});
+    // const response = await fetch('/cloudtreasury/api/fairprice/calculations', {
+    //   method: 'POST',
+    //   body: JSON.stringify({ ticker: currentStock, date: new Date(date).toISOString().slice(0, 10) }),
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // });
+
+    setLoading(false);
+
+    if (!response.ok) {
+      await Notification.error('Что-то пошло не так. Проверьте введенный тикер, возможно по нему отсутствуют данные');
+      return;
+    }
+
+    // setCalculateResult({ ...json, active: json.active === 'ACTIVE' ? 'Да' : 'Нет' });
+  }
+
 
   const onSelectStock = (value, item) => {
     setValue(value);
@@ -47,7 +72,7 @@ export default function StockValuation({ stocks }) {
               >
               <Col xs={24} sm={24} md={12} xxl={8}>
                 <Card title="Тикер">
-                  <AutoForm schema={createSchemaBridge(tickerRatingSchema.get())} onSubmit={console.log} class="ant-form-vertical">
+                  <AutoForm schema={createSchemaBridge(tickerRatingSchema.get())} onSubmit={onSubmit} class="ant-form-vertical">
                     {/* <AutoField name='ticker' component={SearchStock} /> */}
                     <SearchStock
                     name='ticker'

@@ -7,6 +7,8 @@ import CalculationUsecases from '../../src/usecases/CalculationUsecases';
 
 export default function Offer({ calculations }) {
 
+  console.log('calc', calculations)
+
   function generateTableData () {
     return calculations.map(item => ({
       id: item.id,

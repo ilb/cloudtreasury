@@ -29,6 +29,9 @@ export default class Kernel {
       request: asValue(context.request),
       prisma: asValue(prisma),
       access: asClass(Access),
+
+      stockValuationPath: asValue(process.env['apps.stockvaluation.ws']),
+      pythonPath: asValue(process.env['apps.cloudtreasury.pythonpath']),
     });
   }
 
