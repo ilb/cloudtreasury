@@ -19,7 +19,7 @@ export default function Report() {
     currentDate = new Date(currentDate).toISOString().slice(0, 10)
     await reportCalculationResource.getList({currentDate})
 
-    //router.push(`/api/offers/report?currentDate=${currentDate
+    // router.push(`/api/offers/report?currentDate=${currentDate
     //   .toISOString()
     //   .slice(0, 10)
     // }`);
