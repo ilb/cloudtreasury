@@ -23,7 +23,7 @@ export default class FairPriceCalculator {
     }
 
     async render (documentRendererService) {
-        return await documentRendererService.render(
+        return documentRendererService.render(
             'tickers',
             this.data,
             this.renderOptions
