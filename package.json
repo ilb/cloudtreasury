@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@ilb/ldapenv-cli": "^1.0.10",
-    "@next/bundle-analyzer": "^13.1.6",
+    "@next/bundle-analyzer": "^13.4.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^29.5.0",
     "eslint": "8.19.0",
