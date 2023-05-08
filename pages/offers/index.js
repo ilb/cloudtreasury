@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react'
 import NavMenu from '../../client/components/stock/StockNavMenu'
 import { Table } from 'antd'
 import { handlePage } from '../../src/core/index.mjs';
-import CalculationUsecases from '../../src/usecases/CalculationUsecases';
+import CalculationUsecases from '../../src/usecases/CalculationUsecases.mjs';
 
 
 export default function Offer({ calculations }) {
