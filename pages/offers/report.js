@@ -7,7 +7,6 @@ import { DateField, ErrorsField, SubmitField } from 'uniforms-antd';
 import { Card, Col, Layout, Row } from 'antd';
 import { useRouter } from 'next/router';
 
-
 export default function Report() {
   const router = useRouter();
   const {
@@ -19,10 +18,10 @@ export default function Report() {
     currentDate = new Date(currentDate).toISOString().slice(0, 10)
     await reportCalculationResource.getList({currentDate})
 
-    // router.push(`/api/offers/report?currentDate=${currentDate
-    //   .toISOString()
-    //   .slice(0, 10)
-    // }`);
+   // router.push(`/api/offers/report?currentDate=${currentDate
+   //   .toISOString()
+   //   .slice(0, 10)
+   // }`);
   }
 
   return (

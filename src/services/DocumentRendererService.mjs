@@ -1,4 +1,4 @@
-// import { render } from '../libs/carbone.mjs';
+import { render } from '../libs/carbone.mjs';
 
 import Service from '../core/Service.mjs';
 import path from 'path';
