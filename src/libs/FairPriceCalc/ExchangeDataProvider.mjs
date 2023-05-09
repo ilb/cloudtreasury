@@ -8,16 +8,14 @@ export default class ExchangeDataProvider {
         this.date = date
     }
 
-    getInitialVolumeAndMarketData() {
+    async getExchangeData() {
         const browser = new FileBrowser(this.date);
         const parser = new DataFrameParser(this.ticker);
-        const [volumeFile, exchangeFiles] = browser.getFiles();
-        return [volumeFile, exchangeFiles]
-        // console.log(volumeFile)
-        // console.log(exchangeFiles)
-        //
-        // const volumeDf = parser.parseVolumeFile(volumeFile);
-        // const exchangeDf = parser.parseExchangeFiles(exchangeFiles);
+        const [volumeFile, exchangeFiles] = await browser.getFiles(); // here promises
+        // const volumeDf = await parser.parseVolumeFile(volumeFile);
+        const exchangeDf = await parser.parseExchangeFiles(exchangeFiles);
+        console.log(exchangeDf)
+        return [exchangeDf]
         //
         // const marketData = [];
         // for (let index in exchangeDf) {

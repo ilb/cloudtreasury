@@ -16,7 +16,7 @@ export default class FairPriceCalc {
 
         const provider = new ExchangeDataProvider(date, this.ticker)
         const date_utils = new DateUtils()
-        return provider
+        return provider.getExchangeData()
         //     [count_deals, trading_volume, count_days, weighted_average] = self._get_merged_values(market_data)
         //
         //     volume_rate = round(trading_volume / initial_volume * 100, 2)

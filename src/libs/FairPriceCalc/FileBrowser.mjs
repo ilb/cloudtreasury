@@ -6,9 +6,6 @@ import glob from 'glob'
 export default class FileBrowser {
 
     constructor(date_str) {
-        const dateUtils = new DateUtils();
-        this.dateRange = dateUtils.dateRange(date_str, this.DAYS_DELTA);
-
         this.GLOBAL_VOLUME_URL = 'https://ilb.github.io/stockvaluation/securities.xhtml';
         this.GLOBAL_VOLUME_PATH = os.tmpdir() + '/stockvaluation/' + os.userInfo().username + '/volume.xhtml';
         this.BASE_FILE_NAME = '/moex_shares_';
@@ -18,20 +15,23 @@ export default class FileBrowser {
         this.EMPTY_FILE = -1;
         this.EMPTY_FILE_TTL = 3600;
         this.DAYS_DELTA = -45;
+
+        const dateUtils = new DateUtils();
+        this.dateRange = dateUtils.dateRange(date_str, this.DAYS_DELTA);
     }
 
-    _getVolumeFile() {
+    async _getVolumeFile() {
         /**
          * Returns a global volume file
          */
-        let file = this._browseInternet(this.GLOBAL_VOLUME_URL, this.GLOBAL_VOLUME_PATH);
+        let file = await this._browseInternet(this.GLOBAL_VOLUME_URL, this.GLOBAL_VOLUME_PATH);
         if (file === null) {
             throw new Error('Global volume file not found');
         }
         return file;
     }
 
-    _getExchangeFiles() {
+    async _getExchangeFiles() {
         let filesList = [];
         for (let date of this.dateRange) {
             let file = this._browseFilesystem(this._createFilesystemPath(date));
@@ -42,9 +42,21 @@ export default class FileBrowser {
                 filesList.push(file);
                 continue;
             }
-            file = this._browseInternet(this._create_internet_path(date), this._createFilesystemPath(date, true));
+            file = await this._browseInternet(this._create_internet_path(date), this._createFilesystemPath(date, true));
             if (file === this.EMPTY_FILE) {
-                open(this._createFilesystemPath(date, true).replace('csv', 'empty'), 'a').close();
+                const path = this._createFilesystemPath(date, true)
+                fs.writeFile(path, '', { flag: 'a' }, function (error) {
+                    if (error) {
+                        throw new Error('Ошибка при создании csv файля для empty', error)
+                    } else {
+                        fs.rename(path, path.replace('csv', 'empty'), function (error) {
+                            if (error) {
+                                throw new Error('Ошибка при переименовании .csv в .empty', error)
+                            }
+                        });
+                    }
+                });
+
                 continue;
             }
             filesList.push(file);
@@ -52,17 +64,16 @@ export default class FileBrowser {
         return filesList;
     }
 
-    getFiles() {
+    async getFiles() {
         /**
          * Returns a list of files in a date range
          * and a global volume file
          */
-        return [this._getVolumeFile(), this._getExchangeFiles()];
+        return [await this._getVolumeFile(), await this._getExchangeFiles()];
     }
 
     async _browseInternet(url, savePath) {
         this._checkWorkDirExist();
-
         try {
             const response = await fetch(url, {
                 method: 'GET',
@@ -76,10 +87,11 @@ export default class FileBrowser {
                 const buffer = Buffer.from(arrayBuffer)
                 fs.writeFileSync(savePath, buffer);
             }
+
         } catch (e) {
             throw new Error(`HTTP error: ${e.message}`);
         }
-
+        // console.log(savePath)
         return savePath;
     }
     _checkWorkDirExist() {
@@ -99,7 +111,7 @@ export default class FileBrowser {
          * like this: stockvaluation/moex_shares_2019_04_12.csv
          * or this for empty files: stockvaluation/moex_shares_2019_04_12.
          */
-        const date_iso = new Date(date).toISOString().substring(0,10).replace(/-/g, "");
+        const date_iso = new Date(date).toISOString().substring(0,10).replace(/-/g, "_");
         let path = '';
         if (with_ext) {
             path = `${this.BASE_FILE_PATH}${this.BASE_FILE_NAME}${date_iso}.csv`;
