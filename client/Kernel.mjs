@@ -17,10 +17,7 @@ import TickerRatingSchema from './scheme/TickerRatingSchema.mjs';
 import StockCalculationResults from './scheme/StockCalculationResultsSchema.mjs';
 import GeneratingReportSchema from './scheme/GeneratingReportSchema.mjs'
 
-
 import DocumentRendererService from '../src/services/DocumentRendererService.mjs';
-import StockValuationService from '../src/services/StockValuationService.mjs';
-
 
 export default class Kernel {
   constructor() {
@@ -53,7 +50,6 @@ export default class Kernel {
       generatingReportSchema: asClass(GeneratingReportSchema),
 
       documentRendererService: asClass(DocumentRendererService),
-      stockValuationService: asClass(StockValuationService),
     });
   }
 }

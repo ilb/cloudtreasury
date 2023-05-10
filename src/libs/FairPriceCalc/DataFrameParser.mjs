@@ -43,14 +43,6 @@ export default class DataFrameParser {
         if (framesList.length === 0) {
             throw new Error(`Data for this ticker does not exist: ${this.ticker}`);
         }
-        // framesList.forEach((df) => {
-        //     newDf = newDf.join(df, 'Date')
-        // })
-        const merged = framesList.reduce((acc, df) => acc.join(df, 'Date'), new DataFrame([], ['Date', 'Code', 'Close', 'Open', 'Low', 'High', 'Bid', 'Ask', 'WeightedAverage', 'Amount', 'Volume', 'NumberOfTrades']));
-        console.log(merged.show())
-        // console.log(framesList[0].newInstance().merge(...framesList))
-        // const parse = framesList[0].merge(...framesList)
-        // console.log('parseexchange', parse);
-        return 1;
+        return framesList.reduce((acc, df) => acc.union(df), new DataFrame([], ['Date', 'Code', 'Close', 'Open', 'Low', 'High', 'Bid', 'Ask', 'WeightedAverage', 'Amount', 'Volume', 'NumberOfTrades']));
     }
 }

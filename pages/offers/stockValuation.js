@@ -31,9 +31,19 @@ export default function StockValuation({ stocks }) {
 
   async function onSubmit({ date }) {
     setLoading(true);
-    try {
-      const calculationData = await stockValutionsResource.create({ticker: currentStock.ticker, date: new Date(date).toISOString().slice(0, 10)});
-      setCalculationData({ ...calculationData.calculations.data, date: calculationData.calculations.date, active: calculationData.calculations.active === 'ACTIVE' ? 'Да' : 'Нет' });
+      try {
+      const calculationData = await stockValutionsResource.create({
+        ticker: currentStock.ticker,
+        isin: currentStock.isin,
+        initialVolume: currentStock.value,
+        date: new Date(date).toISOString().slice(0, 10),
+      });
+      console.log(calculationData)
+      setCalculationData({
+        ...calculationData.calculations,
+        date: calculationData.calculations.date,
+        active: calculationData.calculations.active === 'ACTIVE' ? 'Да' : 'Нет'
+      });
     } catch (e) {
       Notification.error('Что-то пошло не так. Проверьте введенный тикер, возможно по нему отсутствуют данные');
     }

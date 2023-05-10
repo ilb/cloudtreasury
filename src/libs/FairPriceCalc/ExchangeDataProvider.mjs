@@ -8,29 +8,45 @@ export default class ExchangeDataProvider {
         this.date = date
     }
 
-    async getExchangeData() {
+    async getMarketData() {
         const browser = new FileBrowser(this.date);
         const parser = new DataFrameParser(this.ticker);
         const [volumeFile, exchangeFiles] = await browser.getFiles(); // here promises
+
         // const volumeDf = await parser.parseVolumeFile(volumeFile);
         const exchangeDf = await parser.parseExchangeFiles(exchangeFiles);
-        console.log(exchangeDf)
-        return [exchangeDf]
-        //
-        // const marketData = [];
-        // for (let index in exchangeDf) {
-        //     const row = exchangeDf[index];
-        //     marketData.push({
-        //         "countDeals": this._checkDtypeInt(row['NumberOfTrades']),
-        //         "tradingVolume": this._checkDtypeFloat(row['Volume']),
-        //         "weightedAverage": this._checkDtypeFloat(row['WeightedAverage'])
-        //     });
-        // }
-        //
-        // const initialVolume = this._getInitialVolume(volumeDf);
-        // const isin = this._getIsin(volumeDf);
-        //
-        // return [initialVolume, isin, marketData];
+
+        const marketData = [];
+        const length = exchangeDf.count()
+        for (let index=0; index<length; index++) {
+            const row = exchangeDf.getRow(index)
+            marketData.push({
+                "countDeals": this._checkDTypeInt(row.get('NumberOfTrades')),
+                "tradingVolume": this._checkDTypeFloat(row.get('Volume')),
+                "weightedAverage": this._checkDTypeFloat(row.get('WeightedAverage'))
+            });
+        }
+
+        return marketData;
+    }
+
+    _checkDTypeFloat(value) {
+        if (typeof value === 'number') {
+            return value;
+        } else if (typeof value === 'string') {
+            return parseFloat(value.replace(',', '.'));
+        } else {
+            return parseFloat(value);
+        }
+    }
+    _checkDTypeInt(value) {
+        if (typeof value === 'number') {
+            return value;
+        } else if (typeof value === 'string') {
+            return parseInt(value);
+        } else {
+            return parseInt(value);
+        }
     }
 
 }

@@ -34,13 +34,6 @@ export default class CalculationRepository extends Repository {
     });
   }
 
-  async findByDate(date) {
-    return this.model.findMany({
-      where: {
-        date
-      }
-    });
-  }
   async findAllByDate({currentDate}) {
     return this.model.findMany({
       where: {

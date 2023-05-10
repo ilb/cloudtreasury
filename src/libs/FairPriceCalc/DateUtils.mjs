@@ -1,5 +1,5 @@
 export default class DateUtils {
-    get_end_date(date_str) {
+    getEndDate(date_str) {
         let date_end = new Date(date_str);
         if (date_end.toDateString() == new Date().toDateString()) {
             date_end.setDate(date_end.getDate() - 1);
