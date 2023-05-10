@@ -14,7 +14,7 @@ import Notification from '../../client/helpers/Notification';
 export default function StockValuation({ stocks }) {
   const {
     /** @type {TickerRatingSchema} */ tickerRatingSchema,
-    /** @type {StockCalculationResults} */ stockCalculationResults,
+    /** @type {StockCalculationResultsSchema} */ stockCalculationResultsSchema,
     /** @type {StockValutionsResource} */ stockValutionsResource
   } = useContext(AwilixContext);
 
@@ -38,7 +38,6 @@ export default function StockValuation({ stocks }) {
         initialVolume: currentStock.value,
         date: new Date(date).toISOString().slice(0, 10),
       });
-      console.log(calculationData)
       setCalculationData({
         ...calculationData.calculations,
         date: calculationData.calculations.date,
@@ -88,15 +87,15 @@ export default function StockValuation({ stocks }) {
               </Col>
               <Col xs={24} sm={24} md={12} xxl={8}>
                 <Card title="Результаты расчёта" >
-                  <AutoForm schema={createSchemaBridge(stockCalculationResults.get())} readOnly class="ant-form-vertical">
+                  <AutoForm schema={createSchemaBridge(stockCalculationResultsSchema.get())} model={calculationData} readOnly class="ant-form-vertical">
                     <Spin spinning={loading}>
-                      <AutoField name="receivedDate" readOnly value={calculationData.date} />
-                      <AutoField name="active" readOnly value={calculationData.active} />
-                      <AutoField name="fairPrice" readOnly value={calculationData.fairPrice} />
-                      <AutoField name="countDays" readOnly value={calculationData.countDays} />
-                      <AutoField name="countDeals" readOnly value={calculationData.countDeals} />
-                      <AutoField name="initialVolume" readOnly value={calculationData.initialVolume} />
-                      <AutoField name="tradingVolume"readOnly value={calculationData.tradingVolume} />
+                      <AutoField name="date" readOnly />
+                      <AutoField name="active" readOnly />
+                      <AutoField name="fairPrice" readOnly />
+                      <AutoField name="countDays" readOnly />
+                      <AutoField name="countDeals" readOnly />
+                      <AutoField name="initialVolume" readOnly />
+                      <AutoField name="tradingVolume"readOnly />
                     </Spin>
                   </AutoForm>
                 </Card>

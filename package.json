@@ -30,6 +30,7 @@
     "carbone": "^3.5.5",
     "dataframe-js": "^1.4.4",
     "glob": "^8.1.0",
+    "moment": "^2.29.4",
     "next": "12.3.0",
     "next-auth": "4.9.0",
     "next-compose-plugins": "^2.2.1",
@@ -42,8 +43,7 @@
     "sass": "^1.53.0",
     "uniforms": "^3.10.0-rc.1",
     "uniforms-antd": "^3.10.0-rc.1",
-    "uniforms-bridge-json-schema": "^3.10.0-rc.1",
-    "xmldom": "^0.6.0"
+    "uniforms-bridge-json-schema": "^3.10.0-rc.1"
   },
   "devDependencies": {
     "@ilb/ldapenv-cli": "^1.0.10",

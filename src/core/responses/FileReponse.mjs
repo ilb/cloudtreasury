@@ -2,10 +2,10 @@ import Response from './Response.mjs';
 
 export default class FileResponse extends Response {
   /**
-   * @param res
    * @param {File} file
+   * @param res
    */
-  static build(res, file) {
+  static build(file, res) {
     res.setHeader('Content-Disposition', `attachment; filename=${file.getName()}`);
     res.setHeader('Content-Length', file.getLength());
     res.setHeader('Content-Type', file.getContentType());

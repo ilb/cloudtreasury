@@ -4,9 +4,22 @@ import Service from '../core/Service.mjs';
 import path from 'path';
 import os from 'os';
 
+
 export default class DocumentRendererService extends Service {
-  constructor() {
-    super();
+  init (stockValuations, currentDate) {
+    this.renderOptions = {
+      attachmentName: `${currentDate}`, format: 'xlsx', formatTemp: 'ods'};
+    this.data = {};
+    this.data.currentDate = currentDate;
+    this.data.stockValuations = stockValuations.map(({ ticker, date, data }) => ({ 
+        ticker, 
+        date, 
+        ...data, 
+        active: data.active === 'ACTIVE' ? "ДА" : "НЕТ",
+        adjustment: data.active === 'LOW_ACTIVE' ? "ДА" : "",
+        fairPrice: data.fairPrice.toString().replace(".", ",") 
+    }));
+
     const mimeTypes = new Map();
     mimeTypes.set('pdf', 'application/pdf');
     mimeTypes.set('xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -22,10 +35,17 @@ export default class DocumentRendererService extends Service {
     };
     this.defautFormat = 'odt';
     this.defautTemplateFormat = 'odt';
-    this.templateBase = process.env['apps.cloudtreasurytemplates.ws'];
+    this.templateBase = process.env['TEMPLATES'];
+
+    return this._renderFile(
+      'tickers',
+      this.data,
+      this.renderOptions
+    );
+
   }
 
-  async render(templateCode, data, renderOptions = {}) {
+  async _renderFile(templateCode, data, renderOptions = {}) {
     const format = renderOptions.format || this.defautFormat;
     const formatTemp = renderOptions.formatTemp || this.defautTemplateFormat;
     const options = { ...this.defaultOptions };

@@ -14,12 +14,7 @@ export default function Offer({ calculations }) {
       ticker: item.ticker,
       date: item.date,
 
-      active: item.data.active === 'ACTIVE' ? 'Да' : 'Нет',
-      fairPrice: item.data.fairPrice,
-      countDays: item.data.countDays,
-      countDeals: item.data.countDeals,
-      initialVolume: item.data.initialVolume,
-      tradingVolume: item.data.tradingVolume, 
+      ...item.data
     }))
   }
 
@@ -47,6 +42,7 @@ export default function Offer({ calculations }) {
     {
       title: 'Активный рынок',
       dataIndex: 'active',
+      render: (active) => active === 'ACTIVE' ? 'Да' : 'Нет' 
     },
     {
       title: 'Справедливая стоимость',

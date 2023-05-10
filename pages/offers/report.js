@@ -11,52 +11,40 @@ export default function Report() {
   const router = useRouter();
   const {
     /** @type {GeneratingReportSchema} */ generatingReportSchema,
-    /** @type {ReportCalculationResource} */ reportCalculationResource
   } = useContext(AwilixContext);
 
   const onSubmit = async ({currentDate}) => {
-    currentDate = new Date(currentDate).toISOString().slice(0, 10)
-    await reportCalculationResource.getList({currentDate})
-
-   // router.push(`/api/offers/report?currentDate=${currentDate
-   //   .toISOString()
-   //   .slice(0, 10)
-   // }`);
+   router.push(`/api/offers/report?currentDate=${currentDate
+     .toISOString()
+     .slice(0, 10)
+   }`);
   }
 
   return (
     <Layout>
-        <Layout>
-          <StockNavMenu selectedMenuItem={'report'} />
-            <Layout.Content>
-
-
-              <Row
-                gutter={2}
-                type="flex"
-                justify="center"
-                style={{ minHeight: '100vh', padding: '15px 0px 0px 0px' }}>
-                <Col xs={24} sm={24} md={12} xxl={8}>
-                  <Card title='Генерация отчёта'>
-                    <AutoForm 
-                      schema={createSchemaBridge(generatingReportSchema.get())} 
-                      onSubmit={onSubmit} 
-                      class="ant-form-vertical">
-                      <DateField format="YYYY-MM-DD" showTime={false} name='currentDate' /> 
-                      <SubmitField value="Отправить" />
-                      <ErrorsField />
-                    </AutoForm>
-                  </Card>
-                </Col>
-              </Row>
-
-
-
-            </Layout.Content>
-          </Layout>
+      <Layout>
+        <StockNavMenu selectedMenuItem={'report'} />
+          <Layout.Content>
+            <Row
+              gutter={2}
+              type="flex"
+              justify="center"
+            >
+              <Col xs={24} sm={24} md={12} xxl={8}>
+                <Card title='Генерация отчёта'>
+                  <AutoForm 
+                    schema={createSchemaBridge(generatingReportSchema.get())} 
+                    onSubmit={onSubmit} 
+                    class="ant-form-vertical">
+                    <DateField format="YYYY-MM-DD" showTime={false} name='currentDate' /> 
+                    <SubmitField value="Отправить" />
+                    <ErrorsField />
+                  </AutoForm>
+                </Card>
+              </Col>
+            </Row>
+          </Layout.Content>
         </Layout>
-
-
-
-  )
+        </Layout>
+)
 }

@@ -1,6 +1,5 @@
 import Usecases from '../core/usecases/Usecases.mjs';
-import FairPriceCalculator from '../libs/FairPriceCalculator.mjs'
-import FairPriceCalc from '../libs/FairPriceCalc/FairPriceCalc.mjs'
+import File from './../../src/core/classes/File.mjs';
 
 export default class CalculationUsecases extends Usecases {
   
@@ -14,11 +13,8 @@ export default class CalculationUsecases extends Usecases {
     return { calculations };
   }
 
-  // async getCalculateAndSave({ request }) {
-  async getCalculateAndSave({ request, calculationRepository }) {
-    const calc = new FairPriceCalc(request.ticker, request.initialVolume, request.isin)
-    const calculations = await calc.calculate(request.date)
-
+  async getCalculationAndSave({ request, calculationRepository, calculationService }) {
+    const calculations = await calculationService.calculator(request);
     await calculationRepository.create({ ticker: request.ticker, date: request.date, data: calculations });
     return { calculations };
   }
@@ -26,7 +22,7 @@ export default class CalculationUsecases extends Usecases {
   async getFile({ request, calculationRepository, documentRendererService }) {
     const stockValuations = await calculationRepository.findAllByDate(request);
     const currentDate = request.currentDate
-    const file = new FairPriceCalculator(documentRendererService, stockValuations, currentDate);
-    return {file}
+    const file = await documentRendererService.init(stockValuations, currentDate);
+    return new File(file.content, file.contentType, file.attachmentName);
   }
 }

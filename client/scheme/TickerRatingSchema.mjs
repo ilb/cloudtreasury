@@ -1,4 +1,5 @@
 import Schema from './Schema.mjs';
+import moment from 'moment';
 
 export default class TickerRatingSchema extends Schema {
   get() {
@@ -13,7 +14,7 @@ export default class TickerRatingSchema extends Schema {
           title: 'Дата оценки',
           type: 'object',
           // format: 'date',
-          default: new Date()
+          default: moment().format('YYYY-MM-DD')
         }
       },
   

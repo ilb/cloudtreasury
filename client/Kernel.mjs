@@ -5,7 +5,6 @@ import RoleResource from './resources/RoleResource.mjs';
 import UserResource from './resources/UserResource.mjs';
 import StockResource from './resources/StockResource.mjs';
 import StockValutionsResource from './resources/StockValutionsResource.mjs';
-import ReportCalculationResource from './resources/ReportCalculationResource.mjs';
 
 import PermissionSchema from './scheme/PermissionSchema.mjs';
 import RoleSchema from './scheme/RoleSchema.mjs';
@@ -14,10 +13,9 @@ import SigninSchema from './scheme/SigninSchema.mjs';
 import SignupSchema from './scheme/SignupSchema.mjs';
 import StockSchema from './scheme/StockSchema.mjs';
 import TickerRatingSchema from './scheme/TickerRatingSchema.mjs';
-import StockCalculationResults from './scheme/StockCalculationResultsSchema.mjs';
+import StockCalculationResultsSchema from './scheme/StockCalculationResultsSchema.mjs';
 import GeneratingReportSchema from './scheme/GeneratingReportSchema.mjs'
 
-import DocumentRendererService from '../src/services/DocumentRendererService.mjs';
 
 export default class Kernel {
   constructor() {
@@ -37,7 +35,6 @@ export default class Kernel {
       userResource: asClass(UserResource),
       stockResource: asClass(StockResource),
       stockValutionsResource: asClass(StockValutionsResource),
-      reportCalculationResource: asClass(ReportCalculationResource),
 
       permissionSchema: asClass(PermissionSchema),
       roleSchema: asClass(RoleSchema),
@@ -46,10 +43,8 @@ export default class Kernel {
       signupSchema: asClass(SignupSchema),
       stockSchema: asClass(StockSchema),
       tickerRatingSchema: asClass(TickerRatingSchema),
-      stockCalculationResults: asClass(StockCalculationResults),
+      stockCalculationResultsSchema: asClass(StockCalculationResultsSchema),
       generatingReportSchema: asClass(GeneratingReportSchema),
-
-      documentRendererService: asClass(DocumentRendererService),
     });
   }
 }

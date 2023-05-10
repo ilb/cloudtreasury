@@ -12,11 +12,11 @@ import JsonContext from './contexts/JsonContext.mjs';
  * @param middlewares
  * @return {(function(*, *, *): Promise<void>)|*}
  */
-export function handleRequest(usecases, method, middlewares = []) {
+export function handleRequest(usecases, method, middlewares = [], responseHandler = JsonResponse) {
   return async (req, res, next) => {
     const context = await JsonContext.build({ req, res, next });
 
-    return handle(usecases, method, middlewares, JsonResponse, context);
+    return handle(usecases, method, middlewares, responseHandler, context);
   };
 }
 

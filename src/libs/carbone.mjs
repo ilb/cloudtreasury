@@ -1,4 +1,4 @@
-// import carbone from 'carbone';
+import carbone from 'carbone';
 
 export function render(templatePath, data, options) {
   return new Promise((resolve, reject) => {

@@ -1,4 +1,5 @@
 import Schema from './Schema.mjs';
+import moment from 'moment';
 
 export default class GeneratingReportSchema extends Schema {
   get() {
@@ -8,8 +9,8 @@ export default class GeneratingReportSchema extends Schema {
         currentDate: {
           title: 'Дата генерации',
           type: 'object',
+          default: moment().format('YYYY-MM-DD'),
           // format: 'date',
-          default: new Date()
         }
       },
       required: ['currentDate'],

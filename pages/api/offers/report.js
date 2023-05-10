@@ -1,7 +1,8 @@
 import { createRouter } from 'next-connect';
 import { handleRequest } from '../../../src/core/index.mjs';
 import CalculationUsecases from "../../../src/usecases/CalculationUsecases.mjs";
+import FileResponse from './../../../src/core/responses/FileReponse.mjs'
 
 export default createRouter()
-  .get(handleRequest(CalculationUsecases, 'getFile', 'access:offers_read'))
+  .get(handleRequest(CalculationUsecases, 'getFile', 'access:offers_read', FileResponse))
   .handler();

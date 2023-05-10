@@ -1,14 +1,15 @@
 import Schema from './Schema.mjs';
+import moment from 'moment';
 
-export default class StockCalculationResults extends Schema {
+export default class stockCalculationResultsSchema extends Schema {
   get() {
     return {
       type: 'object',
       properties: {
-        receivedDate: {
+        date: {
           title: 'Дата оценки',
-          type: 'string'
-          // format: 'date'
+          type: 'string',
+          // format: 'date',
         },
         active: {
           title: 'Активный рынок',
