@@ -67,7 +67,7 @@ export default function StockValuation({ stocks }) {
         >
         <Col xs={24} sm={24} md={12} xxl={8}>
           <Card title="Данные ценной бумаги">
-            <AutoForm schema={createSchemaBridge(tickerRatingSchema.get())} onSubmit={onSubmit} class="ant-form-vertical" layout="vertical">
+            <AutoForm schema={createSchemaBridge(tickerRatingSchema.get())} onSubmit={onSubmit} class="ant-form-vertical">
               {/* <AutoField name='ticker' component={SearchStock} /> */}
               <SearchStock
               name='ticker'
@@ -84,7 +84,7 @@ export default function StockValuation({ stocks }) {
         <Col xs={24} sm={24} md={12} xxl={8}>
           <Card title="Результаты расчёта" >
             {/* class="ant-form-vertical"  */}
-            <AutoForm schema={createSchemaBridge(stockCalculationResultsSchema.get(active))} model={calculationData} readOnly layout="vertical"> 
+            <AutoForm schema={createSchemaBridge(stockCalculationResultsSchema.get())} model={calculationData} readOnly class="ant-form-vertical"> 
               <Spin spinning={loading}>
                 <AutoField name="date" readOnly />
                 <AutoField name="status" readOnly />
