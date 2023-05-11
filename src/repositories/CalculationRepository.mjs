@@ -18,7 +18,7 @@ export default class CalculationRepository extends Repository {
   async create({ ticker, date, data })  {
     return this.model.upsert({
       where: {
-        date_ticker: {
+        dateTicker: {
           ticker,
           date
         }

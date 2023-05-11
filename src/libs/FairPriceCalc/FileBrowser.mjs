@@ -5,17 +5,16 @@ import glob from 'glob'
 
 export default class FileBrowser {
 
-  constructor(date_str) {
-    this.GLOBAL_VOLUME_URL = 'https://ilb.github.io/stockvaluation/securities.xhtml';
-    this.GLOBAL_VOLUME_PATH = os.tmpdir() + '/stockvaluation/' + os.userInfo().username + '/volume.xhtml';
-    this.BASE_FILE_NAME = '/moex_shares_';
-    this.BASE_FILE_URL = 'https://mfd.ru/marketdata/endofday/5/';
-    this.BASE_FILE_PATH = os.tmpdir() + '/stockvaluation/' + os.userInfo().username;
-    //const BASE_FILE_PATH = '/var/apps/stockvaluation';
-    this.EMPTY_FILE = -1;
-    this.EMPTY_FILE_TTL = 3600;
-    this.DAYS_DELTA = -45;
+  GLOBAL_VOLUME_URL = 'https://ilb.github.io/stockvaluation/securities.xhtml';
+  GLOBAL_VOLUME_PATH = os.tmpdir() + '/stockvaluation/' + os.userInfo().username + '/volume.xhtml';
+  BASE_FILE_NAME = '/moex_shares_';
+  BASE_FILE_URL = 'https://mfd.ru/marketdata/endofday/5/';
+  BASE_FILE_PATH = os.tmpdir() + '/stockvaluation/' + os.userInfo().username;
+  EMPTY_FILE = -1;
+  EMPTY_FILE_TTL = 3600;
+  DAYS_DELTA = -45;
 
+  constructor(date_str) {
     const dateUtils = new DateUtils();
     this.dateRange = dateUtils.dateRange(date_str, this.DAYS_DELTA);
   }
@@ -102,8 +101,8 @@ export default class FileBrowser {
     }
   }
   _create_internet_path(date) {
-    const date_iso = new Date(date).toISOString().slice(0, 10);
-    const path = this.BASE_FILE_URL + this.BASE_FILE_NAME + date_iso.replace(/-/g, '_') + '.csv';
+    // const date_iso = new Date(date).toISOString().slice(0, 10);
+    const path = this.BASE_FILE_URL + this.BASE_FILE_NAME + date.replace(/-/g, '_') + '.csv';
     return path;
   }
 
@@ -112,12 +111,12 @@ export default class FileBrowser {
     * like this: stockvaluation/moex_shares_2019_04_12.csv
     * or this for empty files: stockvaluation/moex_shares_2019_04_12.
     */  
-    const date_iso = new Date(date).toISOString().substring(0,10).replace(/-/g, "_");
+    // const date_iso = new Date(date).toISOString().substring(0,10).replace(/-/g, "_");
     let path = '';
     if (with_ext) {
-      path = `${this.BASE_FILE_PATH}${this.BASE_FILE_NAME}${date_iso}.csv`;
+      path = `${this.BASE_FILE_PATH}${this.BASE_FILE_NAME}${date}.csv`;
     } else {
-      path = `${this.BASE_FILE_PATH}${this.BASE_FILE_NAME}${date_iso}`;
+      path = `${this.BASE_FILE_PATH}${this.BASE_FILE_NAME}${date}`;
     }
     return path;
   }

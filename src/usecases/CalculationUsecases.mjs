@@ -15,14 +15,13 @@ export default class CalculationUsecases extends Usecases {
 
   async getCalculationAndSave({ request, calculationRepository, calculationService }) {
     const calculations = await calculationService.calculator(request);
-    await calculationRepository.create({ ticker: request.ticker, date: request.date, data: calculations });
+    await calculationRepository.create({ ...request, data: calculations });
     return { calculations };
   }
 
   async getFile({ request, calculationRepository, documentRendererService }) {
     const stockValuations = await calculationRepository.findAllByDate(request);
-    const currentDate = request.currentDate
-    const file = await documentRendererService.init(stockValuations, currentDate);
+    const file = await documentRendererService.init(stockValuations,  request.currentDate);
     return new File(file.content, file.contentType, file.attachmentName);
   }
 }

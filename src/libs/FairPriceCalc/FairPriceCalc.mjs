@@ -33,20 +33,20 @@ export default class FairPriceCalc {
       fairPrice = weightedAverage * 10;
     } else if (active == 'LOW_ACTIVE') {
       fairPrice = weighted_average * 9.9
-    } else
+    } else {
       fairPrice = 0
-
+    }
     return {
-      active: active,
+      active,
       fairPrice: fairPrice.toFixed(2),
-      countDays: countDays,
-      countDeals: countDeals,
+      countDays,
+      countDeals,
       tradingVolume: volumeRate,
       initialVolume: this.initialVolume,
       isin: this.isin,
       date: date_utils.getEndDate(date),
-      marketData: marketData
-    };
+      marketData,
+    }
   }
 
   _getMergedValues(marketData) {

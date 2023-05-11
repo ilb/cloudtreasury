@@ -11,7 +11,7 @@ export default class stockCalculationResultsSchema extends Schema {
           type: 'string',
           // format: 'date',
         },
-        active: {
+        status: {
           title: 'Активный рынок',
           type: 'string'
         },

@@ -6,12 +6,39 @@ import os from 'os';
 
 
 export default class DocumentRendererService extends Service {
+  constructor({templates}) {
+    super();
+    this.templatePath = templates;
+  }
+
+  OPTIONS = {
+    lang: 'ru',
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    renderPath: path.join(os.tmpdir(), `carbone_render_${process.env.USER}`),
+    format: 'odt',
+    formatTemplate: 'odt',
+  }
+  memeTypes = {
+    pdf: 'application/pdf',
+    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    xls: 'application/vnd.ms-excel',
+    odt: 'application/vnd.oasis.opendocument.text',
+    ods: 'application/vnd.oasis.opendocument.spreadsheet'
+  }
+
   init (stockValuations, currentDate) {
-    this.renderOptions = {
-      attachmentName: `${currentDate}`, format: 'xlsx', formatTemp: 'ods'};
-    this.data = {};
-    this.data.currentDate = currentDate;
-    this.data.stockValuations = stockValuations.map(({ ticker, date, data }) => ({ 
+    console.log(this.templatePath)
+
+    const renderOptions = {
+      attachmentName: currentDate, 
+      format: 'xlsx', 
+      formatTemplate: 'ods',
+      template: 'tickers'
+    };
+
+    const data = {}
+    data.date = currentDate;
+    data.stockValuations = stockValuations.map(({ ticker, date, data }) => ({ 
         ticker, 
         date, 
         ...data, 
@@ -20,46 +47,23 @@ export default class DocumentRendererService extends Service {
         fairPrice: data.fairPrice.toString().replace(".", ",") 
     }));
 
-    const mimeTypes = new Map();
-    mimeTypes.set('pdf', 'application/pdf');
-    mimeTypes.set('xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    mimeTypes.set('xls', 'application/vnd.ms-excel');
-    mimeTypes.set('odt', 'application/vnd.oasis.opendocument.text');
-    mimeTypes.set('ods', 'application/vnd.oasis.opendocument.spreadsheet');
-
-    this.mimeTypes = mimeTypes;
-    this.defaultOptions = {
-      lang: 'ru',
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      renderPath: path.join(os.tmpdir(), `carbone_render_${process.env.USER}`)
-    };
-    this.defautFormat = 'odt';
-    this.defautTemplateFormat = 'odt';
-    this.templateBase = process.env['TEMPLATES'];
-
-    return this._renderFile(
-      'tickers',
-      this.data,
-      this.renderOptions
-    );
-
+    return this._renderFile(data, renderOptions);
   }
 
-  async _renderFile(templateCode, data, renderOptions = {}) {
-    const format = renderOptions.format || this.defautFormat;
-    const formatTemp = renderOptions.formatTemp || this.defautTemplateFormat;
-    const options = { ...this.defaultOptions };
-    const contentType = this.mimeTypes.get(format);
-    const basePath = this.templateBase.startsWith('file://')
-      ? this.templateBase.substring(7)
-      : this.templateBase;
+  async _renderFile(data, renderOptions = {}) {
 
-    if (format != 'odt' || format != 'ods') {
-      options.convertTo = format;
+    const options = {
+      ...this.OPTIONS,
+      ...renderOptions
     }
-    const templatePath = `${basePath}/templates/${templateCode}.${formatTemp}`;
+    
+    const contentType = this.memeTypes[options.format];
+
+    // if (options.format != 'odt' || options.format != 'ods') options.convertTo = options.format;
+
+    const templatePath = `${this.templatePath}/templates/${options.template}.${options.formatTemplate}`;
     const content = await render(templatePath, data, options);
-    const attachmentName = `${renderOptions.attachmentName || templateCode}.${format}`;
+    const attachmentName = `${options.attachmentName || options.template}.${options.format}`;
     return { content, contentType, attachmentName };
   }
 }

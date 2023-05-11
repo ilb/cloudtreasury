@@ -14,7 +14,7 @@ export default class TickerRatingSchema extends Schema {
           title: 'Дата оценки',
           type: 'object',
           // format: 'date',
-          default: moment().format('YYYY-MM-DD')
+          default: new Date()
         }
       },
   

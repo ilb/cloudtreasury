@@ -111,5 +111,5 @@ model Calculation {
   // Данные расчёта
   data      Json
 
-  @@unique([date, ticker], name: "date_ticker")
+  @@unique([date, ticker], name: "dateTicker")
 }

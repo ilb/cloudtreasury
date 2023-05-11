@@ -1,10 +1,10 @@
 export default class ExchangePeriod {
 
-  constructor(initialVolume, countDeals, tradingVolume, countDays) {
-    this.minDays = 5;
-    this.minTrades = 10;
-    this.minVolumeRate = 0.1;
+  minDays = 5;
+  minTrades = 10;
+  minVolumeRate = 0.1;
 
+  constructor(initialVolume, countDeals, tradingVolume, countDays) {
     this.initialVolume = initialVolume;
     this.countDeals = countDeals;
     this.tradingVolume = tradingVolume;

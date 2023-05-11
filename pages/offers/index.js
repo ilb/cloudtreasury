@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from 'react'
 import NavMenu from '../../client/components/stock/StockNavMenu'
-import { Table } from 'antd'
+import { Card, Table, Typography } from 'antd'
 import { handlePage } from '../../src/core/index.mjs';
 import CalculationUsecases from '../../src/usecases/CalculationUsecases.mjs';
+const { Title } = Typography;
 
 
 export default function Offer({ calculations }) {
@@ -77,16 +78,12 @@ export default function Offer({ calculations }) {
   return (
     <>
       <NavMenu selectedMenuItem={'offers'} />
-      <Table
-          // onRow={(record) => ({
-          //   onClick: async () => await router.push(`users/${record.id}`)
-          // })}
-          columns={columns}
-          dataSource={tableData}
-          // pagination={params.pagination}
-          // onChange={handleTableChange}
-        />
-      
+      <Card title='' className='py16'>
+        <Title level={4}>
+            <span>Расчёты</span>
+        </Title>
+        <Table columns={columns} dataSource={tableData} />
+      </Card>
     </>
 
   )

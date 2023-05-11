@@ -29,6 +29,7 @@ export default class Kernel {
       request: asValue(context.request),
       prisma: asValue(prisma),
       access: asClass(Access),
+      templates: asValue(process.env['TEMPLATES'])
     });
   }
 
