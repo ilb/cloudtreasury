@@ -1,5 +1,4 @@
 import { DataFrame } from 'dataframe-js';
-const fs = require('fs').promises;
 
 export default class DataFrameParser {
   constructor(ticker) {

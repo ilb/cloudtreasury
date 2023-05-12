@@ -27,6 +27,6 @@ export default class ExchangePeriod {
   }
 
   _getVolumeRate() {
-    return (this.tradingVolume / this.initialVolume * 100).toFixed(2);
+    return parseFloat((this.tradingVolume / this.initialVolume * 100).toFixed(2));
   }
 }

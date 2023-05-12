@@ -2,6 +2,7 @@ import DateUtils from "./DateUtils.mjs";
 import fs from 'fs'
 import os from 'os'
 import glob from 'glob'
+// import fetch from 'node-fetch'; // for testing
 
 export default class FileBrowser {
 

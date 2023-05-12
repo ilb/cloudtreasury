@@ -32,12 +32,12 @@ export default class FairPriceCalculator {
     }
     return {
       active,
-      fairPrice: fairPrice.toFixed(2),
+      fairPrice: parseFloat(fairPrice.toFixed(2)),
       countDays,
       countDeals,
-      tradingVolume: volumeRate,
+      tradingVolume: parseFloat(volumeRate),
       initialVolume,
-      isin,
+      isin: isin ?? 'nan',
       date: date_utils.getEndDate(date),
       marketData
     };
