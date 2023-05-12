@@ -1,8 +1,9 @@
 import fs from 'fs/promises';
 import CalculationService from './../../src/services/CalculationService.mjs'
+import path from 'path'
 
 const calculationService = new CalculationService();
-const casesDir = '/home/pivotdude/Рабочий стол/cloudtreasuryv2/tests/services/cases'
+const casesDir = path.resolve() + '/tests/services/cases'
 
 describe('calculate fair price for a ticker', () => {
 
