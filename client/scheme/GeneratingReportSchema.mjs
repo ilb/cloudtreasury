@@ -6,14 +6,14 @@ export default class GeneratingReportSchema extends Schema {
     return {
       type: 'object',
       properties: {
-        currentDate: {
-          title: 'Дата генерации',
-          type: 'object',
+        date: {
+          title: 'Дата',
+          type: 'string',
           default: moment().format('YYYY-MM-DD'),
           // format: 'date',
         }
       },
-      required: ['currentDate'],
+      required: ['date'],
     }
   }
 }

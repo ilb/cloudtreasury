@@ -1,27 +1,41 @@
 import Usecases from '../core/usecases/Usecases.mjs';
-import File from './../../src/core/classes/File.mjs';
 
 export default class CalculationUsecases extends Usecases {
-  
+
+  /**
+   * @return {*}
+   */
+  async index() {
+    return {};
+  }
+
   /**
    * @param {CalculationRepository} calculationRepository
    * @param {Request} request
    * @returns {Promise<{calculations: (*)}>}
    */
-  async index({ calculationRepository, request }) {
-    const calculations = await calculationRepository.getAll(request);
-    return { calculations };
+  async list({ calculationService, request }) {
+    return calculationService.getList(request);
   }
 
-  async getCalculationAndSave({ request, calculationRepository, calculationService }) {
-    const calculations = await calculationService.calculator(request);
-    await calculationRepository.create({ ...request, data: calculations });
-    return { calculations };
+  /**
+   * @param request
+   * @param {CalculationRepository} calculationRepository
+   * @param {CalculationService} calculationService
+   * @return {Promise<{calculations: (Promise<{date: string, countDeals: *, initialVolume: *, marketData: [], active: string, fairPrice: *, countDays: *, tradingVolume: string, isin: *}>|*)}>}
+   */
+  async create({ request, calculationRepository, calculationService }) {
+    const calculations = await calculationService.calculate(request);
+
+    return calculationRepository.create({ ...request, data: calculations });
   }
 
-  async getFile({ request, calculationRepository, documentRendererService }) {
-    const stockValuations = await calculationRepository.findAllByDate(request);
-    const file = await documentRendererService.init(stockValuations,  request.currentDate);
-    return new File(file.content, file.contentType, file.attachmentName);
+  /**
+   * @param request
+   * @param {CalculationService} calculationService
+   * @return {Promise<void>}
+   */
+  async exportCalculations({ request, calculationService }) {
+    return calculationService.exportCalculations(request)
   }
 }

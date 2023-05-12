@@ -2,7 +2,7 @@ import CrudUsecases from './CrudUsecases.mjs';
 
 export default class DictionaryUsecases extends CrudUsecases {
   /**
-   * @returns {Promise<*>}
+   * @returns {*}
    */
   async index() {
     const data = await this.repository.getAll();

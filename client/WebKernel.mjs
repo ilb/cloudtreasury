@@ -1,10 +1,9 @@
-import { createContainer, asClass, asValue } from 'awilix';
+import { createContainer, asClass } from 'awilix';
 
 import PermissionResource from './resources/PermissionResource.mjs';
 import RoleResource from './resources/RoleResource.mjs';
 import UserResource from './resources/UserResource.mjs';
 import StockResource from './resources/StockResource.mjs';
-import StockValutionsResource from './resources/StockValutionsResource.mjs';
 
 import PermissionSchema from './scheme/PermissionSchema.mjs';
 import RoleSchema from './scheme/RoleSchema.mjs';
@@ -15,9 +14,10 @@ import StockSchema from './scheme/StockSchema.mjs';
 import TickerRatingSchema from './scheme/TickerRatingSchema.mjs';
 import StockCalculationResultsSchema from './scheme/StockCalculationResultsSchema.mjs';
 import GeneratingReportSchema from './scheme/GeneratingReportSchema.mjs'
+import CalculationResource from './resources/CalculationResource.mjs';
 
 
-export default class Kernel {
+export default class WebKernel {
   constructor() {
     this.container = createContainer();
   }
@@ -34,7 +34,7 @@ export default class Kernel {
       roleResource: asClass(RoleResource),
       userResource: asClass(UserResource),
       stockResource: asClass(StockResource),
-      stockValutionsResource: asClass(StockValutionsResource),
+      calculationResource: asClass(CalculationResource),
 
       permissionSchema: asClass(PermissionSchema),
       roleSchema: asClass(RoleSchema),

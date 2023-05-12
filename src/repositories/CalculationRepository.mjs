@@ -1,21 +1,10 @@
-import Repository from "../core/Repository.mjs";
+import Repository from '../core/Repository.mjs';
+import moment from 'moment';
 
 export default class CalculationRepository extends Repository {
-  async getAll() {
-    return this.model.findMany(
-      {
-        select: {
-          id: true,
-          createdAt: false,
-          updatedAt: false,
-          date: true,
-          ticker: true,
-          data: true,
-        }
-      }
-    );
-  }
-  async create({ ticker, date, data })  {
+  async create({ ticker, date, data }) {
+    date = moment(date, 'DD.MM.YYYY').toDate();
+
     return this.model.upsert({
       where: {
         dateTicker: {
@@ -34,10 +23,12 @@ export default class CalculationRepository extends Repository {
     });
   }
 
-  async findAllByDate({currentDate}) {
+  async findAllByDate({ date }) {
+    date = moment(date, 'DD.MM.YYYY').toDate();
+
     return this.model.findMany({
       where: {
-        date: currentDate
+        date
       }
     });
   }

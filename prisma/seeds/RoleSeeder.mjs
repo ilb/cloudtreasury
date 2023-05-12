@@ -3,7 +3,7 @@ import Seeder from '../../src/core/Seeder.mjs';
 export default class RoleSeeder extends Seeder {
   async run() {
     const permissions = await this.prisma.Permission.findMany();
-    const analystPermissions = permissions.filter(permission => ['offers_create', 'offers_read', 'offers_update', 'offers_delete'].includes(permission.code));
+    const analystPermissions = permissions.filter(permission => ['calculations_create', 'calculations_read', 'calculations_update', 'calculations_delete'].includes(permission.code));
 
     const roles = [
       {

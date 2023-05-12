@@ -42,11 +42,11 @@ const AppLayout = ({ children, ...qwe }) => {
             href: '/stocks',
           },
           {
-            key: 'offers',
+            key: 'calculations',
             icon: <ContainerOutlined />,
             label: 'Расчёты',
-            href: '/offers',
-            permission: 'offers_read',
+            href: '/calculations',
+            permission: 'calculations_read',
           },
           {
             key: 'users',

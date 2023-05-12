@@ -1,40 +1,34 @@
-import DateUtils from "./DateUtils.mjs";
-import ExchangeDataProvider from './ExchangeDataProvider.mjs'
-import ExchangePeriod from './ExchangePeriod.mjs'
+import DateUtils from './DateUtils.mjs';
+import ExchangeDataProvider from './ExchangeDataProvider.mjs';
+import ExchangePeriod from './ExchangePeriod.mjs';
 
-export default class FairPriceCalc {
-  constructor(ticker, initialVolume, isin) {
-    this.ticker = ticker;
-    this.initialVolume = initialVolume;
-    this.isin = isin;
-  }
-
-  async calculate(date) {
+export default class FairPriceCalculator {
+  async calculate({ date, ticker, initialVolume, isin }) {
     // Returns list with calculated data about ticker in
     // curtain date: is active, deals, volume rate, isactive, fair price.
-    const provider = new ExchangeDataProvider(date, this.ticker);
+    const provider = new ExchangeDataProvider(date, ticker);
     const date_utils = new DateUtils();
 
     const marketData = await provider.getMarketData();
 
     const [countDeals, tradingVolume, countDays, weightedAverage] = this._getMergedValues(marketData);
 
-    const volumeRate = (tradingVolume / this.initialVolume * 100).toFixed(2);
+    const volumeRate = (tradingVolume / initialVolume * 100).toFixed(2);
 
     // If ticker is active, fair price equals:
     // weighted average(of last trading day) * 10
     // else if ticker is low_active, equals:
     // weighted average * 10 * 0.99
     // else equals 0
-    const active = new ExchangePeriod(this.initialVolume, countDeals, tradingVolume, countDays).getActivity()
+    const active = new ExchangePeriod(initialVolume, countDeals, tradingVolume, countDays).getActivity();
     let fairPrice;
-    if (active == 'ACTIVE') {
+    if (active === 'ACTIVE') {
       // const last_average_index = marketData.length - 1;
       fairPrice = weightedAverage * 10;
-    } else if (active == 'LOW_ACTIVE') {
-      fairPrice = weighted_average * 9.9
+    } else if (active === 'LOW_ACTIVE') {
+      fairPrice = weightedAverage * 9.9;
     } else {
-      fairPrice = 0
+      fairPrice = 0;
     }
     return {
       active,
@@ -42,11 +36,11 @@ export default class FairPriceCalc {
       countDays,
       countDeals,
       tradingVolume: volumeRate,
-      initialVolume: this.initialVolume,
-      isin: this.isin,
+      initialVolume,
+      isin,
       date: date_utils.getEndDate(date),
-      marketData,
-    }
+      marketData
+    };
   }
 
   _getMergedValues(marketData) {

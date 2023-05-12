@@ -9,7 +9,8 @@ import JsonContext from './contexts/JsonContext.mjs';
  *
  * @param usecases
  * @param method
- * @param middlewares
+ * @param {string|array|null} middlewares
+ * @param responseHandler
  * @return {(function(*, *, *): Promise<void>)|*}
  */
 export function handleRequest(usecases, method, middlewares = [], responseHandler = JsonResponse) {
@@ -25,7 +26,7 @@ export function handleRequest(usecases, method, middlewares = [], responseHandle
  *
  * @param usecases
  * @param method
- * @param middlewares
+ * @param {string|array|null} middlewares
  * @return {(function(*, *, *): Promise<*|undefined>)|*}
  */
 export function handlePage(usecases, method, middlewares = []) {
@@ -41,7 +42,7 @@ export function handlePage(usecases, method, middlewares = []) {
  *
  * @param usecases
  * @param {string} method
- * @param {string|null} middlewares
+ * @param {string|null|array} middlewares
  * @param responseHandler
  * @param context
  * @return {(function(*, *, *): Promise<*|undefined>)|*}
@@ -72,16 +73,16 @@ async function startMiddlewares(scope, context, middlewares) {
  * @return {Promise<AwilixContainer<any>>}
  */
 export async function createScope(context) {
-  const Kernel = (await import('../Kernel.mjs')).default;
-  const kernel = new Kernel();
+  const AppKernel = (await import('../AppKernel.mjs')).default;
+  const appKernel = new AppKernel();
 
-  return kernel.createApplication(context);
+  return appKernel.createApplication(context);
 }
 
 export async function createBinScope() {
-  const Kernel = (await import('../../bin/Kernel.mjs')).default;
-  const kernel = new Kernel();
+  const BinKernel = (await import('../../bin/BinKernel.mjs')).default;
+  const binKernel = new BinKernel();
 
-  return kernel.createApplication();
+  return binKernel.createApplication();
 }
 

@@ -1,9 +1,7 @@
-import { Col, Layout, Row, Spin } from 'antd';
-import { Card } from 'antd';
+import { Card, Col, Row, Spin } from 'antd';
 import { handlePage } from '../../src/core/index.mjs';
 import StockUsecases from '../../src/usecases/StockUsecases.js';
 import { useContext, useState } from 'react';
-import SearchStock from '../../client/components/stock/SearchStock.js';
 import { AwilixContext } from '../_app';
 import { AutoForm } from 'uniforms';
 import createSchemaBridge from '../../src/libs/uniforms-bridge.mjs';
@@ -11,16 +9,16 @@ import { AutoField, DateField, ErrorsField, SubmitField } from 'uniforms-antd';
 import NavMenu from '../../client/components/stock/StockNavMenu.js';
 import Notification from '../../client/helpers/Notification';
 import moment from 'moment';
+import ActiveMarket from '../../src/constants/ActiveMarket.mjs';
 
 export default function StockValuation({ stocks }) {
   const {
     /** @type {TickerRatingSchema} */ tickerRatingSchema,
     /** @type {StockCalculationResultsSchema} */ stockCalculationResultsSchema,
-    /** @type {StockValutionsResource} */ stockValutionsResource
+    /** @type {CalculationResource} */ calculationResource
   } = useContext(AwilixContext);
 
   const [loading, setLoading] = useState(false);
-  const [value, setValue] = useState('');
   const initialCurrentStock = {
     id: null,
     ticker: null,
@@ -28,21 +26,21 @@ export default function StockValuation({ stocks }) {
     value: null
   };
   const [currentStock, setCurrentStock] = useState(initialCurrentStock);
-  const [calculationData, setCalculationData] = useState({date: null, active: null, fairPrice: null, countDays: null, countDeals: null, initialVolume: null, tradingVolume: null});
+  const [calculationData, setCalculationData] = useState();
 
   async function onSubmit({ date }) {
     setLoading(true);
-      try {
-      const calculationData = await stockValutionsResource.create({
+    try {
+      const calculations = await calculationResource.create({
         ticker: currentStock.ticker,
         isin: currentStock.isin,
         initialVolume: currentStock.value,
-        date: moment(date).format('YYYY-MM-DD')
+        date: moment(date).format('DD.MM.YYYY')
       });
+
       setCalculationData({
-        ...calculationData.calculations,
-        date: calculationData.calculations.date,
-        status: calculationData.calculations.active === 'ACTIVE' ? 'Да' : 'Нет'
+        date: calculations.date,
+        ...calculations.data
       });
     } catch (e) {
       Notification.error('Что-то пошло не так. Проверьте введенный тикер, возможно по нему отсутствуют данные');
@@ -50,56 +48,56 @@ export default function StockValuation({ stocks }) {
     setLoading(false);
   }
 
-
-  const onSelectStock = (value, item) => {
-    setValue(value);
-    setCurrentStock(item.stock);
+  const onSelectStock = (stockId) => {
+    setCurrentStock(stocks.find(({ id }) => id === stockId));
   };
 
   return (
     <>
-      <NavMenu selectedMenuItem={'stockValuation'} />
+      <NavMenu selectedMenuItem="stockValuation" />
       <Row
         gutter={16}
         type="flex"
         justify="center"
-        className='pt8'
-        >
-        <Col xs={24} sm={24} md={12} xxl={8}>
+      >
+        <Col xs={24} sm={24} md={12} xxl={9}>
           <Card title="Данные ценной бумаги">
-            <AutoForm schema={createSchemaBridge(tickerRatingSchema.get())} onSubmit={onSubmit} class="ant-form-vertical">
-              {/* <AutoField name='ticker' component={SearchStock} /> */}
-              <SearchStock
-              name='ticker'
-              stocks={stocks}
-              value={value}
-              onChange={onSelectStock}
-              ></SearchStock> 
-              <DateField format="YYYY-MM-DD" showTime={false} name='date' /> 
+            <AutoForm schema={createSchemaBridge(tickerRatingSchema.get())} onSubmit={onSubmit}
+                      class="ant-form-vertical">
+              <AutoField
+                name="ticker"
+                options={stocks.map(({ id, ticker }) => ({ value: id, label: ticker }))}
+                onChange={onSelectStock}
+              />
+              <DateField format="DD.MM.YYYY" showTime={false} name="date" />
               <SubmitField value="Отправить" />
               <ErrorsField />
             </AutoForm>
           </Card>
         </Col>
-        <Col xs={24} sm={24} md={12} xxl={8}>
-          <Card title="Результаты расчёта" >
-            {/* class="ant-form-vertical"  */}
-            <AutoForm schema={createSchemaBridge(stockCalculationResultsSchema.get())} model={calculationData} readOnly class="ant-form-vertical"> 
+        <Col xs={24} sm={24} md={12} xxl={9}>
+          <Card title="Результаты расчёта">
+            <AutoForm
+              schema={createSchemaBridge(stockCalculationResultsSchema.get())}
+              model={calculationData}
+              readOnly
+              class="ant-form-vertical"
+            >
               <Spin spinning={loading}>
                 <AutoField name="date" readOnly />
-                <AutoField name="status" readOnly />
+                <AutoField name="active" options={ActiveMarket.list()} readOnly />
                 <AutoField name="fairPrice" readOnly />
                 <AutoField name="countDays" readOnly />
                 <AutoField name="countDeals" readOnly />
                 <AutoField name="initialVolume" readOnly />
-                <AutoField name="tradingVolume"readOnly />
+                <AutoField name="tradingVolume" readOnly />
               </Spin>
             </AutoForm>
           </Card>
         </Col>
       </Row>
     </>
-  )
+  );
 }
 
 export const getServerSideProps = handlePage(StockUsecases, 'index', 'access:stocks_read');

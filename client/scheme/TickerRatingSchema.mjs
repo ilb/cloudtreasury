@@ -6,10 +6,10 @@ export default class TickerRatingSchema extends Schema {
     return {
       type: 'object',
       properties: {
-        // ticker: {
-        //   title: 'Тикер ценной бумаги',
-        //   type: 'string'
-        // },
+        ticker: {
+          title: 'Тикер ценной бумаги',
+          type: 'string'
+        },
         date: {
           title: 'Дата оценки',
           type: 'object',

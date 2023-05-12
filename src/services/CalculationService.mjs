@@ -1,9 +1,32 @@
-import Service from '../core/Service.mjs';
-import FairPriceCalc from '../libs/FairPriceCalc/FairPriceCalc.mjs';
+export default class CalculationService {
+  /**
+   * @param {CalculationRepository} calculationRepository
+   * @param {CalculationAdapter} calculationAdapter
+   * @param {DocumentRendererService} documentRendererService
+   * @param {FairPriceCalculator} fairPriceCalculator
+   */
+  constructor({ calculationRepository, calculationAdapter, documentRendererService, fairPriceCalculator }) {
+    this.calculationRepository = calculationRepository;
+    this.calculationAdapter = calculationAdapter;
+    this.documentRendererService = documentRendererService;
+    this.fairPriceCalculator = fairPriceCalculator;
+  }
 
-export default class CalculationService extends Service {
-  calculator(data) {
-    const calc = new FairPriceCalc(data.ticker, data.initialVolume, data.isin);
-    return calc.calculate(data.date)
+  async calculate(data) {
+    return this.fairPriceCalculator.calculate(data)
+  }
+
+  async getList(params) {
+    return this.calculationRepository.findAllByDate(params);
+  }
+
+  async exportCalculations(params) {
+    const calculations = await this.getList(params);
+    const printData = this.calculationAdapter.mapForPrint(calculations, params)
+
+    return this.documentRendererService.render(printData, {
+      template: 'tickers.ods',
+      filename: `tickers_${params.date}.ods`
+    });
   }
 }
