@@ -37,7 +37,7 @@ export default class FairPriceCalculator {
       countDeals,
       tradingVolume: parseFloat(volumeRate),
       initialVolume,
-      isin: isin ?? 'nan',
+      isin: isin,
       date: date_utils.getEndDate(date),
       marketData
     };

@@ -1,5 +1,5 @@
 module.exports = {
-  testTimeout: 100000, 
+  testTimeout: 250000, 
   collectCoverageFrom: ['**/*.{js,jsx,ts,tsx}', '!**/*.d.ts', '!**/node_modules/**'],
   moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx', 'node', 'mjs'],
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],

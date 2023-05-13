@@ -2,7 +2,7 @@ import DateUtils from "./DateUtils.mjs";
 import fs from 'fs'
 import os from 'os'
 import glob from 'glob'
-// import fetch from 'node-fetch'; // for testing
+import fetch from 'node-fetch';
 
 export default class FileBrowser {
 
@@ -15,9 +15,9 @@ export default class FileBrowser {
   EMPTY_FILE_TTL = 3600;
   DAYS_DELTA = -45;
 
-  constructor(date_str) {
+  constructor(dateStr) {
     const dateUtils = new DateUtils();
-    this.dateRange = dateUtils.dateRange(date_str, this.DAYS_DELTA);
+    this.dateRange = dateUtils.dateRange(dateStr, this.DAYS_DELTA);
   }
 
   async _getVolumeFile() {

@@ -1,21 +1,21 @@
 import moment from 'moment';
 
 export default class DateUtils {
-  getEndDate(date_str) {
-    let date_end = new Date(date_str);
-    if (date_end.toDateString() === new Date().toDateString()) {
-      date_end.setDate(date_end.getDate() - 1);
+  getEndDate(dateStr) {
+    if (dateStr === moment().format('DD.MM.YYYY')) {
+      dateStr = moment(dateStr, 'DD.MM.YYYY').subtract(1, 'day').format('DD.MM.YYYY');
     }
-    return date_end.toISOString().substring(0, 10);
+    return dateStr
   }
 
   dateRange(dateStr, delta = -30) {
-    const dateEnd = moment(dateStr, 'DD.MM.YYYY').toDate();
-    console.log(dateEnd);
-    const dateStart = new Date(dateEnd.getTime() + delta * 24 * 60 * 60 * 1000);
+    const dateEnd = moment(dateStr, 'DD.MM.YYYY');
+    const dateStart = moment(dateStr, 'DD.MM.YYYY').add(delta, 'days');
+
     const dateRange = [];
-    for (let date = dateStart; date <= dateEnd; date.setDate(date.getDate() + 1)) {
-      dateRange.push(new Date(date).toISOString().substring(0,10));
+    while (dateStart <= dateEnd) {
+      dateRange.push(dateStart.format('YYYY-MM-DD'));
+      dateStart.add(1, 'days');
     }
     return dateRange
   }
