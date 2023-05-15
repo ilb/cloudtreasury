@@ -1,11 +1,11 @@
 import { Card, Col, Row, Spin } from 'antd';
 import { handlePage } from '../../src/core/index.mjs';
 import StockUsecases from '../../src/usecases/StockUsecases.js';
-import { useContext, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { AwilixContext } from '../_app';
 import { AutoForm } from 'uniforms';
 import createSchemaBridge from '../../src/libs/uniforms-bridge.mjs';
-import { AutoField, DateField, ErrorsField, SubmitField } from 'uniforms-antd';
+import { AutoField, DateField, ErrorsField, SelectField, SubmitField } from 'uniforms-antd';
 import NavMenu from '../../client/components/stock/StockNavMenu.js';
 import Notification from '../../client/helpers/Notification';
 import moment from 'moment';
@@ -27,6 +27,17 @@ export default function StockValuation({ stocks }) {
   };
   const [currentStock, setCurrentStock] = useState(initialCurrentStock);
   const [calculationData, setCalculationData] = useState();
+
+  const options = useMemo(() => {
+    if (stocks && stocks.length) {
+      return stocks.map((stock) => ({
+        label: stock.ticker,
+        value: stock.id
+      }));
+    }
+  }, [stocks]);
+
+  const [filteredOptions, setFilteredOptions] = useState(options);
 
   async function onSubmit({ date }) {
     setLoading(true);
@@ -52,6 +63,16 @@ export default function StockValuation({ stocks }) {
     setCurrentStock(stocks.find(({ id }) => id === stockId));
   };
 
+  const onSearch = (searchText) => {
+
+    const filtered = options.filter((option) =>
+      option.label.toLowerCase().includes(searchText.toLowerCase())
+    );
+
+    setFilteredOptions(filtered);
+    console.log(filteredOptions)
+  };
+  
   return (
     <>
       <NavMenu selectedMenuItem="stockValuation" />
@@ -64,11 +85,7 @@ export default function StockValuation({ stocks }) {
           <Card title="Данные ценной бумаги">
             <AutoForm schema={createSchemaBridge(tickerRatingSchema.get())} onSubmit={onSubmit}
                       class="ant-form-vertical">
-              <AutoField
-                name="ticker"
-                options={stocks.map(({ id, ticker }) => ({ value: id, label: ticker }))}
-                onChange={onSelectStock}
-              />
+              <SelectField name="ticker" options={filteredOptions} showSearch onSearch={onSearch} onChange={onSelectStock} />
               <DateField format="DD.MM.YYYY" showTime={false} name="date" />
               <SubmitField value="Отправить" />
               <ErrorsField />
