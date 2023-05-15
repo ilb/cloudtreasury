@@ -422,6 +422,7 @@ ALTER TABLE ONLY public."User" ALTER COLUMN id SET DEFAULT nextval('public."User
 --
 
 COPY public."BusinessEntity" (id, name, "createdAt", "updatedAt", uid) FROM stdin;
+1	ООО "БРОКЕР"	2023-05-15 07:17:14.871	2023-05-15 07:17:14.871	c36067c3-2f15-4a02-8b13-5e755daa1375
 \.
 
 
@@ -430,6 +431,7 @@ COPY public."BusinessEntity" (id, name, "createdAt", "updatedAt", uid) FROM stdi
 --
 
 COPY public."Calculation" (id, "createdAt", "updatedAt", data, ticker, date) FROM stdin;
+1	2023-05-15 07:39:15.929	2023-05-15 07:39:15.929	{"date": "14.05.2023", "isin": "RU000A0ZYLU6", "active": "LOW_ACTIVE", "countDays": 7, "fairPrice": 1027.92, "countDeals": 13, "marketData": [{"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 2, "tradingVolume": 2029.5, "weightedAverage": 101.48}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 1, "tradingVolume": 1015, "weightedAverage": 101.5}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 2, "tradingVolume": 3044.7, "weightedAverage": 101.49}, {"countDeals": 2, "tradingVolume": 2030, "weightedAverage": 101.5}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 1, "tradingVolume": 973.5, "weightedAverage": 97.35}, {"countDeals": 1, "tradingVolume": 1015.6, "weightedAverage": 101.56}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 4, "tradingVolume": 59181.9, "weightedAverage": 103.83}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}, {"countDeals": 0, "tradingVolume": 0, "weightedAverage": 0}], "initialVolume": 15000000, "tradingVolume": 0}	ДОМ.РФ1P1R	2023-05-14 20:00:00
 \.
 
 
@@ -438,6 +440,31 @@ COPY public."Calculation" (id, "createdAt", "updatedAt", data, ticker, date) FRO
 --
 
 COPY public."Permission" (id, code, title, "createdAt", "updatedAt") FROM stdin;
+1	users_create	Добавление пользователей	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+2	users_read	Просмотр пользователей	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+3	users_update	Редактирование пользователей	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+4	users_delete	Удаление пользователей	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+5	roles_create	Добавление ролей	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+6	roles_read	Просмотр ролей	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+7	roles_update	Редактирование ролей	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+8	roles_delete	Удаление ролей	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+9	permissions_create	Добавление прав	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+10	permissions_read	Просмотр прав	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+11	permissions_update	Редактирование прав	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+12	permissions_delete	Удаление прав	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+13	calculations_create	Добавление справедливой цены	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+14	calculations_read	Просмотр справедливой цены	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+15	calculations_update	Редактирование справедливой цены	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+16	calculations_delete	Удаление справедливой цены	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+17	settings_create	Добавление настроек	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+18	settings_read	Просмотр настроек	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+19	settings_update	Редактирование настроек	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+20	settings_delete	Удаление настроек	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+22	menu_read	Просмотр бокового и верхнего меню	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+23	stocks_create	Добавление ценных бумаг	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+24	stocks_read	Просмотр ценных бумаг	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+25	stocks_update	Редактирование ценных бумаг	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
+26	stocks_delete	Удаление ценных бумаг	2023-05-15 07:17:14.823	2023-05-15 07:17:14.824
 \.
 
 
@@ -446,6 +473,7 @@ COPY public."Permission" (id, code, title, "createdAt", "updatedAt") FROM stdin;
 --
 
 COPY public."Relation" (id, "businessEntityId", "createdAt", type, "updatedAt") FROM stdin;
+1	1	2023-05-15 07:17:14.877	ORG	2023-05-15 07:17:14.877
 \.
 
 
@@ -454,6 +482,8 @@ COPY public."Relation" (id, "businessEntityId", "createdAt", type, "updatedAt") 
 --
 
 COPY public."RelationMember" (id, "userId", "roleId", "createdAt", "updatedAt", "relationId") FROM stdin;
+1	1	1	2023-05-15 07:17:14.895	2023-05-15 07:17:14.895	1
+2	2	3	2023-05-15 07:17:14.895	2023-05-15 07:17:14.895	1
 \.
 
 
@@ -462,6 +492,9 @@ COPY public."RelationMember" (id, "userId", "roleId", "createdAt", "updatedAt", 
 --
 
 COPY public."Role" (id, code, title, "createdAt", "updatedAt") FROM stdin;
+1	admin	Администратор	2023-05-15 07:17:14.839	2023-05-15 07:17:14.84
+2	testgroup	Тестовая роль LDAP	2023-05-15 07:17:14.856	2023-05-15 07:17:14.857
+3	.apps.loandeal.analyst	Аналитик	2023-05-15 07:17:14.864	2023-05-15 07:17:14.864
 \.
 
 
@@ -756,6 +789,8 @@ COPY public."Stock" (id, ticker, value, isin) FROM stdin;
 --
 
 COPY public."User" (id, login, name, password, data, "isBlocked", "createdAt", "updatedAt") FROM stdin;
+1	admin	Admin	$2b$06$W6buUDD9eVL2VloYVXtw3O/Ea3t8nJaVWCEBB65OUlTkkyuSbfT/y	\N	f	2023-05-15 07:17:14.884	2023-05-15 07:17:14.884
+2	analyst	Analyst	$2b$06$W6buUDD9eVL2VloYVXtw3O/Ea3t8nJaVWCEBB65OUlTkkyuSbfT/y	\N	f	2023-05-15 07:17:14.89	2023-05-15 07:17:14.89
 \.
 
 
@@ -764,6 +799,60 @@ COPY public."User" (id, login, name, password, data, "isBlocked", "createdAt", "
 --
 
 COPY public."_PermissionToRole" ("A", "B") FROM stdin;
+1	1
+2	1
+3	1
+4	1
+5	1
+6	1
+7	1
+8	1
+9	1
+10	1
+11	1
+12	1
+13	1
+14	1
+15	1
+16	1
+17	1
+18	1
+19	1
+20	1
+22	1
+23	1
+24	1
+25	1
+26	1
+1	2
+2	2
+3	2
+4	2
+5	2
+6	2
+7	2
+8	2
+9	2
+10	2
+11	2
+12	2
+13	2
+14	2
+15	2
+16	2
+17	2
+18	2
+19	2
+20	2
+22	2
+23	2
+24	2
+25	2
+26	2
+13	3
+14	3
+15	3
+16	3
 \.
 
 
@@ -792,42 +881,42 @@ f5635f99-d083-4c94-9530-d6ef785de9a3	31af232157ba77598990c94ec1e6387fcf4a8890c90
 -- Name: BusinessEntity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cloudtreasury
 --
 
-SELECT pg_catalog.setval('public."BusinessEntity_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."BusinessEntity_id_seq"', 2, false);
 
 
 --
 -- Name: Calculation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cloudtreasury
 --
 
-SELECT pg_catalog.setval('public."Calculation_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."Calculation_id_seq"', 1, true);
 
 
 --
 -- Name: Permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cloudtreasury
 --
 
-SELECT pg_catalog.setval('public."Permission_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."Permission_id_seq"', 27, false);
 
 
 --
 -- Name: RelationMember_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cloudtreasury
 --
 
-SELECT pg_catalog.setval('public."RelationMember_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."RelationMember_id_seq"', 3, false);
 
 
 --
 -- Name: Relation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cloudtreasury
 --
 
-SELECT pg_catalog.setval('public."Relation_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."Relation_id_seq"', 2, false);
 
 
 --
 -- Name: Role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cloudtreasury
 --
 
-SELECT pg_catalog.setval('public."Role_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."Role_id_seq"', 4, false);
 
 
 --
@@ -841,7 +930,7 @@ SELECT pg_catalog.setval('public."Stock_id_seq"', 278, true);
 -- Name: User_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cloudtreasury
 --
 
-SELECT pg_catalog.setval('public."User_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."User_id_seq"', 3, false);
 
 
 --
