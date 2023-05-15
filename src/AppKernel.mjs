@@ -4,6 +4,8 @@ import Access from './core/Access.mjs';
 import AwilixRegistrar from './libs/AwilixRegistrar.mjs';
 import { isProduction } from './helpers/utils.mjs';
 import FairPriceCalculator from './libs/FairPriceCalc/FairPriceCalculator.mjs';
+import path from 'path'
+
 
 export default class AppKernel {
   constructor() {
@@ -30,7 +32,7 @@ export default class AppKernel {
       request: asValue(context.request),
       prisma: asValue(prisma),
       access: asClass(Access),
-      templatesPath: asValue(process.env.templatesPath)
+      templatesPath: asValue(path.resolve('templates'))
     });
   }
 

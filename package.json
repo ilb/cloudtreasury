@@ -6,6 +6,7 @@
     "dev": "ldapenv next dev",
     "build": "ldapenv next build",
     "start": "ldapenv next start",
+    "prisma:generate": "prisma generate",
     "ilb-build": "ldapenv prisma generate && ldapenv next build",
     "ilb-deploy": "ldapenv prisma migrate deploy",
     "clean": "rimraf ./.next ./out",
@@ -13,6 +14,9 @@
     "escheck": "pnpm run clean && ldapenv pnpm run build && pnpm run check:es:build",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
+  "browserslist": [
+    ">0.3%, defaults, supports es5"
+  ],
   "prisma": {
     "seed": "ldapenv node --experimental-specifier-resolution=node prisma/seed.mjs"
   },
@@ -27,17 +31,17 @@
     "antd": "^4.24.10",
     "awilix": "^7.0.3",
     "bcrypt": "^5.0.1",
-    "glob": "^10.2.2",
-    "next": "13.4.1",
     "carbone": "^3.5.5",
     "dataframe-js": "^1.4.4",
     "file-saver": "^2.0.5",
+    "glob": "8.1.0",
     "mime-types": "^2.1.35",
     "moment": "^2.29.4",
+    "next": "13.4.2",
     "next-auth": "4.9.0",
     "next-compose-plugins": "^2.2.1",
     "next-connect": "^1.0.0-next.2",
-    "next-transpile-modules": "^9.0.0",
+    "next-transpile-modules": "^10.0.0",
     "node-fetch": "^3.3.1",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
