@@ -6,13 +6,14 @@
     "dev": "ldapenv next dev",
     "build": "ldapenv next build",
     "start": "ldapenv next start",
+    "prisma:generate": "prisma generate",
     "ilb-build": "ldapenv prisma generate && ldapenv next build",
     "ilb-deploy": "ldapenv prisma migrate deploy",
     "clean": "rimraf ./.next ./out",
     "check:es:build": "npx es-check es5 './.next/static/**/*.js' -v",
     "escheck": "pnpm run clean && ldapenv pnpm run build && pnpm run check:es:build",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
-  },  
+  },
   "browserslist": [
     ">0.3%, defaults, supports es5"
   ],
@@ -33,10 +34,10 @@
     "carbone": "^3.5.5",
     "dataframe-js": "^1.4.4",
     "file-saver": "^2.0.5",
-    "glob": "^10.2.2",
+    "glob": "8.1.0",
     "mime-types": "^2.1.35",
     "moment": "^2.29.4",
-    "next": "13.4.1",
+    "next": "13.4.2",
     "next-auth": "4.9.0",
     "next-compose-plugins": "^2.2.1",
     "next-connect": "^1.0.0-next.2",
