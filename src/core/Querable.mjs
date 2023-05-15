@@ -1,3 +1,5 @@
+import { saveAs } from 'file-saver';
+
 export default class Querable {
   baseUrl;
 
@@ -51,6 +53,22 @@ export default class Querable {
      */
     async delete(url, data = {}) {
       return this.execute(url, 'DELETE', data);
+    },
+
+    async downloadFile(url, params) {
+      const link = this.prepareUrl(url, 'GET', params);
+
+      return fetch(link).then(async (res) => {
+        if (res.status === 200) {
+          const filename = res.headers.get('Content-Disposition').split("filename=")[1];
+          const blob = await res.blob();
+          saveAs(blob, filename);
+          return { ok: true };
+        } else {
+          const body = await res.json();
+          return { ok: false, error: body.error };
+        }
+      });
     },
 
     async execute(url, method, data) {

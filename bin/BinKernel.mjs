@@ -2,7 +2,7 @@ import { asValue, createContainer } from 'awilix';
 import prisma from '../src/libs/prisma.mjs';
 import AwilixRegistrar from '../src/libs/AwilixRegistrar.mjs';
 
-export default class Kernel {
+export default class BinKernel {
 	constructor() {
 		this.container = createContainer();
 		this.awilixRegistrar = new AwilixRegistrar(this.container);

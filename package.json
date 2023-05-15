@@ -29,10 +29,16 @@
     "bcrypt": "^5.0.1",
     "glob": "^10.2.2",
     "next": "13.4.1",
+    "carbone": "^3.5.5",
+    "dataframe-js": "^1.4.4",
+    "file-saver": "^2.0.5",
+    "mime-types": "^2.1.35",
+    "moment": "^2.29.4",
     "next-auth": "4.9.0",
     "next-compose-plugins": "^2.2.1",
     "next-connect": "^1.0.0-next.2",
     "next-transpile-modules": "^9.0.0",
+    "node-fetch": "^3.3.1",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
     "react": "18.2.0",
@@ -45,6 +51,7 @@
   "devDependencies": {
     "@ilb/ldapenv-cli": "^1.0.10",
     "@next/bundle-analyzer": "^13.4.1",
+    "@swc/jest": "^0.2.26",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^29.5.0",
     "eslint": "8.40.0",
@@ -55,9 +62,12 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "jest": "^27.4.5",
+    "jest": "^27.5.1",
     "prettier": "^2.5.1",
     "prisma": "^4.13.0",
     "rimraf": "^4.1.2"
+  },
+  "browser": {
+    "child_process": false
   }
 }

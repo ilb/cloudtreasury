@@ -1,14 +1,14 @@
 import Schema from './Schema.mjs';
 
-export default class StockCalculationResults extends Schema {
+export default class StockCalculationResultsSchema extends Schema {
   get() {
     return {
       type: 'object',
       properties: {
-        receivedDate: {
+        date: {
           title: 'Дата оценки',
           type: 'string'
-          // format: 'date'
+          // format: 'date',
         },
         active: {
           title: 'Активный рынок',
@@ -35,6 +35,6 @@ export default class StockCalculationResults extends Schema {
           type: 'string'
         }
       }
-    }
+    };
   }
 }

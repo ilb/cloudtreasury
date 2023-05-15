@@ -76,7 +76,6 @@ export default function Stocks({ stocks }) {
   };
 
   const onSelectStock = (value, item) => {
-    console.log('slelect')
     setShowTicker(false);
     setValue(value);
     setCurrentStock(item.stock);

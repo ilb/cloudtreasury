@@ -52,6 +52,11 @@ COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
 COPY prisma prisma
 COPY src src
 
+RUN apk add py3-setuptools py3-pandas py3-lxml py3-dicttoxml
+RUN mkdir /home/stockvaluation
+RUN wget -qO - https://github.com/ilb/stockvaluation/archive/refs/tags/1.0.1.tar.gz |tar xz -C /home/stockvaluation --strip-components=1
+RUN cd /home/stockvaluation/fairpricecalc && python setup.py install
+
 USER nextjs
 
 EXPOSE 3000

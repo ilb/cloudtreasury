@@ -65,23 +65,23 @@ export default class PermissionSeeder extends Seeder {
       },
       {
         id: 13,
-        code: 'offers_create',
-        title: 'Добавление заявок',
+        code: 'calculations_create',
+        title: 'Добавление справедливой цены',
       },
       {
         id: 14,
-        code: 'offers_read',
-        title: 'Просмотр заявок',
+        code: 'calculations_read',
+        title: 'Просмотр справедливой цены',
       },
       {
         id: 15,
-        code: 'offers_update',
-        title: 'Редактирование заявок',
+        code: 'calculations_update',
+        title: 'Редактирование справедливой цены',
       },
       {
         id: 16,
-        code: 'offers_delete',
-        title: 'Удаление заявок',
+        code: 'calculations_delete',
+        title: 'Удаление справедливой цены',
       },
       {
         id: 17,

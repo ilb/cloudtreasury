@@ -3,8 +3,9 @@ import prisma from './libs/prisma.mjs';
 import Access from './core/Access.mjs';
 import AwilixRegistrar from './libs/AwilixRegistrar.mjs';
 import { isProduction } from './helpers/utils.mjs';
+import FairPriceCalculator from './libs/FairPriceCalc/FairPriceCalculator.mjs';
 
-export default class Kernel {
+export default class AppKernel {
   constructor() {
     this.container = createContainer();
     this.awilixRegistrar = new AwilixRegistrar(this.container);
@@ -29,6 +30,7 @@ export default class Kernel {
       request: asValue(context.request),
       prisma: asValue(prisma),
       access: asClass(Access),
+      templatesPath: asValue(process.env.templatesPath)
     });
   }
 
@@ -40,7 +42,7 @@ export default class Kernel {
 
   async registerLibClasses() {
     this.container.register({
-      // autoChecks: asClass(AutoChecks)
+      fairPriceCalculator: asClass(FairPriceCalculator)
     })
   }
 }

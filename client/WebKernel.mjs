@@ -12,10 +12,12 @@ import SigninSchema from './scheme/SigninSchema.mjs';
 import SignupSchema from './scheme/SignupSchema.mjs';
 import StockSchema from './scheme/StockSchema.mjs';
 import TickerRatingSchema from './scheme/TickerRatingSchema.mjs';
-import StockCalculationResults from './scheme/StockCalculationResultsSchema.mjs';
+import StockCalculationResultsSchema from './scheme/StockCalculationResultsSchema.mjs';
 import GeneratingReportSchema from './scheme/GeneratingReportSchema.mjs'
+import CalculationResource from './resources/CalculationResource.mjs';
 
-export default class Kernel {
+
+export default class WebKernel {
   constructor() {
     this.container = createContainer();
   }
@@ -32,6 +34,7 @@ export default class Kernel {
       roleResource: asClass(RoleResource),
       userResource: asClass(UserResource),
       stockResource: asClass(StockResource),
+      calculationResource: asClass(CalculationResource),
 
       permissionSchema: asClass(PermissionSchema),
       roleSchema: asClass(RoleSchema),
@@ -40,8 +43,8 @@ export default class Kernel {
       signupSchema: asClass(SignupSchema),
       stockSchema: asClass(StockSchema),
       tickerRatingSchema: asClass(TickerRatingSchema),
-      stockCalculationResults: asClass(StockCalculationResults),
-      generatingReportSchema: asClass(GeneratingReportSchema)
+      stockCalculationResultsSchema: asClass(StockCalculationResultsSchema),
+      generatingReportSchema: asClass(GeneratingReportSchema),
     });
   }
 }
