@@ -53,7 +53,7 @@
     "uniforms-bridge-json-schema": "^3.10.0-rc.1"
   },
   "devDependencies": {
-    "@ilb/ldapenv-cli": "^1.0.10",
+    "@ilb/ldapenv-cli": "^2.0.0",
     "@next/bundle-analyzer": "^13.4.1",
     "@swc/jest": "^0.2.26",
     "babel-core": "^7.0.0-bridge.0",
