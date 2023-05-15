@@ -45,9 +45,6 @@ spec:
         {{- end }}
         volumeMounts:
         - name: cloudtreasury
-          mountPath: /home/cloudtemplates
-          subPath: cloudtemplates
-        - name: cloudtreasury
           mountPath: /var/apps/cloudtreasury
           subPath: var
         - name: secret-volume
