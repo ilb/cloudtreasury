@@ -48,7 +48,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sass": "^1.62.1",
-    "uniforms": "^3.10.0-rc.1",
+    "uniforms": "^4.0.0-alpha.4",
     "uniforms-antd": "^3.10.0-rc.1",
     "uniforms-bridge-json-schema": "^3.10.0-rc.1"
   },
