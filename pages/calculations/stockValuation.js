@@ -10,6 +10,7 @@ import NavMenu from '../../client/components/stock/StockNavMenu.js';
 import Notification from '../../client/helpers/Notification';
 import moment from 'moment';
 import ActiveMarket from '../../src/constants/ActiveMarket.mjs';
+import DropDownAnt from "../../client/components/core/DropDownAnt";
 
 export default function StockValuation({ stocks }) {
   const {
@@ -37,8 +38,6 @@ export default function StockValuation({ stocks }) {
     }
   }, [stocks]);
 
-  const [filteredOptions, setFilteredOptions] = useState(options);
-
   async function onSubmit({ date }) {
     setLoading(true);
     try {
@@ -62,15 +61,8 @@ export default function StockValuation({ stocks }) {
   const onSelectStock = (stockId) => {
     setCurrentStock(stocks.find(({ id }) => id === stockId));
   };
-
-  const onSearch = (searchText) => {
-
-    const filtered = options.filter((option) =>
-      option.label.toLowerCase().includes(searchText.toLowerCase())
-    );
-
-    setFilteredOptions(filtered);
-    console.log(filteredOptions)
+  const filterOption = (input, option) => {
+    return option.label.toLowerCase().indexOf(input.toLowerCase().trim()) !== -1;
   };
   
   return (
@@ -83,9 +75,14 @@ export default function StockValuation({ stocks }) {
       >
         <Col xs={24} sm={24} md={12} xxl={9}>
           <Card title="Данные ценной бумаги">
-            <AutoForm schema={createSchemaBridge(tickerRatingSchema.get())} onSubmit={onSubmit}
-                      class="ant-form-vertical">
-              <SelectField name="ticker" options={filteredOptions} showSearch onSearch={onSearch} onChange={onSelectStock} />
+            <AutoForm schema={createSchemaBridge(tickerRatingSchema.get())} onSubmit={onSubmit} class="ant-form-vertical">
+              <SelectField
+                name="ticker"
+                options={options}
+                filterOption={filterOption}
+                showSearch
+                onChange={onSelectStock}
+              />
               <DateField format="DD.MM.YYYY" showTime={false} name="date" />
               <SubmitField value="Отправить" />
               <ErrorsField />
