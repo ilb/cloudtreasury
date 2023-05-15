@@ -18,7 +18,7 @@ const basePath = '/cloudtreasury';
 const nextConfig = {
   basePath,
   assetPrefix: basePath,
-  // transpilePackages,
+  transpilePackages,
   env: {
     API_PATH: basePath + '/api',
   },
