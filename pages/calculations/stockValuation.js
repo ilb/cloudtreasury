@@ -79,7 +79,7 @@ export default function StockValuation({ stocks }) {
                 name="ticker"
                 options={options}
                 filterOption={filterOption}
-                showSearch
+                showSearch={true}
                 onChange={onSelectStock}
               />
               <DateField format="DD.MM.YYYY" showTime={false} name="date" />
