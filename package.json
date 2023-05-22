@@ -70,7 +70,7 @@
     "jest": "^27.5.1",
     "prettier": "^2.5.1",
     "prisma": "^4.13.0",
-    "rimraf": "^5.0.0"
+    "rimraf": "^5.0.1"
   },
   "browser": {
     "child_process": false
