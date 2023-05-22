@@ -10,7 +10,6 @@ import NavMenu from '../../client/components/stock/StockNavMenu.js';
 import Notification from '../../client/helpers/Notification';
 import moment from 'moment';
 import ActiveMarket from '../../src/constants/ActiveMarket.mjs';
-import DropDownAnt from "../../client/components/core/DropDownAnt";
 
 export default function StockValuation({ stocks }) {
   const {
