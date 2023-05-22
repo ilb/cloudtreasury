@@ -29,7 +29,7 @@
     "ajv": "^8.11.0",
     "ajv-i18n": "^4.2.0",
     "antd": "^4.24.10",
-    "awilix": "^7.0.3",
+    "awilix": "^8.0.1",
     "bcrypt": "^5.0.1",
     "carbone": "^3.5.5",
     "dataframe-js": "^1.4.4",
@@ -48,12 +48,12 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sass": "^1.62.1",
-    "uniforms": "^3.10.0-rc.1",
+    "uniforms": "^4.0.0-alpha.4",
     "uniforms-antd": "^3.10.0-rc.1",
-    "uniforms-bridge-json-schema": "^3.10.0-rc.1"
+    "uniforms-bridge-json-schema": "^4.0.0-alpha.4"
   },
   "devDependencies": {
-    "@ilb/ldapenv-cli": "^1.0.10",
+    "@ilb/ldapenv-cli": "^2.0.0",
     "@next/bundle-analyzer": "^13.4.1",
     "@swc/jest": "^0.2.26",
     "babel-core": "^7.0.0-bridge.0",
@@ -69,7 +69,7 @@
     "jest": "^27.5.1",
     "prettier": "^2.5.1",
     "prisma": "^4.13.0",
-    "rimraf": "^4.1.2"
+    "rimraf": "^5.0.0"
   },
   "browser": {
     "child_process": false

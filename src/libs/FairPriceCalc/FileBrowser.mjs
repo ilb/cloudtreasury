@@ -34,7 +34,7 @@ export default class FileBrowser {
   async _getExchangeFiles() {
     let filesList = [];
     for (let date of this.dateRange) {
-      let file = this._browseFilesystem(this._createFilesystemPath(date));
+      let file = this._browseFilesystem(this._createFilesystemPath(date, true));
 
       if (file === this.EMPTY_FILE) {
         continue;

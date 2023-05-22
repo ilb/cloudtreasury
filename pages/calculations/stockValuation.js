@@ -1,15 +1,16 @@
 import { Card, Col, Row, Spin } from 'antd';
 import { handlePage } from '../../src/core/index.mjs';
 import StockUsecases from '../../src/usecases/StockUsecases.js';
-import { useContext, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { AwilixContext } from '../_app';
 import { AutoForm } from 'uniforms';
 import createSchemaBridge from '../../src/libs/uniforms-bridge.mjs';
-import { AutoField, DateField, ErrorsField, SubmitField } from 'uniforms-antd';
+import { AutoField, DateField, ErrorsField, SelectField, SubmitField } from 'uniforms-antd';
 import NavMenu from '../../client/components/stock/StockNavMenu.js';
 import Notification from '../../client/helpers/Notification';
 import moment from 'moment';
 import ActiveMarket from '../../src/constants/ActiveMarket.mjs';
+import DropDownAnt from "../../client/components/core/DropDownAnt";
 
 export default function StockValuation({ stocks }) {
   const {
@@ -27,6 +28,15 @@ export default function StockValuation({ stocks }) {
   };
   const [currentStock, setCurrentStock] = useState(initialCurrentStock);
   const [calculationData, setCalculationData] = useState();
+
+  const options = useMemo(() => {
+    if (stocks && stocks.length) {
+      return stocks.map((stock) => ({
+        label: stock.ticker,
+        value: stock.id
+      }));
+    }
+  }, [stocks]);
 
   async function onSubmit({ date }) {
     setLoading(true);
@@ -51,7 +61,10 @@ export default function StockValuation({ stocks }) {
   const onSelectStock = (stockId) => {
     setCurrentStock(stocks.find(({ id }) => id === stockId));
   };
-
+  const filterOption = (input, option) => {
+    return option.label.toLowerCase().indexOf(input.toLowerCase().trim()) !== -1;
+  };
+  
   return (
     <>
       <NavMenu selectedMenuItem="stockValuation" />
@@ -62,11 +75,12 @@ export default function StockValuation({ stocks }) {
       >
         <Col xs={24} sm={24} md={12} xxl={9}>
           <Card title="Данные ценной бумаги">
-            <AutoForm schema={createSchemaBridge(tickerRatingSchema.get())} onSubmit={onSubmit}
-                      class="ant-form-vertical">
-              <AutoField
+            <AutoForm schema={createSchemaBridge(tickerRatingSchema.get())} onSubmit={onSubmit} class="ant-form-vertical">
+              <SelectField
                 name="ticker"
-                options={stocks.map(({ id, ticker }) => ({ value: id, label: ticker }))}
+                options={options}
+                filterOption={filterOption}
+                showSearch
                 onChange={onSelectStock}
               />
               <DateField format="DD.MM.YYYY" showTime={false} name="date" />
