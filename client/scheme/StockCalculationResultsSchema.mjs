@@ -8,7 +8,6 @@ export default class StockCalculationResultsSchema extends Schema {
         date: {
           title: 'Дата оценки',
           type: 'string'
-          // format: 'date',
         },
         active: {
           title: 'Активный рынок',

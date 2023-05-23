@@ -3,9 +3,8 @@ import { handlePage } from '../../src/core/index.mjs';
 import StockUsecases from '../../src/usecases/StockUsecases.js';
 import { useContext, useMemo, useState } from 'react';
 import { AwilixContext } from '../_app';
-import { AutoForm } from 'uniforms';
 import createSchemaBridge from '../../src/libs/uniforms-bridge.mjs';
-import { AutoField, DateField, ErrorsField, SelectField, SubmitField } from 'uniforms-antd';
+import { AutoField, DateField, ErrorsField, SelectField, SubmitField, AutoForm } from 'uniforms-antd';
 import NavMenu from '../../client/components/stock/StockNavMenu.js';
 import Notification from '../../client/helpers/Notification';
 import moment from 'moment';
@@ -15,7 +14,7 @@ export default function StockValuation({ stocks }) {
   const {
     /** @type {TickerRatingSchema} */ tickerRatingSchema,
     /** @type {StockCalculationResultsSchema} */ stockCalculationResultsSchema,
-    /** @type {CalculationResource} */ calculationResource
+    /** @type {CalculationResource} */ calculationResource,
   } = useContext(AwilixContext);
 
   const [loading, setLoading] = useState(false);
@@ -79,7 +78,7 @@ export default function StockValuation({ stocks }) {
                 name="ticker"
                 options={options}
                 filterOption={filterOption}
-                showSearch
+                showSearch={true}
                 onChange={onSelectStock}
               />
               <DateField format="DD.MM.YYYY" showTime={false} name="date" />
@@ -88,6 +87,7 @@ export default function StockValuation({ stocks }) {
             </AutoForm>
           </Card>
         </Col>
+
         <Col xs={24} sm={24} md={12} xxl={9}>
           <Card title="Результаты расчёта">
             <AutoForm
