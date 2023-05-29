@@ -35,7 +35,7 @@
     "carbone": "^3.5.5",
     "dataframe-js": "^1.4.4",
     "file-saver": "^2.0.5",
-    "glob": "8.1.0",
+    "glob": "10.2.6",
     "mime-types": "^2.1.35",
     "moment": "^2.29.4",
     "next": "^12.3.4",
