@@ -28,7 +28,7 @@ class tableToQuerry:
         new_array = []
         for row in tds:
             
-            row = str(row).replace('<td></td>', 'NULL').replace('<p>', '').replace('</p>', '').replace('</td>', '').replace('<td class="float">', '').replace('<td>', '').replace('\n', '').replace('<p style="font-size:11pt;"', '').replace('</p>', '')
+            row = str(row).replace('<td></td>', 'NULL').replace('<p>', '').replace('</p>', '').replace('</td>', '').replace('<td class="float">', '').replace('<td>', '').replace('\n', '').replace('<p style="font-size:11pt;"', '').replace('</p>', '').strip()
             
             if (index == 1 or index == 3 and row != 'NULL'):
                 array_for_stock.append("'" + row + "'")
