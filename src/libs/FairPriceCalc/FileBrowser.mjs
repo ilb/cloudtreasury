@@ -1,7 +1,7 @@
 import DateUtils from "./DateUtils.mjs";
 import fs from 'fs'
 import os from 'os'
-import glob from 'glob'
+import { globSync } from 'glob'
 import fetch from 'node-fetch';
 
 export default class FileBrowser {
@@ -123,7 +123,7 @@ export default class FileBrowser {
   }
   _browseFilesystem(path) {
     /* Returns file searched in filesystem */
-    const files = glob.sync(path);
+    const files = globSync(path);
     if (files.length === 0) return null; // return that file not found in filesystem
     const filename = files[0];
     const fileIsEmpty = filename.includes('empty');

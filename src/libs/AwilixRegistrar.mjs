@@ -1,4 +1,4 @@
-import glob from 'glob';
+import {globSync} from 'glob';
 import path from 'path';
 import { asClass, Lifetime } from 'awilix';
 
@@ -10,7 +10,7 @@ export default class AwilixRegistrar {
 	}
 
 	async register() {
-		for (const file of glob.sync('src/@(services|repositories|validators|providers|adapters)/*.mjs')) {
+		for (const file of globSync('src/@(services|repositories|validators|providers|adapters)/*.mjs')) {
 			const pathFile = path.parse(file);
 			const name = pathFile.name;
 			const folder = pathFile.dir.replace('src/', '');

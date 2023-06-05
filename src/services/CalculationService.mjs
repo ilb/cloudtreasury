@@ -13,7 +13,7 @@ export default class CalculationService {
   }
 
   async calculate(data) {
-    return this.fairPriceCalculator.calculate(data)
+    return this.fairPriceCalculator.calculate(data);
   }
 
   async getList(params) {
@@ -22,11 +22,10 @@ export default class CalculationService {
 
   async exportCalculations(params) {
     const calculations = await this.getList(params);
-    const printData = this.calculationAdapter.mapForPrint(calculations, params)
-
+    const printData = this.calculationAdapter.mapForPrint(calculations, params);
     return this.documentRendererService.render(printData, {
       template: 'tickers.ods',
-      filename: `tickers_${params.date}.ods`
+      filename: `tickers_${params.date}.xlsx`,
     });
   }
 }
