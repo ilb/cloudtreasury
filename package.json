@@ -12,7 +12,8 @@
     "clean": "rimraf ./.next ./out",
     "check:es:build": "npx es-check es5 './.next/static/**/*.js' -v",
     "escheck": "pnpm run clean && ldapenv pnpm run build && pnpm run check:es:build",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "postinstall": "patch-package"
   },
   "browserslist": [
     ">0.3%, defaults, supports es5"
@@ -44,6 +45,7 @@
     "next-connect": "^1.0.0-next.2",
     "next-transpile-modules": "^10.0.0",
     "node-fetch": "^3.3.1",
+    "patch-package": "^7.0.0",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
     "react": "18.2.0",
