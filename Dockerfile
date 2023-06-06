@@ -23,6 +23,7 @@ COPY config config
 COPY src src
 COPY prisma prisma
 COPY bin bin
+COPY patches patches
 
 RUN npm run ilb-build
 #RUN npm prune --prod
