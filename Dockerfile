@@ -8,6 +8,8 @@ WORKDIR /app
 ENV PRISMA_BINARIES_MIRROR http://prisma-builds.s3-eu-west-1.amazonaws.com
 COPY package.json package-lock.json ./ 
 
+COPY patches patches
+
 RUN npm install #--frozen-lockfile
 
 # Rebuild the source code only when needed
@@ -23,6 +25,7 @@ COPY config config
 COPY src src
 COPY prisma prisma
 COPY bin bin
+
 
 RUN npm run ilb-build
 #RUN npm prune --prod
