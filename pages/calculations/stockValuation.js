@@ -1,6 +1,6 @@
 import { Card, Col, Row, Spin } from 'antd';
 import { handlePage } from '../../src/core/index.mjs';
-import StockUsecases from '../../src/usecases/StockUsecases.js';
+import StockUsecases from '../../src/usecases/StockUsecases.mjs';
 import { useContext, useMemo, useState } from 'react';
 import { AwilixContext } from '../_app';
 import createSchemaBridge from '../../src/libs/uniforms-bridge.mjs';

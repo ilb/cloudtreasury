@@ -12,7 +12,7 @@ export default class DocumentRendererService {
   }
 
   async render(data, options) {
-    const extension = this.getExtension(options.template)
+    const extension = this.getExtension(options.template);
     const templatePath = `${this.templatesPath}/${options.template}`;
     const content = await render(templatePath, data, options);
 
