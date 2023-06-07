@@ -24,7 +24,7 @@ export default class CalculationService {
     const calculations = await this.getList(params);
     const printData = this.calculationAdapter.mapForPrint(calculations, params);
     return this.documentRendererService.render(printData, {
-      template: 'tickers.ods',
+      template: 'tickers.xlsx',
       filename: `tickers_${params.date}.xlsx`,
     });
   }
