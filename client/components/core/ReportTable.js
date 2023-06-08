@@ -2,6 +2,7 @@ import { Button, Col, DatePicker, Divider, Form, Row, Table, Typography } from '
 import { useEffect, useState } from 'react';
 import Notification from '../../helpers/Notification';
 import { DownloadOutlined } from '@ant-design/icons';
+import moment from 'moment';
 
 const ReportTable = ({
    title,
@@ -30,15 +31,15 @@ const ReportTable = ({
       const [dateFrom, dateTo] = dateRange;
       query = {
         ...query,
-        dateFrom: dateFrom.format('DD.MM.YYYY'),
-        dateTo: dateTo.format('DD.MM.YYYY')
+        dateFrom: dateFrom.format('YYYY-MM-DD'),
+        dateTo: dateTo.format('YYYY-MM-DD')
       };
     }
 
     if (date) {
       query = {
         ...query,
-        date: date.format('DD.MM.YYYY')
+        date: date.format('YYYY-MM-DD')
       };
     }
 
@@ -62,7 +63,11 @@ const ReportTable = ({
   };
 
   const exportReport = () => {
-    onExport(buildQuery(_params)).then(console.log).catch(handleError);
+    try {
+      onExport(buildQuery(_params))
+    } catch (err) {
+      Notification.error(err.message);
+    }
   };
 
   return (

@@ -24,7 +24,7 @@ export default class CalculationRepository extends Repository {
   }
 
   async findAllByDate({ date }) {
-    date = moment(date, 'DD.MM.YYYY').toDate();
+    date = moment(date, 'YYYY-MM-DD').toDate();
 
     return this.model.findMany({
       where: {

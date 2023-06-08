@@ -1,3 +1,4 @@
+import moment from 'moment';
 export default class CalculationService {
   /**
    * @param {CalculationRepository} calculationRepository
@@ -25,7 +26,7 @@ export default class CalculationService {
     const printData = this.calculationAdapter.mapForPrint(calculations, params);
     return this.documentRendererService.render(printData, {
       template: 'tickers.xlsx',
-      filename: `tickers_${params.date}.xlsx`,
+      filename: `tickers_${printData.date}.xlsx`,
     });
   }
 }
