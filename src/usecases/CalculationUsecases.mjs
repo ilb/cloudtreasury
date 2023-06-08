@@ -36,6 +36,6 @@ export default class CalculationUsecases extends Usecases {
    * @return {Promise<void>}
    */
   async exportCalculations({ request, calculationService }) {
-    return calculationService.exportCalculations(request)
+    return calculationService.exportCalculations(request);
   }
 }

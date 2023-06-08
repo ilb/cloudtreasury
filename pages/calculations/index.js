@@ -67,7 +67,7 @@ export default function Offer() {
         <ReportTable
           title="Расчёты"
           onChangeParams={params => calculationResource.getCalculationsData(params)}
-          onExport={params => calculationResource.exportCalculationsData(params)}
+          onExport={params => window.open(`api/calculations/export?${new URLSearchParams(params).toString()}`)}
           columns={columns}
           withDate={true}
           params={{

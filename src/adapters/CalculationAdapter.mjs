@@ -1,7 +1,9 @@
+import moment from 'moment'
+
 export default class CalculationAdapter {
   mapForPrint(stockValuations, params) {
     return {
-      date: params.date,
+      date: moment(params.date, 'YYYY-MM-DD').format('DD.MM.YYYY'),
       stockValuations: stockValuations.map(({ ticker, date, data }) => ({
         ticker,
         date,
