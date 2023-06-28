@@ -62,9 +62,9 @@ const ReportTable = ({
     setParams(model);
   };
 
-  const exportReport = () => {
+  const exportReport = (extension) => {
     try {
-      onExport(buildQuery(_params))
+      onExport(buildQuery({..._params, extension}))
     } catch (err) {
       Notification.error(err.message);
     }
@@ -80,8 +80,18 @@ const ReportTable = ({
             </span>
             <span className="right">
               {withExport && (
-                <Button onClick={exportReport} className="right" type="primary" shape="circle"
-                        icon={<DownloadOutlined />} />
+                <>
+                  <Button onClick={() => exportReport('ods')} className="right ml8" type="primary" shape="round"
+                          icon={<DownloadOutlined />}>
+                    ODS
+                  </Button>
+
+                  <Button onClick={() => exportReport('xlsx')} className="right" type="primary" shape="round"
+                          icon={<DownloadOutlined />}>
+                    XLSX
+                  </Button>
+
+                </>
               )}
             </span>
           </Typography.Title>
