@@ -53,7 +53,7 @@
     "sass": "^1.62.1",
     "uniforms": "^4.0.0-alpha.4",
     "uniforms-antd": "^4.0.0-alpha.4",
-    "uniforms-bridge-json-schema": "^4.0.0-alpha.4"
+    "uniforms-bridge-json-schema": "^4.0.0-alpha.5"
   },
   "devDependencies": {
     "@ilb/ldapenv-cli": "^2.0.0",
