@@ -53,7 +53,7 @@ export default NextAuth({
     maxAge: 30 * 24 * 60 * 60 // 30 days
   },
   jwt: {
-    secret: process.env.JWT_SIGNING_PRIVATE_KEY
+    secret: process.env['apps.cloudtreasury.NEXTAUTH_JWT_PASSWORD']
   },
   pages: {
     signIn: '/signin'
