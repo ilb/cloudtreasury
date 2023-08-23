@@ -22,4 +22,4 @@ https://demo.iconicompany.ru/cloudtreasury/signin
 
 ## Обработчики ошибок
 
-https://github.com/ilb/cloudtreasury/tree/master/src/middlewares
+https://github.com/ilb/cloudtreasury/blob/master/src/core/index.mjs#L60
