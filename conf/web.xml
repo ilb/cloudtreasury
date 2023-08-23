@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<web-app
+    version="3.1"
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <env-entry>
         <description>Настройка postgres БД</description>
         <env-entry-name>DATABASE_URL</env-entry-name>
@@ -27,13 +31,9 @@
         <env-entry-type>java.lang.String</env-entry-type>
     </env-entry>
     <env-entry>
-        <description>JWT секретный ключ</description>
-        <env-entry-name>apps.cloudtreasury.NEXTAUTH_JWT_PASSWORD</env-entry-name>
+        <description>Путь к jwt</description>
+        <env-entry-name>apps.cloudtreasury.jwtkeyfile</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
     </env-entry>
-    <env-entry>
-        <env-entry-name>NEXTAUTH_URL</env-entry-name>
-        <env-entry-type>java.net.URL</env-entry-type>
-        <env-entry-value>${apps.cloudtreasury.ws}/api/auth</env-entry-value>
-    </env-entry>
+
 </web-app>

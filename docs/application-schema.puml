@@ -1,39 +1,18 @@
 @startuml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
-!include ./c4_styles.puml
 
 LAYOUT_LANDSCAPE()
 
-left header
-
-\t<font size=22 color=black>АРМ казначейства</font>
-
-end header
-
-Person(labelerB, "Казначей", " Лицо взаимодействующее с системой", $tags="a")
-Container("mfd.ru", "mfd.ru", "" , "Сервис с информацией о ценных бумагах", $sprite="server")
-Boundary(pipeline, "АРМ казначейства") {
-Component("stockValuation", "stockValuation", "" , "Сервис расчета справедливой стоимости ценных бумаг")
-Component("export", "Экспорт расчетов", "" , "Загрузка расчетов в ods или в xlsx")
-Component("stockCRUD", "Сервис управления ценными бумагами", "" , "Удаление, изменение, добавление и просмотр данных о ценных бумаг в собственности")
-ComponentDb("db", "БД", "POSTGRES", "Хранит выполненные расчеты, данные о ценных бумагах, информацию о пользователях, ролях и разрешениях.")
-
-'        Component(waitForDependentTables, "Wait For Dependent Tables", "worker", "Waits for dependent tables to be populated")
-'        Component(prevalenceSampler, "Label Type A Sampler", "worker", "Queries for type A labels", $tags="primary", $link="./level_4_activity_diagram_sampler_a.puml")
-'        Component(trainingSampler, "Label Type B Sampler", "worker", "Receives all sampling labels type B", $tags="primary", $link="./level_4_activity_diagram_sampler_b.puml")
-'        Component(sendSamplesForLabeling, "SendSamplesForLabeling", "worker", "Send samples for labeling")
-Container(ARM, "АРМ казначейства", "next.js", "", $sprite="server")
+Boundary(outside, "Сторонние сайты", System) {
+    Container(mfd, "mfd.ru", "System" , "Сервис с информацией о ценных бумагах", $sprite="server")
 }
-Rel_R(ARM, "stockValuation", " ")
-Rel_R(ARM, "export", " ")
-Rel_R(ARM, "stockCRUD", " ")
-Rel_R("export", "db", "Получаем записи в промежутке 2 дат")
-Rel_R("stockValuation", "mfd.ru", " ")
-Rel_R("mfd.ru", "stockValuation", "Загружаем файлы для расчетов")
-Rel_R("stockValuation", "db", "Записываем данные расчета в Calculation")
-Rel_R("stockCRUD", "db", "Записываем данные в Stock")
 
-Rel_R(labelerB, ARM, " ")
+Boundary(pipeline, "АРМ казначейства", "system") {
+    ComponentDb("db", "БД", "POSTGRES", "Хранит выполненные расчеты, данные о ценных бумагах, информацию о пользователях, ролях и разрешениях.")
+    Container(ARM, "АРМ казначейства", "System", "", $sprite="server")
+}
 
-HIDE_STEREOTYPE()
+Rel_R(ARM, db, "")
+Rel_R(ARM, mfd, "")
+
 @enduml

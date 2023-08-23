@@ -4,6 +4,7 @@ import AuthUsecases from '../../../src/usecases/AuthUsecases.mjs';
 import { createScope, handle } from '../../../src/core/index.mjs';
 import JsonContext from '../../../src/core/contexts/JsonContext.mjs';
 import PageResponse from '../../../src/core/responses/PageResponse.mjs';
+import fs from 'fs';
 
 export default NextAuth({
   providers: [
@@ -53,7 +54,7 @@ export default NextAuth({
     maxAge: 30 * 24 * 60 * 60 // 30 days
   },
   jwt: {
-    secret: process.env['apps.cloudtreasury.NEXTAUTH_JWT_PASSWORD']
+    secret: fs.readFileSync(process.env['apps.cloudtreasury.jwtkeyfile'])
   },
   pages: {
     signIn: '/signin'
