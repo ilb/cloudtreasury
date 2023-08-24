@@ -3,6 +3,9 @@ import PageResponse from './responses/PageResponse.mjs';
 import MiddlewareHandler from './MiddlewareHandler.mjs';
 import PageContext from './contexts/PageContext.mjs';
 import JsonContext from './contexts/JsonContext.mjs';
+import {notify} from "@ilb/mailer/src/errormailer.js";
+import createDebug from 'debug';
+const debug = createDebug('cloudtreasury-exeptions');
 
 /**
  * Обработка запроса API
@@ -58,6 +61,8 @@ export async function handle(usecases, method, middlewares, responseHandler, con
     return responseHandler.build(result, context.res);
   } catch (exception) {
     console.log('exception', exception);
+    notify(exception).catch(console.log); // отправка ошибки на почту
+    debug('exception', exception); // debug ошибки
     return responseHandler.exception(exception, context.res);
   }
 }
