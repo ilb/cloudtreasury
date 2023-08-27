@@ -85,6 +85,7 @@ export default class FileBrowser {
       if (response.status === 404) {
         return this.EMPTY_FILE;
       } else {
+        console.log('file', url, savePath);
         const arrayBuffer = await response.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer)
         fs.writeFileSync(savePath, buffer);
@@ -111,7 +112,7 @@ export default class FileBrowser {
     /* Returns filesystem path with date,
     * like this: stockvaluation/moex_shares_2019_04_12.csv
     * or this for empty files: stockvaluation/moex_shares_2019_04_12.
-    */  
+    */
     // const date_iso = new Date(date).toISOString().substring(0,10).replace(/-/g, "_");
     let path = '';
     if (with_ext) {
