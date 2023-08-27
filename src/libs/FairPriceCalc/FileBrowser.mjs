@@ -85,7 +85,6 @@ export default class FileBrowser {
       if (response.status === 404) {
         return this.EMPTY_FILE;
       } else {
-        console.log('file', url, savePath);
         const arrayBuffer = await response.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer)
         fs.writeFileSync(savePath, buffer);
