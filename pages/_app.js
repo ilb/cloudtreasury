@@ -13,6 +13,11 @@ import 'moment/locale/ru';
 
 export const UserContext = createContext({});
 export const AwilixContext = createContext({});
+//
+// if (typeof window === "undefined") {
+//   require("../src/stabs/index");
+// }
+
 
 function MyApp({ Component, pageProps, session }) {
   const kernel = new WebKernel();

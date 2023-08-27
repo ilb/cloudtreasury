@@ -1,8 +1,8 @@
-import stockValutionHandlers from './stockValution.mjs';
+import fairPriceCalcHandlers from './fairPriceCalc.mjs';
 import {setupServer} from "msw/node";
 
 const handlers = [
-  process.env["apps.guarantees.stub.stockValution"] ? stockValutionHandlers : [],
+  process.env["apps.cloudtreasury.stub.fairPriceCalc"] ? fairPriceCalcHandlers : [],
 ].flat();
 async function runServer (handlers) {
   const server = await setupServer(...handlers);
