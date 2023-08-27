@@ -9,7 +9,7 @@ export default class FileBrowser {
   GLOBAL_VOLUME_URL = 'https://ilb.github.io/stockvaluation/securities.xhtml';
   GLOBAL_VOLUME_PATH = os.tmpdir() + '/stockvaluation/' + os.userInfo().username + '/volume.xhtml';
   BASE_FILE_NAME = '/moex_shares_';
-  BASE_FILE_URL = 'https://mfd.ru/marketdata/endofday/5/';
+  BASE_FILE_URL = 'https://mfd.ru/marketdata/endofday/5';
   BASE_FILE_PATH = os.tmpdir() + '/stockvaluation/' + os.userInfo().username;
   EMPTY_FILE = -1;
   EMPTY_FILE_TTL = 3600;
