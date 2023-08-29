@@ -3,6 +3,7 @@ import PageResponse from './responses/PageResponse.mjs';
 import MiddlewareHandler from './MiddlewareHandler.mjs';
 import PageContext from './contexts/PageContext.mjs';
 import JsonContext from './contexts/JsonContext.mjs';
+import xforwardCheck from "../utils/xForwardCheck.mjs";
 
 /**
  * Обработка запроса API
@@ -52,6 +53,7 @@ export async function handle(usecases, method, middlewares, responseHandler, con
     const scope = await createScope(context);
 
     await startMiddlewares(scope.cradle, context, middlewares);
+    xforwardCheck(context);
     const instance = new usecases(scope.cradle);
     const result = await instance[method](scope.cradle);
 
