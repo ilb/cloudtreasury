@@ -36,5 +36,17 @@
         <env-entry-name>apps.cloudtreasury.jwtkeyfile</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
     </env-entry>
+    <env-entry>
+        <description>Корневой путь заглушек</description>
+        <env-entry-name>apps.cloudtreasury.stubpath</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>stubs</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <description>Включение заглушки mfd</description>
+        <env-entry-name>apps.cloudtreasury.stub.mfd</env-entry-name>
+        <env-entry-type>java.lang.Boolean</env-entry-type>
+        <env-entry-value>false</env-entry-value>
+    </env-entry>
 
 </web-app>

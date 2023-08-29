@@ -15,7 +15,7 @@ export const UserContext = createContext({});
 export const AwilixContext = createContext({});
 
 if (typeof window === "undefined") {
-  require("../src/stabs/index");
+  require("../src/stubs/index");
 }
 
 
