@@ -10,6 +10,7 @@ import WebKernel from '../client/WebKernel.mjs';
 import { ConfigProvider } from 'antd';
 import ru from 'antd/lib/locale/ru_RU';
 import 'moment/locale/ru';
+import xforwardCheck from '../src/utils/xForwardCheck.mjs';
 
 export const UserContext = createContext({});
 export const AwilixContext = createContext({});
@@ -44,6 +45,7 @@ function MyApp({ Component, pageProps, session }) {
 }
 
 MyApp.getInitialProps = async (context) => {
+  xforwardCheck(context.ctx.req);
   const appProps = await App.getInitialProps(context);
   const session = await getSession(context);
   return { ...appProps, session };
