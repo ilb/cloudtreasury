@@ -36,5 +36,20 @@
         <env-entry-name>apps.cloudtreasury.jwtkeyfile</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
     </env-entry>
+    <env-entry>
+        <env-entry-name>NEXTAUTH_URL</env-entry-name>
+        <env-entry-type>java.net.URL</env-entry-type>
+        <env-entry-value>${apps.cloudtreasury.ws}/api/auth</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <env-entry-name>MAIL_URL</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>${apps.cloudtreasury.MAIL_URL}</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <env-entry-name>SERVER_ADMIN</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>${apps.cloudtreasury.admin_email}</env-entry-value>
+    </env-entry>
 
 </web-app>
