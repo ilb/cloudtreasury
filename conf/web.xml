@@ -44,7 +44,7 @@
     </env-entry>
     <env-entry>
         <description>Включение заглушки mfd</description>
-        <env-entry-name>apps.cloudtreasury.stub.mfd</env-entry-name>
+        <env-entry-name>apps.cloudtreasury.stub.mfdEnabled</env-entry-name>
         <env-entry-type>java.lang.Boolean</env-entry-type>
         <env-entry-value>false</env-entry-value>
     </env-entry>
