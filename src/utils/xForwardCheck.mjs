@@ -7,12 +7,14 @@ const local = process.env.ILB_SYSID == 'LOCAL';
 
 const xforwardCheck = (req) => {
   if (
+    req &&
     !local &&
-    (req.headers['x-forward-secret'] == undefined ||
-      req.headers['x-forward-secret'] !== X_FORWARD_SECRET)
+    (req?.headers['x-forward-secret'] == undefined ||
+      req?.headers['x-forward-secret'] !== X_FORWARD_SECRET)
   ) {
+
     debug(
-      `X-FORWARD-SECRET rejected: header ${req.headers['x-forward-secret']}, env ${X_FORWARD_SECRET}`
+      `X-FORWARD-SECRET rejected: header ${req?.headers['x-forward-secret']}, env ${X_FORWARD_SECRET}`
     );
 
     throw new XForwardException();
