@@ -15,6 +15,11 @@ import xforwardCheck from '../src/utils/xForwardCheck.mjs';
 export const UserContext = createContext({});
 export const AwilixContext = createContext({});
 
+if (typeof window === "undefined") {
+  require("../src/stubs/index");
+}
+
+
 function MyApp({ Component, pageProps, session }) {
   const kernel = new WebKernel();
   const scope = kernel.createApplication();

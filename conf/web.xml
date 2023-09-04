@@ -37,16 +37,31 @@
         <env-entry-type>java.lang.String</env-entry-type>
     </env-entry>
     <env-entry>
+        <description>Базовый путь файлов заглушек</description>
+        <env-entry-name>apps.cloudtreasury.stub.root</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>stubs</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <description>Включение заглушки mfd</description>
+        <env-entry-name>apps.cloudtreasury.stub.mfdEnabled</env-entry-name>
+        <env-entry-type>java.lang.Boolean</env-entry-type>
+        <env-entry-value>false</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <description>Внутренняя переменная для указания адреса авторизации</description>
         <env-entry-name>NEXTAUTH_URL</env-entry-name>
         <env-entry-type>java.net.URL</env-entry-type>
         <env-entry-value>${apps.cloudtreasury.ws}/api/auth</env-entry-value>
     </env-entry>
     <env-entry>
+        <description></description>
         <env-entry-name>MAIL_URL</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
         <env-entry-value>${apps.cloudtreasury.MAIL_URL}</env-entry-value>
     </env-entry>
     <env-entry>
+        <description></description>
         <env-entry-name>SERVER_ADMIN</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
         <env-entry-value>${apps.cloudtreasury.admin_email}</env-entry-value>
