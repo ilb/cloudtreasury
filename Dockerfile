@@ -6,7 +6,7 @@ RUN apk add --update libc6-compat openssl openssl-dev
 WORKDIR /app
 #https://github.com/prisma/prisma/issues/3554
 ENV PRISMA_BINARIES_MIRROR http://prisma-builds.s3-eu-west-1.amazonaws.com
-COPY package.json package-lock.json ./ 
+COPY package.json package-lock.json ./
 
 COPY patches patches
 
@@ -15,7 +15,7 @@ RUN npm install #--frozen-lockfile
 # Rebuild the source code only when needed
 FROM node:16.13-alpine AS builder
 RUN apk add --update libc6-compat openssl openssl-dev
-RUN npm i -g npm
+RUN npm i -g npm@10.0.0
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY *.js *.yaml *.ts? *.json *.lock ./
