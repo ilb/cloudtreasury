@@ -58,27 +58,13 @@ export default function Offer() {
       dataIndex: 'tradingVolume',
       getCalculationsData(params) {
         // Some code here...
-        const stocks = this.stocks.filter(stock => stock.endDate === null);
-        return stocks;
-      }
-  return (
-    <>
-      <NavMenu selectedMenuItem="calculations"/>
-      <Card>
-        <ReportTable
-          title="Расчёты"
-          onChangeParams={params => calculationResource.getCalculationsData(params)}
-          onExport={params => window.open(`api/calculations/export?${new URLSearchParams(params).toString()}`)}
-          columns={columns}
-          withDate={true}
-          params={{
-            date: moment()
-          }}
-        />
-      </Card>
-    </>
-  );
-}
+        export default class CalculationUsecases {
+          // Some code here...
+        
+          filterStocks(stocks) {
+            return stocks.filter(stock => stock.endDate === null);
+          }
+        }
 
 export const getServerSideProps = async (context) => {
   const props = await handlePage(CalculationUsecases, 'index', 'access:calculations_read')(context);
