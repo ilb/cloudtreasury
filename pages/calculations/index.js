@@ -56,10 +56,11 @@ export default function Offer() {
     {
       title: 'Сумарный объём',
       dataIndex: 'tradingVolume',
-      sorter: (a, b) => a.tradingVolume - b.tradingVolume
-    }
-  ];
-
+      getCalculationsData(params) {
+        // Some code here...
+        const stocks = this.stocks.filter(stock => stock.endDate === null);
+        return stocks;
+      }
   return (
     <>
       <NavMenu selectedMenuItem="calculations"/>
@@ -81,6 +82,5 @@ export default function Offer() {
 
 export const getServerSideProps = async (context) => {
   const props = await handlePage(CalculationUsecases, 'index', 'access:calculations_read')(context);
-  const stocks = props.stocks.filter(stock => stock.endDate === null);
-  return { props: { ...props, stocks } };
+  return { props };
 };
