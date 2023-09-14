@@ -11,7 +11,7 @@ import StockUsecases from '../../src/usecases/StockUsecases';
 
 let formRef;
 
-export default function Stocks({ stocks }) {
+export default function Stocks({ stocks, showDeleted }) {
 
   const {
     /** @type {StockSchema} */ stockSchema,
@@ -94,6 +94,7 @@ export default function Stocks({ stocks }) {
           <p>Вы уверены, что хотите удалить запись: {currentStock.ticker}?</p>
         </Modal>
         <Row justify="center">
+          <Checkbox onChange={handleShowDeletedChange}>Show deleted</Checkbox>
           <Col xs={24} sm={24} md={12} xxl={8} className="mb16">
             <Card title={
               <>
@@ -134,4 +135,8 @@ export default function Stocks({ stocks }) {
   );
 }
 
-export const getServerSideProps = handlePage(StockUsecases, 'index', 'access:stocks_read');
+export const getServerSideProps = async (context) => {
+  const showDeleted = context.query.showDeleted === 'true';
+  const props = await handlePage(StockUsecases, 'index', 'access:stocks_read', { showDeleted })(context);
+  return { props: { ...props, showDeleted } };
+};
