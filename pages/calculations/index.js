@@ -79,4 +79,8 @@ export default function Offer() {
   );
 }
 
-export const getServerSideProps = handlePage(CalculationUsecases, 'index', 'access:calculations_read');
+export const getServerSideProps = async (context) => {
+  const props = await handlePage(CalculationUsecases, 'index', 'access:calculations_read')(context);
+  const stocks = props.stocks.filter(stock => stock.endDate === null);
+  return { props: { ...props, stocks } };
+};
