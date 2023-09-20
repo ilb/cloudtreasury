@@ -1,47 +1,59 @@
-import NextAuth from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import AuthUsecases from '../../../src/usecases/AuthUsecases.mjs';
-import { createScope, handle } from '../../../src/core/index.mjs';
-import JsonContext from '../../../src/core/contexts/JsonContext.mjs';
-import PageResponse from '../../../src/core/responses/PageResponse.mjs';
-import fs from 'fs';
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import AuthUsecases from "../../../src/usecases/AuthUsecases.mjs";
+import { createScope, handle } from "../../../src/core/index.mjs";
+import JsonContext from "../../../src/core/contexts/JsonContext.mjs";
+import PageResponse from "../../../src/core/responses/PageResponse.mjs";
+import fs from "fs";
 
 export default NextAuth({
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
-      name: 'Credentials',
+      name: "Credentials",
       // The credentials is used to generate a suitable form on the sign in page.
       // You can specify whatever fields you are expecting to be submitted.
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        login: { label: 'Login', type: 'text' },
-        password: { label: 'Password', type: 'password' },
+        login: { label: "Login", type: "text" },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
         try {
           const data = { req };
           const context = await JsonContext.build(data);
-          const result = await handle(AuthUsecases, 'signIn', [], PageResponse, context);
+          const result = await handle(
+            AuthUsecases,
+            "signIn",
+            [],
+            PageResponse,
+            context
+          );
           return result.props;
         } catch (err) {
           console.log(err);
           throw new Error(err);
         }
-      }
+      },
     }),
     CredentialsProvider({
-      name: 'Ldap',
-      id: 'ldap',
+      name: "Ldap",
+      id: "ldap",
       credentials: {
-        login: { label: 'Login', type: 'text' },
+        login: { label: "Login", type: "text" },
       },
       async authorize(credentials, req) {
         try {
           const data = { req };
           const context = await JsonContext.build(data);
-          const result = await handle(AuthUsecases, 'signInLdap', [], PageResponse, context);
+          const result = await handle(
+            AuthUsecases,
+            "signInLdap",
+            [],
+            PageResponse,
+            context
+          );
           return result.props;
         } catch (err) {
           console.log(err);
@@ -51,13 +63,13 @@ export default NextAuth({
     }),
   ],
   session: {
-    maxAge: 30 * 24 * 60 * 60 // 30 days
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   jwt: {
-    secret: fs.readFileSync(process.env['apps.cloudtreasury.jwtkeyfile'])
+    secret: fs.readFileSync(process.env["apps.cloudtreasury.jwtkeyfile"]),
   },
   pages: {
-    signIn: '/signin'
+    signIn: "/signin",
   },
   callbacks: {
     async jwt({ token, account, user }) {
@@ -77,5 +89,5 @@ export default NextAuth({
 
       return session;
     },
-  }
+  },
 });

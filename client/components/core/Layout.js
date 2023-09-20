@@ -1,26 +1,25 @@
 import {
-	MenuFoldOutlined,
-	MenuUnfoldOutlined,
-	UserOutlined,
-	UsergroupAddOutlined,
-	NodeIndexOutlined,
-	ContainerOutlined,
-  SettingOutlined,
-  PaperClipOutlined
-} from '@ant-design/icons';
-import { Layout, Menu } from 'antd'
-import React, { useContext, useEffect, useState } from 'react';
-import { useRouter } from 'next/router'
-import LoginBtn from './LoginBtn'
-import { getUserPermissions } from '../../helpers/utils.mjs';
-import { UserContext } from '../../../pages/_app';
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UserOutlined,
+  UsergroupAddOutlined,
+  NodeIndexOutlined,
+  ContainerOutlined,
+  PaperClipOutlined,
+} from "@ant-design/icons";
+import { Layout, Menu } from "antd";
+import React, { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import LoginBtn from "./LoginBtn";
+import { getUserPermissions } from "../../helpers/utils.mjs";
+import { UserContext } from "../../../pages/_app";
 
 const { Header, Sider, Content } = Layout;
 
-const AppLayout = ({ children, ...qwe }) => {
-	const router = useRouter();
-	const [collapsed, setCollapsed] = useState(true);
-	const [tabs, setTabs] = useState([]);
+const AppLayout = ({ children }) => {
+  const router = useRouter();
+  const [collapsed, setCollapsed] = useState(true);
+  const [tabs, setTabs] = useState([]);
   const session = useContext(UserContext);
 
   useEffect(() => {
@@ -30,99 +29,102 @@ const AppLayout = ({ children, ...qwe }) => {
       setTabs(
         [
           {
-            key: 'home',
+            key: "home",
             icon: <UserOutlined />,
-            label: 'Домашняя',
-            href: '/',
+            label: "Домашняя",
+            href: "/",
           },
           {
-            key: 'Stocks',
+            key: "Stocks",
             icon: <PaperClipOutlined />,
-            label: 'Справочники',
-            href: '/stocks',
+            label: "Справочники",
+            href: "/stocks",
           },
           {
-            key: 'calculations',
+            key: "calculations",
             icon: <ContainerOutlined />,
-            label: 'Расчёты',
-            href: '/calculations',
-            permission: 'calculations_read',
+            label: "Расчёты",
+            href: "/calculations",
+            permission: "calculations_read",
+          },
+          {
+            key: "users",
+            icon: <UsergroupAddOutlined />,
+            label: "Пользователи",
+            href: "/users",
+            permission: "users_read",
+          },
+          {
+            key: "roles",
+            icon: <NodeIndexOutlined />,
+            label: "Роли",
+            href: "/dictionaries/roles",
+            permission: "roles_read",
+          },
+          {
+            key: "permissions",
+            icon: <NodeIndexOutlined />,
+            label: "Права",
+            href: "/dictionaries/permissions",
+            permission: "permissions_read",
           },
           // {
-          //   key: 'users',
-          //   icon: <UsergroupAddOutlined />,
-          //   label: 'Пользователи',
-          //   href: '/users',
-          //   permission: 'users_read',
-          // },
-          // {
-          //   key: 'roles',
+          //   key: "errors",
           //   icon: <NodeIndexOutlined />,
-          //   label: 'Роли',
-          //   href: '/dictionaries/roles',
-          //   permission: 'roles_read',
-          // },
-          // {
-          //   key: 'permissions',
-          //   icon: <NodeIndexOutlined />,
-          //   label: 'Права',
-          //   href: '/dictionaries/permissions',
-          //   permission: 'permissions_read',
-          // },
-          // {
-          //   key: 'errors',
-          //   icon: <NodeIndexOutlined />,
-          //   label: 'Ошибки',
-          //   href: '/dictionaries/errorDescriptions',
-          //   permission: 'errors_read',
+          //   label: "Ошибки",
+          //   href: "/dictionaries/errorDescriptions",
+          //   permission: "errors_read",
           // },
           // {
           //   key: 'settings',
           //   icon: <SettingOutlined />,
-          //   label: 'Ошибки',
+          //   label: 'Настройки',
           //   href: '/settings',
           //   permission: 'settings_read',
           // },
-        ].filter((tab) => !tab.permission || userPermissions.includes(tab.permission)),
+        ].filter(
+          (tab) => !tab.permission || userPermissions.includes(tab.permission)
+        )
       );
     }
 
     setSidebar();
   }, [session]);
 
-	return (
-		<Layout>
-			<Sider trigger={null} collapsible collapsed={collapsed}>
-				<div className="logo"/>
-				<Menu
-					onClick={async (event) => {
-						await router.push(event.item.props.href)
-					}}
-					theme="dark"
-					mode="inline"
-					defaultSelectedKeys={['1']}
-					items={tabs}
-				/>
-			</Sider>
-			<Layout className="site-layout">
-				<Header
-					className="site-layout-background"
-					style={{
-						padding: 0
-					}}>
-					{React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-						className: 'trigger',
-						onClick: () => setCollapsed(!collapsed)
-					})}
-					<LoginBtn/>
-				</Header>
-				<Content
-					style={{ margin: '16px' }}>
-					{children}
-				</Content>
-			</Layout>
-		</Layout>
-	)
-}
+  return (
+    <Layout>
+      <Sider trigger={null} collapsible collapsed={collapsed}>
+        <div className="logo" />
+        <Menu
+          onClick={async (event) => {
+            await router.push(event.item.props.href);
+          }}
+          theme="dark"
+          mode="inline"
+          defaultSelectedKeys={["1"]}
+          items={tabs}
+        />
+      </Sider>
+      <Layout className="site-layout">
+        <Header
+          className="site-layout-background"
+          style={{
+            padding: 0,
+          }}
+        >
+          {React.createElement(
+            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+            {
+              className: "trigger",
+              onClick: () => setCollapsed(!collapsed),
+            }
+          )}
+          <LoginBtn />
+        </Header>
+        <Content style={{ margin: "16px" }}>{children}</Content>
+      </Layout>
+    </Layout>
+  );
+};
 
-export default AppLayout
+export default AppLayout;

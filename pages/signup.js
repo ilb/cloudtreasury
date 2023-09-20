@@ -1,20 +1,21 @@
-import { withRouter } from 'next/router';
-import { signIn, signUp } from '../client/resources/auth';
-import Notification from '../client/helpers/Notification';
-import { AutoField, AutoForm, SubmitField } from 'uniforms-antd';
-import createSchemaBridge from '../src/libs/uniforms-bridge.mjs';
-import { useContext } from 'react';
-import { AwilixContext } from './_app';
+import { withRouter } from "next/router";
+import { signIn, signUp } from "../client/resources/auth";
+import Notification from "../client/helpers/Notification";
+import { AutoField, AutoForm, SubmitField } from "uniforms-antd";
+import createSchemaBridge from "../src/libs/uniforms-bridge.mjs";
+import { useContext } from "react";
+import { AwilixContext } from "./_app";
 
 const SignUp = ({ router }) => {
-  const { /** @type {SignupSchema} */ signupSchema } = useContext(AwilixContext);
+  const { /** @type {SignupSchema} */ signupSchema } =
+    useContext(AwilixContext);
 
   const submit = (values) => {
-    signUp(values).then(res => {
+    signUp(values).then((res) => {
       if (res.ok) {
         signIn(values).then((res) => {
           if (res.ok) {
-            router.push('/');
+            router.push("/");
           } else {
             Notification.error(JSON.stringify(res.error));
           }
@@ -22,7 +23,7 @@ const SignUp = ({ router }) => {
       } else {
         Notification.error(JSON.stringify(res.error));
       }
-    }) // todo refactor
+    }); // todo refactor
   };
 
   return (
