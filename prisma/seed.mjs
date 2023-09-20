@@ -5,6 +5,7 @@ import RoleSeeder from './seeds/RoleSeeder.mjs';
 import UserSeeder from './seeds/UserSeeder.mjs';
 import RelationSeeder from './seeds/RelationSeeder.mjs';
 import RelationMemberSeeder from './seeds/RelationMemberSeeder.mjs';
+import StockSeeder from "./seeds/StockSeeder.mjs";
 
 async function main() {
   const seeders = [
@@ -14,6 +15,7 @@ async function main() {
     RelationSeeder,
     UserSeeder,
     RelationMemberSeeder,
+    StockSeeder
   ];
 
   await prisma.$transaction(async (tx) => {

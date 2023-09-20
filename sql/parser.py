@@ -62,7 +62,7 @@ class tableToQuerry:
                     
 
                 if (index % 3 == 0):
-                    string += str(column) + ')\n'
+                    string += str(column) + '),\n'
                 else:
                     string += str(column) + ', '
 
@@ -80,7 +80,7 @@ class tableToQuerry:
         index = 0
         for i in cols:
 
-            string += i + ', '
+            string += i + ''
             index += 1
         mysql = f'INSERT INTO "Stock" (ticker, value, isin) VALUES ${string}'
         return mysql
@@ -89,5 +89,5 @@ tb = tableToQuerry()
 tb.send_req()
 tbs = tb.get_and_normalize_tds()
 mysql_cols = tb.dict_to_cols(tbs)
-mysql = tb.cols_to_sql(mysql_cols)
+mysql = tb.cols_to_sql(mysql_cols).replace("$('Наименование', >Объем выпуска, 'ISIN'),", '')
 print(mysql)
