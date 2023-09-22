@@ -10,7 +10,15 @@ export default class StockUsecases extends Usecases {
   async index({ stockRepository, request }) {
     const stocks = await stockRepository.getAll(request);
 
-    return { stocks };
+    const filteredStocks = stocks.map((stock) => {
+      const { endDate, ...filteredStock } = stock;
+      if (endDate instanceof Date) {
+        filteredStock.endDate = endDate.toISOString();
+      }
+      return filteredStock;
+    });
+
+    return { stocks: filteredStocks };
   }
 
   /**
@@ -28,7 +36,8 @@ export default class StockUsecases extends Usecases {
    * @returns {Promise<{stock: (*)}>}
    */
   async delete({ stockRepository, request }) {
-    return stockRepository.delete(request.id);
+    const currentDate = new Date();
+    return stockRepository.updateEndDate(request.id, currentDate);
   }
 
   /**

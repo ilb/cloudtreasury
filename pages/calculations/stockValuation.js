@@ -29,7 +29,9 @@ export default function StockValuation({ stocks }) {
 
   const options = useMemo(() => {
     if (stocks && stocks.length) {
-      return stocks.map((stock) => ({
+      return stocks
+        .filter(stock => stock.endDate === undefined)
+        .map((stock) => ({
         label: stock.ticker,
         value: stock.id
       }));
