@@ -1,0 +1,12 @@
+name: Testing Deployment
+on:
+  pull_request:
+    types: [labeled, unlabeled, synchronize, closed, reopened]
+jobs:
+  call-deployment:
+    uses: ilb/werfactions/.github/workflows/deployment.yml@main
+    secrets: inherit
+    with:
+      registry: ghcr.io/${{ github.repository }}
+      context: testing
+      setenv: env.DOMAIN=${{ github.head_ref || github.ref_name }}.${{ github.repository_owner }}.icncd.ru
