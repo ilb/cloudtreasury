@@ -4,7 +4,7 @@ on:
     branches: ['master']
 jobs:
   call-deployment:
-    uses: iconicompany/iconicactions/.github/workflows/deployment.yml@main
+    uses: ilb/iconicactions/.github/workflows/deployment.yml@main
     secrets: inherit
     with:
       setenv: env.DOMAIN=${{ github.head_ref || github.ref_name }}.${{ github.repository_owner }}.icncd.ru

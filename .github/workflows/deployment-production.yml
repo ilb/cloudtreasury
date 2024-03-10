@@ -4,7 +4,7 @@ on:
     tags: ['v*','!v*-*']
 jobs:
   call-deployment:
-    uses: iconicompany/iconicactions/.github/workflows/deployment.yml@main
+    uses: ilb/iconicactions/.github/workflows/deployment.yml@main
     secrets: inherit
     with:
       env: production
