@@ -64,6 +64,7 @@ export default NextAuth({
   },
   callbacks: {
     async jwt({ token, account, user }) {
+      debug('callback jwt');
       // Persist the OAuth access_token to the token right after signin
       if (account) {
         token.accessToken = account.access_token;
@@ -72,9 +73,9 @@ export default NextAuth({
       return token;
     },
     async session({ session, token }) {
+      debug('callback session', session);
       const scope = await createScope({ session: token });
       const authUsecases = new AuthUsecases(scope.cradle);
-      debug('session', session)
 
       session.user = await authUsecases.getActualAuthUserInfo(scope.cradle);
       debug('session.user', session.user)
