@@ -53,6 +53,7 @@ export default NextAuth({
       },
     }),
   ],
+  debug: process.env.DEBUG && process.env.DEBUG.includes('nextauth'),
   session: {
     maxAge: 30 * 24 * 60 * 60 // 30 days
   },
