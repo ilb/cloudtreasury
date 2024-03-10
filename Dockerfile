@@ -15,7 +15,7 @@ RUN npm install #--frozen-lockfile
 # Rebuild the source code only when needed
 FROM node:16.13-alpine AS builder
 RUN apk add --update libc6-compat openssl openssl-dev
-RUN npm i -g npm
+#RUN npm i -g npm
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY *.js *.yaml *.ts? *.json *.lock ./
