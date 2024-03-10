@@ -4,6 +4,9 @@ import AuthUsecases from '../../../src/usecases/AuthUsecases.mjs';
 import { createScope, handle } from '../../../src/core/index.mjs';
 import JsonContext from '../../../src/core/contexts/JsonContext.mjs';
 import PageResponse from '../../../src/core/responses/PageResponse.mjs';
+import createDebug from 'debug';
+const debug = createDebug('nextauth');
+
 
 export default NextAuth({
   providers: [
@@ -23,6 +26,7 @@ export default NextAuth({
           const data = { req };
           const context = await JsonContext.build(data);
           const result = await handle(AuthUsecases, 'signIn', [], PageResponse, context);
+          debug('AuthUsecases.signIn result=', result)
           return result.props;
         } catch (err) {
           console.log(err);
@@ -70,8 +74,11 @@ export default NextAuth({
     async session({ session, token }) {
       const scope = await createScope({ session: token });
       const authUsecases = new AuthUsecases(scope.cradle);
+      debug('session', session)
 
       session.user = await authUsecases.getActualAuthUserInfo(scope.cradle);
+      debug('session.user', session.user)
+
       session.accessToken = token.accessToken;
 
       return session;
