@@ -1,12 +1,10 @@
 name: Testing Deployment
 on:
   push:
-    branches: ['main','sandbox']
+    branches: ['master']
 jobs:
   call-deployment:
-    uses: ilb/werfactions/.github/workflows/deployment.yml@main
+    uses: ilb/iconicactions/.github/workflows/deployment.yml@main
     secrets: inherit
     with:
-      registry: ghcr.io/${{ github.repository }}
-      context: testing
       setenv: env.DOMAIN=${{ github.head_ref || github.ref_name }}.${{ github.repository_owner }}.icncd.ru

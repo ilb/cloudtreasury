@@ -4,10 +4,8 @@ on:
     tags: ['v*','!v*-*']
 jobs:
   call-deployment:
-    uses: ilb/werfactions/.github/workflows/deployment.yml@main
+    uses: ilb/iconicactions/.github/workflows/deployment.yml@main
     secrets: inherit
     with:
-      registry: ghcr.io/${{ github.repository }}
-      context: production
       env: production
       setenv: env.DOMAIN=demo.iconicompany.ru
