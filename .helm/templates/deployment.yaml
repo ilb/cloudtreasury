@@ -31,8 +31,6 @@ spec:
                 - key: "kubernetes.io/arch"
                   operator: In
                   values: ["amd64"]
-      imagePullSecrets:
-      - name: registrysecret
       containers:
       - name: app
         image: {{ .Values.werf.image.app }}

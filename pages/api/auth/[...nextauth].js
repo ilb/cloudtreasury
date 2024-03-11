@@ -5,6 +5,9 @@ import { createScope, handle } from '../../../src/core/index.mjs';
 import JsonContext from '../../../src/core/contexts/JsonContext.mjs';
 import PageResponse from '../../../src/core/responses/PageResponse.mjs';
 import fs from 'fs';
+import createDebug from 'debug';
+const debug = createDebug('nextauth');
+
 
 export default NextAuth({
   providers: [
@@ -24,6 +27,7 @@ export default NextAuth({
           const data = { req };
           const context = await JsonContext.build(data);
           const result = await handle(AuthUsecases, 'signIn', [], PageResponse, context);
+          debug('AuthUsecases.signIn result=', result)
           return result.props;
         } catch (err) {
           console.log(err);
@@ -50,6 +54,7 @@ export default NextAuth({
       },
     }),
   ],
+  debug: process.env.DEBUG && process.env.DEBUG.includes('nextauth'),
   session: {
     maxAge: 30 * 24 * 60 * 60 // 30 days
   },
@@ -61,6 +66,7 @@ export default NextAuth({
   },
   callbacks: {
     async jwt({ token, account, user }) {
+      debug('callback jwt');
       // Persist the OAuth access_token to the token right after signin
       if (account) {
         token.accessToken = account.access_token;
@@ -69,10 +75,13 @@ export default NextAuth({
       return token;
     },
     async session({ session, token }) {
+      debug('callback session', session);
       const scope = await createScope({ session: token });
       const authUsecases = new AuthUsecases(scope.cradle);
 
       session.user = await authUsecases.getActualAuthUserInfo(scope.cradle);
+      debug('session.user', session.user)
+
       session.accessToken = token.accessToken;
 
       return session;
