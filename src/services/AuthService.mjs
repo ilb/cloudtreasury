@@ -4,27 +4,31 @@ import PasswordHelper from '../helpers/PasswordHelper.mjs';
 export default class AuthService extends Service {
   /**
    * @param {UserRepository} userRepository
+   * @param {AuthProviderFactory} authProviderFactory
    */
-  constructor({ userRepository }) {
+  constructor({ userRepository, authProviderFactory }) {
     super();
     this.userRepository = userRepository;
+    this.authProviderFactory = authProviderFactory;
   }
 
-  async signIn(data) {
-    if (!data.login) {
-      return null;
-    }
+  /**
+   * @param data - данные пользователя
+   * @param {"database" | "ldap"} type - тип аутентификации
+   * @return {Promise<*>}
+   */
+  async signIn(data, type) {
+    const provider = this.authProviderFactory.getProvider(type);
+    return provider.signIn(data);
+  }
 
-    const user = await this.userRepository.findByLogin(data.login);
-
-    if (!user) {
-      throw Error('User not found.')
-    }
-
-    if (!PasswordHelper.compareWithHash(data.password, user.password)) {
-      throw Error('Incorrect password.')
-    }
-
-    return user;
+  /**
+   * @param data - данные пользователя
+   * @param type - тип аутентификации
+   * @return {Promise<*>}
+   */
+  async signUp(data, type) {
+    const provider = this.authProviderFactory.getProvider(type);
+    return provider.signUp(data);
   }
 }

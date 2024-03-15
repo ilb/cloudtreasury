@@ -1,36 +1,11 @@
 name: Production Deployment
 on:
   push:
-    branches: [master]
+    tags: ['v*','!v*-*']
 jobs:
-  converge:
-    name: Converge
-    runs-on: ubuntu-latest
-    steps:
-
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Login to Registry
-        uses: docker/login-action@v2
-        with:
-          #registry: registry.gitlab.com
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
-
-      - name: Install werf
-        uses: werf/actions/install@v1.2
-
-      - name: Run script
-        run:
-          werf converge
-        env:
-          WERF_KUBECONFIG_BASE64: ${{ secrets.KUBE_CONFIG_BASE64_DATA }}
-          WERF_ENV: production
-          WERF_VALUES_ENV: .helm/values-production.yaml
-#          WERF_SECRET_VALUES_ENV: .helm/secret-values-production.yaml
-          #WERF_REPO: registry.gitlab.com/iconicompany/cloudtreasury
-          WERF_REPO: docker.io/iconicompany/cloudtreasury
-          WERF_SECRET_KEY: ${{ secrets.WERF_SECRET_KEY }}
+  call-deployment:
+    uses: ilb/iconicactions/.github/workflows/deployment.yml@main
+    secrets: inherit
+    with:
+      env: production
+      setenv: env.DOMAIN=demo.iconicompany.ru
