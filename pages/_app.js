@@ -20,7 +20,6 @@ if (typeof window === "undefined") {
 
 
 function MyApp({ Component, pageProps, session }) {
-  console.log('session', session)
   const kernel = new WebKernel();
   const scope = kernel.createApplication();
 

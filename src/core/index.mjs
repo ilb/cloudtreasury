@@ -6,6 +6,7 @@ import JsonContext from './contexts/JsonContext.mjs';
 import createDebug from 'debug';
 const debug = createDebug('cloudtreasury');
 import xforwardCheck from "../utils/xForwardCheck.mjs";
+import {notify} from "@ilb/mailer/src/errormailer.js";
 
 /**
  * Обработка запроса API
@@ -63,7 +64,7 @@ export async function handle(usecases, method, middlewares, responseHandler, con
     return responseHandler.build({ session: user, ...result }, context.res);
   } catch (exception) {
     console.log('exception', exception);
-    // notify(exception).catch(console.log); // отправка ошибки на почту
+    notify(exception).catch(console.log); // отправка ошибки на почту
     debug('exception', exception); // debug ошибки
     return responseHandler.exception(exception, context.res);
   }

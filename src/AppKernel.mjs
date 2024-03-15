@@ -27,7 +27,7 @@ export default class AppKernel {
       user: asValue(context?.session?.user),
       ldapPrefix: asValue(process.env.LDAPPREFIX),
       remoteUserName: asValue(
-        isProduction ? (context?.headers ? context?.headers['x-remote-user'] : null) : 'admin',
+        isProduction ? (context?.headers ? context?.headers['x-remote-user'] : null) : 'testuser1',
       ),
       next: asValue(context?.next),
       request: asValue(context.request),
