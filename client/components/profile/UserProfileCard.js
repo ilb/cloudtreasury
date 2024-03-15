@@ -1,15 +1,16 @@
-import { Avatar, Button, Card, Dropdown, Menu, Space, Tag } from 'antd';
-import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
-import Meta from 'antd/lib/card/Meta';
-import Notification from '../../helpers/Notification';
-import { useContext, useEffect, useState } from 'react';
-import EditUserModal from './EditUserModal';
-import Access from '../core/Access';
-import UserModelBuilder from '../../builders/UserModelBuilder.mjs';
-import { AwilixContext } from '../../../pages/_app';
+import { Avatar, Button, Card, Dropdown, Menu, Space, Tag } from "antd";
+import { EditOutlined, EllipsisOutlined } from "@ant-design/icons";
+import Meta from "antd/lib/card/Meta";
+import Notification from "../../helpers/Notification";
+import { useContext, useEffect, useState } from "react";
+import EditUserModal from "./EditUserModal";
+import Access from "../core/Access";
+import UserModelBuilder from "../../builders/UserModelBuilder.mjs";
+import { AwilixContext } from "../../../pages/_app";
 
 const UserProfileCard = ({ user, roles, afterSave }) => {
-  const { /** @type {UserResource} */ userResource, userSchema } = useContext(AwilixContext);
+  const { /** @type {UserResource} */ userResource, userSchema } =
+    useContext(AwilixContext);
 
   const [model, setModel] = useState({});
   const [actions, setActions] = useState([]);
@@ -18,27 +19,36 @@ const UserProfileCard = ({ user, roles, afterSave }) => {
   useEffect(() => {
     setActions([
       <EditOutlined key="edit" onClick={() => openEdit(true)} />,
-      <Dropdown key="actions" overlay={<Menu
-        items={[
-          {
-            key: '1',
-            label: (
-              <>
-                {user.isBlocked && (
-                  <Button onClick={unblock} type="text">Разблокировать</Button>
-                )}
-                {!user.isBlocked && (
-                  <Button onClick={block} danger type="text">Заблокировать</Button>
-                )}
-              </>
-            )
-          }
-        ]}
-      />}>
+      <Dropdown
+        key="actions"
+        overlay={
+          <Menu
+            items={[
+              {
+                key: "1",
+                label: (
+                  <>
+                    {user.isBlocked && (
+                      <Button onClick={unblock} type="text">
+                        Разблокировать
+                      </Button>
+                    )}
+                    {!user.isBlocked && (
+                      <Button onClick={block} danger type="text">
+                        Заблокировать
+                      </Button>
+                    )}
+                  </>
+                ),
+              },
+            ]}
+          />
+        }
+      >
         <Space>
           <EllipsisOutlined style={{ fontSize: 16 }} />
         </Space>
-      </Dropdown>
+      </Dropdown>,
     ]);
   }, [user.isBlocked]);
   useEffect(() => {
@@ -56,10 +66,13 @@ const UserProfileCard = ({ user, roles, afterSave }) => {
   };
 
   const save = async () => {
-    userResource.update(user.id, model).then(result => {
-      Notification.success();
-      afterSave && afterSave(result);
-    }).catch((error) => Notification.error(error.message));
+    userResource
+      .update(user.id, model)
+      .then((result) => {
+        Notification.success();
+        afterSave && afterSave(result);
+      })
+      .catch((error) => Notification.error(error.message));
   };
 
   return (
@@ -75,7 +88,10 @@ const UserProfileCard = ({ user, roles, afterSave }) => {
             </span>
           </div>
         }
-        description={user?.relationMembers[0] && user?.relationMembers[0].role?.title || 'Нет роли'}
+        description={
+          (user?.relationMembers[0] && user?.relationMembers[0].role?.title) ||
+          "Нет роли"
+        }
       />
       <Access permission="users_update">
         <EditUserModal

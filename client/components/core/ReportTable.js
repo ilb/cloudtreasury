@@ -1,20 +1,28 @@
-import { Button, Col, DatePicker, Divider, Form, Row, Table, Typography } from 'antd';
-import { useEffect, useState } from 'react';
-import Notification from '../../helpers/Notification';
-import { DownloadOutlined } from '@ant-design/icons';
-import moment from 'moment';
+import {
+  Button,
+  Col,
+  DatePicker,
+  Divider,
+  Form,
+  Row,
+  Table,
+  Typography,
+} from "antd";
+import { useEffect, useState } from "react";
+import Notification from "../../helpers/Notification";
+import { DownloadOutlined } from "@ant-design/icons";
 
 const ReportTable = ({
-   title,
-   filters,
-   columns,
-   params,
-   onChangeParams,
-   onExport,
-   withDateRange = false,
-   withDate = false,
-   ...tableParams
- }) => {
+  title,
+  filters,
+  columns,
+  params,
+  onChangeParams,
+  onExport,
+  withDateRange = false,
+  withDate = false,
+  ...tableParams
+}) => {
   const withExport = !!onExport;
   const withFilters = !!filters || withDateRange || withDate;
 
@@ -31,15 +39,15 @@ const ReportTable = ({
       const [dateFrom, dateTo] = dateRange;
       query = {
         ...query,
-        dateFrom: dateFrom.format('YYYY-MM-DD'),
-        dateTo: dateTo.format('YYYY-MM-DD')
+        dateFrom: dateFrom.format("YYYY-MM-DD"),
+        dateTo: dateTo.format("YYYY-MM-DD"),
       };
     }
 
     if (date) {
       query = {
         ...query,
-        date: date.format('YYYY-MM-DD')
+        date: date.format("YYYY-MM-DD"),
       };
     }
 
@@ -64,7 +72,7 @@ const ReportTable = ({
 
   const exportReport = (extension) => {
     try {
-      onExport(buildQuery({..._params, extension}))
+      onExport(buildQuery({ ..._params, extension }));
     } catch (err) {
       Notification.error(err.message);
     }
@@ -75,22 +83,29 @@ const ReportTable = ({
       {title && (
         <>
           <Typography.Title level={4}>
-            <span>
-              {title}
-            </span>
+            <span>{title}</span>
             <span className="right">
               {withExport && (
                 <>
-                  <Button onClick={() => exportReport('ods')} className="right ml8" type="primary" shape="round"
-                          icon={<DownloadOutlined />}>
+                  <Button
+                    onClick={() => exportReport("ods")}
+                    className="right ml8"
+                    type="primary"
+                    shape="round"
+                    icon={<DownloadOutlined />}
+                  >
                     ODS
                   </Button>
 
-                  <Button onClick={() => exportReport('xlsx')} className="right" type="primary" shape="round"
-                          icon={<DownloadOutlined />}>
+                  <Button
+                    onClick={() => exportReport("xlsx")}
+                    className="right"
+                    type="primary"
+                    shape="round"
+                    icon={<DownloadOutlined />}
+                  >
                     XLSX
                   </Button>
-
                 </>
               )}
             </span>

@@ -1,10 +1,9 @@
-import { Typography } from 'antd';
-import { Card } from 'antd';
+import { Typography } from "antd";
+import { Card } from "antd";
 
 const { Title } = Typography;
 
 export default function Settings() {
-
   return (
     <div>
       <Card>
@@ -13,5 +12,5 @@ export default function Settings() {
         </Title>
       </Card>
     </div>
-  )
+  );
 }

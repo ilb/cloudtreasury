@@ -1,11 +1,9 @@
-import { Col, Modal, Row } from 'antd';
-import { AutoField, AutoForm, SubmitField } from 'uniforms-antd';
-import createSchemaBridge from '../../../src/libs/uniforms-bridge.mjs';
-import PermissionSchema from '../../scheme/PermissionSchema.mjs';
-import { useContext, useEffect, useState } from 'react';
-import Notification from '../../helpers/Notification';
-import PermissionResource from '../../resources/PermissionResource.mjs';
-import { AwilixContext } from '../../../pages/_app';
+import { Modal } from "antd";
+import { AutoField, AutoForm, SubmitField } from "uniforms-antd";
+import createSchemaBridge from "../../../src/libs/uniforms-bridge.mjs";
+import { useContext, useEffect, useState } from "react";
+import Notification from "../../helpers/Notification";
+import { AwilixContext } from "../../../pages/_app";
 
 const PermissionModal = ({ permission = {}, isOpen, hideModal, afterSave }) => {
   const {
@@ -20,24 +18,36 @@ const PermissionModal = ({ permission = {}, isOpen, hideModal, afterSave }) => {
   }, [permission?.id]);
 
   const store = (data) => {
-    permissionResource.store({ ...data, id: permission?.id }).then(result => {
-      Notification.success();
-      hideModal();
-      afterSave && afterSave(result);
-    }).catch(err => Notification.error(err.message));
+    permissionResource
+      .store({ ...data, id: permission?.id })
+      .then((result) => {
+        Notification.success();
+        hideModal();
+        afterSave && afterSave(result);
+      })
+      .catch((err) => Notification.error(err.message));
   };
 
   const isCreate = () => !model?.id;
 
-  const getTitle = () => isCreate() ? 'Создание' : 'Редактирование';
+  const getTitle = () => (isCreate() ? "Создание" : "Редактирование");
 
   return (
     <>
-      <Modal title={getTitle()} visible={isOpen} footer={null} onCancel={hideModal}>
-        <AutoForm schema={createSchemaBridge(permissionSchema.get())} onSubmit={store} model={model}>
-          <AutoField name="title"/>
-          <AutoField name="code"/>
-          <SubmitField value="Сохранить"/>
+      <Modal
+        title={getTitle()}
+        visible={isOpen}
+        footer={null}
+        onCancel={hideModal}
+      >
+        <AutoForm
+          schema={createSchemaBridge(permissionSchema.get())}
+          onSubmit={store}
+          model={model}
+        >
+          <AutoField name="title" />
+          <AutoField name="code" />
+          <SubmitField value="Сохранить" />
         </AutoForm>
       </Modal>
     </>

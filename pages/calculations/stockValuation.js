@@ -1,14 +1,21 @@
-import { Card, Col, Row, Spin } from 'antd';
-import { handlePage } from '../../src/core/index.mjs';
-import StockUsecases from '../../src/usecases/StockUsecases.mjs';
-import { useContext, useMemo, useState } from 'react';
-import { AwilixContext } from '../_app';
-import createSchemaBridge from '../../src/libs/uniforms-bridge.mjs';
-import { AutoField, DateField, ErrorsField, SelectField, SubmitField, AutoForm } from 'uniforms-antd';
-import NavMenu from '../../client/components/stock/StockNavMenu.js';
-import Notification from '../../client/helpers/Notification';
-import moment from 'moment';
-import ActiveMarket from '../../src/constants/ActiveMarket.mjs';
+import { Card, Col, Row, Spin } from "antd";
+import { handlePage } from "../../src/core/index.mjs";
+import StockUsecases from "../../src/usecases/StockUsecases.mjs";
+import { useContext, useMemo, useState } from "react";
+import { AwilixContext } from "../_app";
+import createSchemaBridge from "../../src/libs/uniforms-bridge.mjs";
+import {
+  AutoField,
+  DateField,
+  ErrorsField,
+  SelectField,
+  SubmitField,
+  AutoForm,
+} from "uniforms-antd";
+import NavMenu from "../../client/components/stock/StockNavMenu.js";
+import Notification from "../../client/helpers/Notification";
+import moment from "moment";
+import ActiveMarket from "../../src/constants/ActiveMarket.mjs";
 
 export default function StockValuation({ stocks }) {
   const {
@@ -22,7 +29,7 @@ export default function StockValuation({ stocks }) {
     id: null,
     ticker: null,
     isin: null,
-    value: null
+    value: null,
   };
   const [currentStock, setCurrentStock] = useState(initialCurrentStock);
   const [calculationData, setCalculationData] = useState();
@@ -31,7 +38,7 @@ export default function StockValuation({ stocks }) {
     if (stocks && stocks.length) {
       return stocks.map((stock) => ({
         label: stock.ticker,
-        value: stock.id
+        value: stock.id,
       }));
     }
   }, [stocks]);
@@ -43,15 +50,17 @@ export default function StockValuation({ stocks }) {
         ticker: currentStock.ticker,
         isin: currentStock.isin,
         initialVolume: currentStock.value,
-        date: moment(date).format('DD.MM.YYYY')
+        date: moment(date).format("DD.MM.YYYY"),
       });
 
       setCalculationData({
         date: calculations.date,
-        ...calculations.data
+        ...calculations.data,
       });
     } catch (e) {
-      Notification.error('Что-то пошло не так. Проверьте введенный тикер, возможно по нему отсутствуют данные');
+      Notification.error(
+        "Что-то пошло не так. Проверьте введенный тикер, возможно по нему отсутствуют данные"
+      );
     }
     setLoading(false);
   }
@@ -60,20 +69,22 @@ export default function StockValuation({ stocks }) {
     setCurrentStock(stocks.find(({ id }) => id === stockId));
   };
   const filterOption = (input, option) => {
-    return option.label.toLowerCase().indexOf(input.toLowerCase().trim()) !== -1;
+    return (
+      option.label.toLowerCase().indexOf(input.toLowerCase().trim()) !== -1
+    );
   };
-  
+
   return (
     <>
       <NavMenu selectedMenuItem="stockValuation" />
-      <Row
-        gutter={16}
-        type="flex"
-        justify="center"
-      >
+      <Row gutter={16} type="flex" justify="center">
         <Col xs={24} sm={24} md={12} xxl={9}>
           <Card title="Данные ценной бумаги">
-            <AutoForm schema={createSchemaBridge(tickerRatingSchema.get())} onSubmit={onSubmit} class="ant-form-vertical">
+            <AutoForm
+              schema={createSchemaBridge(tickerRatingSchema.get())}
+              onSubmit={onSubmit}
+              class="ant-form-vertical"
+            >
               <SelectField
                 name="ticker"
                 options={options}
@@ -98,7 +109,11 @@ export default function StockValuation({ stocks }) {
             >
               <Spin spinning={loading}>
                 <AutoField name="date" readOnly />
-                <AutoField name="active" options={ActiveMarket.list()} readOnly />
+                <AutoField
+                  name="active"
+                  options={ActiveMarket.list()}
+                  readOnly
+                />
                 <AutoField name="fairPrice" readOnly />
                 <AutoField name="countDays" readOnly />
                 <AutoField name="countDeals" readOnly />
@@ -113,4 +128,8 @@ export default function StockValuation({ stocks }) {
   );
 }
 
-export const getServerSideProps = handlePage(StockUsecases, 'index', 'access:stocks_read');
+export const getServerSideProps = handlePage(
+  StockUsecases,
+  "index",
+  "access:stocks_read"
+);

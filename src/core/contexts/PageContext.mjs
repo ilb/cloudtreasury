@@ -1,5 +1,4 @@
 import Context from './Context.mjs';
-import { getSession } from 'next-auth/react';
 import ContextTypes from './ContextTypes.mjs';
 
 export default class PageContext extends Context {
@@ -13,7 +12,6 @@ export default class PageContext extends Context {
       url: context.resolvedUrl || context.req.url,
       req: context.req,
       res: context.res,
-      session: await getSession(context),
     };
   }
 }

@@ -75,29 +75,16 @@ enum RelationType {
 }
 
 model Stock {
-  id           Int           @id @default(autoincrement())
-  ticker       String
-  value        Int
-  isin         String?
+  id     Int     @id @default(autoincrement())
+  ticker String
+  value  Int
+  isin   String?
   // calculations Calculation[]
 }
 
-// model Calculation {
-//   id                  Int     @id @default(autoincrement())
-//   stockId             Int
-//   stock               Stock    @relation(fields: [stockId], references: [id])
-//   AssessmentDate      String   //DateTime @default(now()) @db.Date
-//   ActiveMarket        String
-//   FairValue           Int
-//   DaysNumbers         Int
-//   TransactionsNumbers Int
-//   OutputVolume        Int
-//   TotalVolume         Intnp
-// }
-
 model Calculation {
   ///Идентификатор
-  id        Int     @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   ///Дата создания
   createdAt DateTime  @default(now())
   ///Дата модификации
@@ -107,7 +94,7 @@ model Calculation {
   // Тикер ценной бумаги
   // stockId   Int
   // stock    Stock     @relation(fields: [stockId], references: [id])
-  ticker String
+  ticker    String
   // Данные расчёта
   data      Json
 

@@ -2,16 +2,12 @@ import {
 	MenuFoldOutlined,
 	MenuUnfoldOutlined,
 	UserOutlined,
-	UsergroupAddOutlined,
-	NodeIndexOutlined,
 	ContainerOutlined,
-  SettingOutlined,
   PaperClipOutlined
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd'
 import React, { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
-import LoginBtn from './LoginBtn'
 import { getUserPermissions } from '../../helpers/utils.mjs';
 import { UserContext } from '../../../pages/_app';
 
@@ -114,7 +110,6 @@ const AppLayout = ({ children, ...qwe }) => {
 						className: 'trigger',
 						onClick: () => setCollapsed(!collapsed)
 					})}
-					<LoginBtn/>
 				</Header>
 				<Content
 					style={{ margin: '16px' }}>

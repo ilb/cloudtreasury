@@ -1,5 +1,5 @@
-import Search from './../core/Search';
-import { useMemo } from 'react';
+import Search from "./../core/Search";
+import { useMemo } from "react";
 
 const SearchStock = ({ value, stocks, onChange }) => {
   const options = useMemo(() => {
@@ -7,7 +7,7 @@ const SearchStock = ({ value, stocks, onChange }) => {
       return stocks.map((stock) => ({
         stock,
         label: stock.ticker,
-        value: stock.id
+        value: stock.id,
       }));
     }
   }, [stocks]);

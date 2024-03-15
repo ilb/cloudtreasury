@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app
+    version="3.1"
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+
+    <env-entry>
+        <description>Настройка postgres БД</description>
+        <env-entry-name>DATABASE_URL</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>postgresql://${apps.cloudtreasury.db_user}:${apps.cloudtreasury.db_PASSWORD}@${apps.cloudtreasury.db}</env-entry-value>
+    </env-entry>
+    <resource-env-ref>
+        <description>Базовый путь ресурса</description>
+        <resource-env-ref-name>.apps.cloudtreasury.ws</resource-env-ref-name>
+    </resource-env-ref>
+    <resource-env-ref>
+        <description>База данных для загрузки</description>
+        <resource-env-ref-name>.apps.cloudtreasury.db</resource-env-ref-name>
+        <resource-env-ref-type>java.lang.String</resource-env-ref-type>
+    </resource-env-ref>
+    <env-entry>
+        <description>Пользователь БД</description>
+        <env-entry-name>apps.cloudtreasury.db_user</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>cloudtreasury</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <description>Пароль БД</description>
+        <env-entry-name>apps.cloudtreasury.db_PASSWORD</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+    </env-entry>
+    <env-entry>
+        <description>Путь к jwt</description>
+        <env-entry-name>apps.cloudtreasury.jwtkeyfile</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+    </env-entry>
+    <env-entry>
+        <description>Базовый путь файлов заглушек</description>
+        <env-entry-name>apps.cloudtreasury.stub.root</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>stubs</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <description>Включение заглушки mfd</description>
+        <env-entry-name>apps.cloudtreasury.stub.mfdEnabled</env-entry-name>
+        <env-entry-type>java.lang.Boolean</env-entry-type>
+        <env-entry-value>false</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <description>Внутренняя переменная для указания адреса авторизации</description>
+        <env-entry-name>NEXTAUTH_URL</env-entry-name>
+        <env-entry-type>java.net.URL</env-entry-type>
+        <env-entry-value>${apps.cloudtreasury.ws}/api/auth</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <description></description>
+        <env-entry-name>MAIL_URL</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>${apps.cloudtreasury.MAIL_URL}</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <description></description>
+        <env-entry-name>SERVER_ADMIN</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>${apps.cloudtreasury.admin_email}</env-entry-value>
+    </env-entry>
+
+</web-app>

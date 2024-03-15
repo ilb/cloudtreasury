@@ -9,7 +9,7 @@ export default class FileBrowser {
   GLOBAL_VOLUME_URL = 'https://ilb.github.io/stockvaluation/securities.xhtml';
   GLOBAL_VOLUME_PATH = os.tmpdir() + '/stockvaluation/' + os.userInfo().username + '/volume.xhtml';
   BASE_FILE_NAME = '/moex_shares_';
-  BASE_FILE_URL = 'https://mfd.ru/marketdata/endofday/5/';
+  BASE_FILE_URL = 'https://mfd.ru/marketdata/endofday/5';
   BASE_FILE_PATH = os.tmpdir() + '/stockvaluation/' + os.userInfo().username;
   EMPTY_FILE = -1;
   EMPTY_FILE_TTL = 3600;
@@ -111,7 +111,7 @@ export default class FileBrowser {
     /* Returns filesystem path with date,
     * like this: stockvaluation/moex_shares_2019_04_12.csv
     * or this for empty files: stockvaluation/moex_shares_2019_04_12.
-    */  
+    */
     // const date_iso = new Date(date).toISOString().substring(0,10).replace(/-/g, "_");
     let path = '';
     if (with_ext) {

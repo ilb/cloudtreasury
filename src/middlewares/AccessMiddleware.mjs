@@ -5,27 +5,22 @@ import LdapUnauthorizedException from '../exceptions/LdapUnauthorizedException.m
 import AuthHelper from '../helpers/AuthHelper.mjs';
 
 export default class AccessMiddleware extends Middleware {
-  constructor({ user }) {
+  constructor({ user, authService, remoteUserName }) {
     super();
     this.user = user;
+    this.authService = authService;
+    this.remoteUserName = remoteUserName;
   }
 
   async process(permission, context) {
+    const user = await this.authService.signIn({}, 'ldap');
     if (permission) {
-      if (!this.user) {
-        if (context?.headers['x-remote-user']) {
-          throw new LdapUnauthorizedException(context.url);
-        }
-
-        throw new UnauthorizedException(context.url);
-      }
-
-      if (permission === 'auth') {
+      if (permission === "auth") {
         return;
       }
     }
 
-    const permissions = AuthHelper.getUserPermissions(this.user);
+    const permissions = AuthHelper.getUserPermissions(user);
 
     if (!permissions.includes(permission)) {
       throw new ForbiddenException();

@@ -1,4 +1,4 @@
-import { Card } from 'antd';
+import { Card } from "antd";
 
 const UserInfoCard = () => {
   return (
@@ -6,6 +6,6 @@ const UserInfoCard = () => {
       Card content
     </Card>
   );
-}
+};
 
 export default UserInfoCard;
