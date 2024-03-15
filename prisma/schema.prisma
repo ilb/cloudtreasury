@@ -103,7 +103,7 @@ model Calculation {
   ///Дата модификации
   updatedAt DateTime? @updatedAt
   // Дата начала действия расчёта
-  date      DateTime
+  date      DateTime @db.Date
   // Тикер ценной бумаги
   // stockId   Int
   // stock    Stock     @relation(fields: [stockId], references: [id])
