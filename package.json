@@ -64,6 +64,7 @@
     "@swc/jest": "^0.2.26",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^29.5.0",
+    "cheerio": "^1.0.0-rc.12",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
     "eslint-config-prettier": "^8.3.0",
