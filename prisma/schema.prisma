@@ -79,6 +79,7 @@ model Stock {
   ticker       String
   value        Int
   isin         String?
+  endDate      DateTime?  // Дата, когда бумага была удалена
   // calculations Calculation[]
 }
 

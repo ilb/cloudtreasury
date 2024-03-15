@@ -19,6 +19,7 @@ export default function Stocks({ stocks }) {
   } = useContext(AwilixContext);
 
   const router = useRouter();
+  const [showAllStocks, setShowAllStocks] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showTicker, setShowTicker] = useState(false);
   const [value, setValue] = useState('');
@@ -29,7 +30,7 @@ export default function Stocks({ stocks }) {
     value: null
   };
   const [currentStock, setCurrentStock] = useState(initialCurrentStock);
-  const onClickCreateBtn = () => {
+    const onClickCreateBtn = () => {
     resetForm();
     setValue('');
     setShowTicker(true);
@@ -101,8 +102,15 @@ export default function Stocks({ stocks }) {
                 <Button className="right" type="primary" size="small" onClick={onClickCreateBtn}>Создать</Button>
               </>
             }>
+              <label>
+                <input
+                    type="checkbox"
+                    checked={showAllStocks}
+                    onChange={() => setShowAllStocks(!showAllStocks)}
+                /> Показать удаленные
+              </label>
               <SearchStock
-                stocks={stocks}
+                stocks={showAllStocks ? stocks : stocks.filter(stock => stock.endDate === undefined)}
                 value={value}
                 onChange={onSelectStock}
                 ></SearchStock>

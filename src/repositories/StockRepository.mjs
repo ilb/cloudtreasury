@@ -30,4 +30,11 @@ export default class StockRepository extends Repository {
       }
     });
   }
+
+  async updateEndDate(id, endDate) {
+    return this.model.update({
+      where: { id },
+      data: { endDate },
+    });
+  }
 }
