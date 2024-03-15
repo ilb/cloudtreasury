@@ -1,5 +1,4 @@
 import Context from './Context.mjs';
-import { getSession } from 'next-auth/react';
 import ContextTypes from './ContextTypes.mjs';
 
 export default class JsonContext extends Context {
@@ -14,7 +13,6 @@ export default class JsonContext extends Context {
       res: res,
       req: req,
       next: next,
-      session: await getSession({req, res}),
     };
   }
 }

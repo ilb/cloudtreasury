@@ -96,4 +96,21 @@ export default class UserRepository extends Repository {
 
     return this.formatResult(result);
   }
+
+  async updateRoles(userId, roleIds) {
+    return this.model.update({
+      where: {
+        id: userId,
+      }, data: {
+        relationMembers: {
+          deleteMany: {},
+          createMany: {
+            data: roleIds.map(roleId => ({
+              roleId,
+            })),
+          },
+        },
+      },
+    });
+  };
 }

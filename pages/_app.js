@@ -1,4 +1,3 @@
-import { getSession, SessionProvider } from 'next-auth/react';
 import 'antd/dist/antd.css';
 import '../client/styles/core.scss';
 import Layout from '../client/components/core/Layout';
@@ -21,6 +20,7 @@ if (typeof window === "undefined") {
 
 
 function MyApp({ Component, pageProps, session }) {
+  console.log('session', session)
   const kernel = new WebKernel();
   const scope = kernel.createApplication();
 
@@ -28,21 +28,19 @@ function MyApp({ Component, pageProps, session }) {
     <ConfigProvider locale={ru}>
       <AwilixContext.Provider value={scope.cradle}>
         <UserContext.Provider value={session}>
-          <SessionProvider session={session} basePath="/cloudtreasury/api/auth">
-            <title>Оформление сделки</title>
-            {session && (
-              <>
-                <Layout session={session}>
-                  <Component {...pageProps} />
-                </Layout>
-              </>
-            )}
-            {!session && (
-              <GuestLayout>
+          <title>Оформление сделки</title>
+          {session && (
+            <>
+              <Layout session={session}>
                 <Component {...pageProps} />
-              </GuestLayout>
-            )}
-          </SessionProvider>
+              </Layout>
+            </>
+          )}
+          {!session && (
+            <GuestLayout>
+              <Component {...pageProps} />
+            </GuestLayout>
+          )}
         </UserContext.Provider>
       </AwilixContext.Provider>
     </ConfigProvider>
@@ -51,9 +49,8 @@ function MyApp({ Component, pageProps, session }) {
 
 MyApp.getInitialProps = async (context) => {
   xforwardCheck(context.ctx.req);
-  const appProps = await App.getInitialProps(context);
-  const session = await getSession(context);
-  return { ...appProps, session };
+  const { session, pageProps } = await App.getInitialProps(context);
+  return { session, pageProps };
 };
 
 export default MyApp;
