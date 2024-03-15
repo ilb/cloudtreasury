@@ -13,7 +13,9 @@
     "check:es:build": "npx es-check es5 './.next/static/**/*.js' -v",
     "escheck": "pnpm run clean && ldapenv pnpm run build && pnpm run check:es:build",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "lint:fix": "eslint . --fix",
+    "lint": "eslint ."
   },
   "browserslist": [
     ">0.3%, defaults, supports es5"
