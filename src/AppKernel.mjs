@@ -25,6 +25,7 @@ export default class AppKernel {
   async registerValues(context) {
     this.container.register({
       user: asValue(context?.session?.user),
+      ldapPrefix: asValue(process.env.LDAPPREFIX),
       remoteUserName: asValue(
         isProduction ? (context?.headers ? context?.headers['x-remote-user'] : null) : 'testuser1',
       ),
