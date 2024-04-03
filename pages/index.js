@@ -1,6 +1,5 @@
-import { Alert, Card, Col, Divider, Row, Typography } from 'antd';
-import {handlePage} from "../src/core/index.mjs";
-import StockUsecases from "../src/usecases/StockUsecases.mjs";
+import { Alert, Card, Col, Divider, Row, Typography } from "antd";
+import { handlePage } from "../src/core/index.mjs";
 import SessionUsecases from "../src/usecases/SessionUsecases.mjs";
 
 export default function Index() {
@@ -39,6 +38,6 @@ export default function Index() {
         </Col>
       </Row>
     </div>
-);
+  );
 }
-export const getServerSideProps = handlePage(SessionUsecases, 'index', '');
+export const getServerSideProps = handlePage(SessionUsecases, "index", "");

@@ -1,15 +1,15 @@
-import 'antd/dist/antd.css';
-import '../client/styles/core.scss';
-import Layout from '../client/components/core/Layout';
-import GuestLayout from '../client/components/core/GuestLayout';
-import App from 'next/app';
-import React, { createContext } from 'react';
-import '../client/helpers/functions.mjs';
-import WebKernel from '../client/WebKernel.mjs';
-import { ConfigProvider } from 'antd';
-import ru from 'antd/lib/locale/ru_RU';
-import 'moment/locale/ru';
-import xforwardCheck from '../src/utils/xForwardCheck.mjs';
+import "antd/dist/antd.css";
+import "../client/styles/core.scss";
+import Layout from "../client/components/core/Layout";
+import GuestLayout from "../client/components/core/GuestLayout";
+import App from "next/app";
+import React, { createContext } from "react";
+import "../client/helpers/functions.mjs";
+import WebKernel from "../client/WebKernel.mjs";
+import { ConfigProvider } from "antd";
+import ru from "antd/lib/locale/ru_RU";
+import "moment/locale/ru";
+import xforwardCheck from "../src/utils/xForwardCheck.mjs";
 
 export const UserContext = createContext({});
 export const AwilixContext = createContext({});
@@ -17,7 +17,6 @@ export const AwilixContext = createContext({});
 if (typeof window === "undefined") {
   require("../src/stubs/index");
 }
-
 
 function MyApp({ Component, pageProps, session }) {
   const kernel = new WebKernel();
