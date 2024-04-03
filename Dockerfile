@@ -4,6 +4,7 @@ FROM node:16.17-alpine AS deps
 RUN apk add --update libc6-compat openssl openssl-dev g++ gcc
 WORKDIR /app
 
+RUN apk add --update build-base
 RUN apk add --update cmake
 
 COPY package.json package-lock.json ./ 
