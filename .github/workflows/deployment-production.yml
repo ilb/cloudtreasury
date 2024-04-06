@@ -7,5 +7,5 @@ jobs:
     uses: ilb/iconicactions/.github/workflows/deployment.yml@main
     secrets: inherit
     with:
-      env: production
-      setenv: env.DOMAIN=demo.iconicompany.ru
+      WERF_ENV: production
+      DOMAIN: demo.iconicompany.ru

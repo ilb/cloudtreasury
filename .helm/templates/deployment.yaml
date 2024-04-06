@@ -20,6 +20,8 @@ spec:
       app: {{ $.Values.werf.name }}
   template:
     metadata:
+      annotations:
+        autocert.step.sm/name: {{ $.Values.werf.name }}{{ $.Values.werf.env }}
       labels:
         app: {{ $.Values.werf.name }}
     spec:
@@ -37,6 +39,12 @@ spec:
         ports:
         - containerPort: 3000
         env:
+        - name: WERF_ENV
+          value: {{ $.Values.werf.env }}
+        - name: WERF_NAME
+          value: {{ $.Values.werf.name }}
+        - name: DATABASE_URL
+          value: "postgres://{{ $.Values.werf.name }}{{ $.Values.werf.env }}@postgresql01.kube01.icncd.ru/{{ $.Values.werf.name }}?schema={{ $.Values.werf.name }}{{ $.Values.werf.env }}&sslmode=require&sslcert=/var/run/autocert.step.sm/root.crt&sslidentity=/var/run/autocert.step.sm/site.p12"
         {{- range $name, $value := .Values.env }}
         - name: {{ $name }}
           value: {{ $value | quote }}
