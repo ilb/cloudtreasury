@@ -1,17 +1,43 @@
-import { Alert, Card, Col, Divider, Row, Typography } from 'antd';
-import { useContext, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { UserContext } from './_app';
+import { Alert, Card, Col, Divider, Row, Typography } from "antd";
+import { handlePage } from "../src/core/index.mjs";
+import SessionUsecases from "../src/usecases/SessionUsecases.mjs";
 
 export default function Index() {
-  const context = useContext(UserContext);
   return (
-    <>
-      {!context && (
-        <Link href='/signin'>Авторизация</Link>
-      )}
-    </>
+    <div>
+      <Row gutter={16}>
+        <Col span={16}>
+          <Card>
+            <Typography.Title level={4}>Уведомления</Typography.Title>
+            <Divider />
+            <Alert
+              className="my8"
+              message="Info Text"
+              description="Info Description Info Description Info Description Info Description"
+              type="info"
+            />
+            <Alert
+              className="my8"
+              message="Info Text"
+              description="Info Description Info Description Info Description Info Description"
+              type="warning"
+            />
+            <Alert
+              className="my8"
+              message="Info Text"
+              description="Info Description Info Description Info Description Info Description"
+              type="success"
+            />
+          </Card>
+        </Col>
+        <Col span={8}>
+          <Card>
+            <Typography.Title level={4}>Что-нибудь еще</Typography.Title>
+            <Divider />
+          </Card>
+        </Col>
+      </Row>
+    </div>
   );
 }
-
+export const getServerSideProps = handlePage(SessionUsecases, "index", "");

@@ -53,6 +53,9 @@ spec:
         - name: {{ $.Values.werf.name }}
           mountPath: /var/apps/{{ $.Values.werf.name }}
           subPath: var
+        - name: {{ $.Values.werf.name }}
+          mountPath: /etc/ssl/private
+          subPath: certs
         - name: secret-volume
           readOnly: true
           subPath: ".env"

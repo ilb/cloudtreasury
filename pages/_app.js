@@ -1,18 +1,22 @@
-import { getSession, SessionProvider } from 'next-auth/react';
-import 'antd/dist/antd.css';
-import '../client/styles/core.scss';
-import Layout from '../client/components/core/Layout';
-import GuestLayout from '../client/components/core/GuestLayout';
-import App from 'next/app';
-import React, { createContext } from 'react';
-import '../client/helpers/functions.mjs';
-import WebKernel from '../client/WebKernel.mjs';
-import { ConfigProvider } from 'antd';
-import ru from 'antd/lib/locale/ru_RU';
-import 'moment/locale/ru';
+import "antd/dist/antd.css";
+import "../client/styles/core.scss";
+import Layout from "../client/components/core/Layout";
+import GuestLayout from "../client/components/core/GuestLayout";
+import App from "next/app";
+import React, { createContext } from "react";
+import "../client/helpers/functions.mjs";
+import WebKernel from "../client/WebKernel.mjs";
+import { ConfigProvider } from "antd";
+import ru from "antd/lib/locale/ru_RU";
+import "moment/locale/ru";
+import xforwardCheck from "../src/utils/xForwardCheck.mjs";
 
 export const UserContext = createContext({});
 export const AwilixContext = createContext({});
+
+if (typeof window === "undefined") {
+  require("../src/stubs/index");
+}
 
 function MyApp({ Component, pageProps, session }) {
   const kernel = new WebKernel();
@@ -22,21 +26,19 @@ function MyApp({ Component, pageProps, session }) {
     <ConfigProvider locale={ru}>
       <AwilixContext.Provider value={scope.cradle}>
         <UserContext.Provider value={session}>
-          <SessionProvider session={session} basePath="/cloudtreasury/api/auth">
-            <title>Оформление сделки</title>
-            {session && (
-              <>
-                <Layout session={session}>
-                  <Component {...pageProps} />
-                </Layout>
-              </>
-            )}
-            {!session && (
-              <GuestLayout>
+          <title>Оформление сделки</title>
+          {session && (
+            <>
+              <Layout session={session}>
                 <Component {...pageProps} />
-              </GuestLayout>
-            )}
-          </SessionProvider>
+              </Layout>
+            </>
+          )}
+          {!session && (
+            <GuestLayout>
+              <Component {...pageProps} />
+            </GuestLayout>
+          )}
         </UserContext.Provider>
       </AwilixContext.Provider>
     </ConfigProvider>
@@ -44,9 +46,9 @@ function MyApp({ Component, pageProps, session }) {
 }
 
 MyApp.getInitialProps = async (context) => {
-  const appProps = await App.getInitialProps(context);
-  const session = await getSession(context);
-  return { ...appProps, session };
+  xforwardCheck(context.ctx.req);
+  const { session, pageProps } = await App.getInitialProps(context);
+  return { session, pageProps };
 };
 
 export default MyApp;

@@ -1,0 +1,18 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_LANDSCAPE()
+
+Boundary(outside, "Сторонние сайты", System) {
+    Container(mfd, "mfd.ru", "System" , "Сервис с информацией о ценных бумагах", $sprite="server")
+}
+
+Boundary(pipeline, "АРМ казначейства", "system") {
+    ComponentDb("db", "БД", "POSTGRES", "Хранит выполненные расчеты, данные о ценных бумагах, информацию о пользователях, ролях и разрешениях.")
+    Container(ARM, "АРМ казначейства", "System", "", $sprite="server")
+}
+
+Rel_R(ARM, db, "")
+Rel_R(ARM, mfd, "")
+
+@enduml
